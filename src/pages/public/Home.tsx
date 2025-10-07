@@ -58,7 +58,7 @@ export default async function Home() {
             <Button
               asChild
               size="lg"
-              className="group gradient-button px-8 py-6 font-medium shadow-lg transition-all duration-300 hover:shadow-xl"
+              className="group px-8 py-6 font-medium shadow-lg transition-all duration-300 hover:shadow-xl"
             >
               <Link href="/experiences">
                 View My Work
