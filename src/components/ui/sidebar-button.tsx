@@ -1,9 +1,8 @@
-import React from 'react';
-import { SidebarMenuButton } from './sidebar';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { SidebarMenuButton } from './sidebar';
 
 interface IProps {
   title: string;

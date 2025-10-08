@@ -34,8 +34,6 @@ const verifySchema = z.object({
 export type VerifyFormValues = z.infer<typeof verifySchema>;
 
 export default function VerifyForm() {
-  const [isLoading, setIsLoading] = useState(false);
-
   const form = useForm<VerifyFormValues>({
     resolver: zodResolver(verifySchema),
     defaultValues: {
@@ -45,7 +43,6 @@ export default function VerifyForm() {
   });
 
   const onSubmit = async (values: VerifyFormValues) => {
-    setIsLoading(true);
     const toastId = toast.loading('Sending your message…');
 
     try {
@@ -56,8 +53,6 @@ export default function VerifyForm() {
     } catch (error) {
       console.error(error);
       toast.error('Oops! Something went wrong. Please try again.', { id: toastId });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -122,10 +117,11 @@ export default function VerifyForm() {
             Clear Form
           </Button>
           <Button
+            disabled={form.formState.isSubmitting}
             onClick={form.handleSubmit(onSubmit)}
             className="h-11 w-full px-8 font-semibold sm:w-auto"
           >
-            {isLoading ? (
+            {form.formState.isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Verifying…

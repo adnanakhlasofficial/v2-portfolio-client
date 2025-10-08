@@ -38,6 +38,7 @@ export default function Contact() {
                           <p className="text-muted-foreground text-sm font-medium">{item.label}</p>
                           {item.href ? (
                             <a
+                              target="_blank"
                               href={item.href}
                               className="text-foreground text-base font-semibold break-all hover:underline"
                             >

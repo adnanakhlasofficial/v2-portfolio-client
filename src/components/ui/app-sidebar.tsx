@@ -1,13 +1,5 @@
 'use client';
 
-import {
-  IconChartBar,
-  IconDashboard,
-  IconFolder,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconUsers,
-} from '@tabler/icons-react';
 import * as React from 'react';
 
 import { NavMain } from '@/components/ui/nav-main';
@@ -21,44 +13,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Separator } from './separator';
-import Link from 'next/link';
+import { sidebarLinks } from '@/constants/SidebarLinks';
 import { LayoutDashboard } from 'lucide-react';
-
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: '/admin',
-      icon: IconDashboard,
-    },
-    {
-      title: 'Lifecycle',
-      url: '#',
-      icon: IconListDetails,
-    },
-    {
-      title: 'Analytics',
-      url: '#',
-      icon: IconChartBar,
-    },
-    {
-      title: 'Projects',
-      url: '#',
-      icon: IconFolder,
-    },
-    {
-      title: 'Team',
-      url: '#',
-      icon: IconUsers,
-    },
-  ],
-};
+import Link from 'next/link';
+import { Separator } from './separator';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -77,10 +35,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <Separator />
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={sidebarLinks} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            name: 'shadcn',
+            email: 'm@example.com',
+            avatar: '/avatars/shadcn.jpg',
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );

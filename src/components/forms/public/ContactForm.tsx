@@ -41,7 +41,6 @@ export default function ContactForm() {
   });
 
   const onSubmit = async (values: TContact) => {
-    setIsLoading(true);
     const toastId = toast.loading('Sending your message…');
 
     try {
@@ -52,8 +51,6 @@ export default function ContactForm() {
     } catch (error) {
       console.error(error);
       toast.error('Oops! Something went wrong. Please try again.', { id: toastId });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -127,11 +124,11 @@ export default function ContactForm() {
         />
 
         <Button
-          disabled={isLoading}
+          disabled={form.formState.isSubmitting}
           type="submit"
           className="h-12 w-full font-medium transition-all duration-300"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               Sending…
