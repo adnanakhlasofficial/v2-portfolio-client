@@ -10,6 +10,24 @@ export default async function About() {
   const data = (await res.json()) as ApiResponse<AdminDetailsPublic>;
   const admin = data?.data;
 
+  const stats = [
+    {
+      label: 'Blogs',
+      count: admin?._count?.blogs,
+      icon: BookOpen,
+    },
+    {
+      label: 'Projects',
+      count: admin?._count?.projects,
+      icon: Briefcase,
+    },
+    {
+      label: 'Experience',
+      count: admin?._count?.experiences,
+      icon: Award,
+    },
+  ];
+
   return (
     <Section>
       <SectionTitle
@@ -41,47 +59,39 @@ export default async function About() {
             <p className="text-muted-foreground mb-4">{admin?.email}</p>
             <p className="text-foreground text-lg leading-relaxed">{admin?.story}</p>
           </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <Card className="p-4 text-center transition-all hover:scale-110 hover:shadow-lg">
-              <CardContent className="p-0">
-                <div className="mb-2 flex justify-center">
-                  <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
-                    <BookOpen className="text-primary h-6 w-6" />
-                  </div>
-                </div>
-                <div className="text-foreground text-3xl font-bold">{admin?._count?.blogs}</div>
-                <div className="text-muted-foreground text-sm">Blogs</div>
-              </CardContent>
-            </Card>
-
-            <Card className="p-4 text-center transition-all hover:scale-110 hover:shadow-lg">
-              <CardContent className="p-0">
-                <div className="mb-2 flex justify-center">
-                  <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
-                    <Briefcase className="text-primary h-6 w-6" />
-                  </div>
-                </div>
-                <div className="text-foreground text-3xl font-bold">{admin?._count?.projects}</div>
-                <div className="text-muted-foreground text-sm">Projects</div>
-              </CardContent>
-            </Card>
-
-            <Card className="p-4 text-center transition-all hover:scale-110 hover:shadow-lg">
-              <CardContent className="p-0">
-                <div className="mb-2 flex justify-center">
-                  <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
-                    <Award className="text-primary h-6 w-6" />
-                  </div>
-                </div>
-                <div className="text-foreground text-3xl font-bold">
-                  {admin?._count?.experiences}
-                </div>
-                <div className="text-muted-foreground text-sm">Experience</div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
+      </div>
+
+      {/* Stats */}
+      <div className="col-span-2 mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {stats.map(({ label, count, icon: Icon }) => (
+          <Card
+            key={label}
+            className="group border-border bg-muted/30 hover:bg-muted/50 relative overflow-hidden rounded-2xl border p-6 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+          >
+            <CardContent className="p-0">
+              {/* subtle background glow */}
+              <div className="bg-primary/5 absolute inset-0 -z-10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+
+              {/* icon */}
+              <div className="mb-3 flex justify-center">
+                <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300">
+                  <Icon className="text-primary h-7 w-7 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+              </div>
+
+              {/* count */}
+              <div className="text-foreground text-4xl font-semibold tracking-tight">
+                {count ?? 0}
+              </div>
+
+              {/* label */}
+              <div className="text-muted-foreground mt-1 text-sm font-medium tracking-wide uppercase">
+                {label}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </Section>
   );

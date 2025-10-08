@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,7 +20,10 @@ import {
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Fingerprint, Loader2, Verified } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
 
 const verifySchema = z.object({
@@ -32,6 +34,8 @@ const verifySchema = z.object({
 export type VerifyFormValues = z.infer<typeof verifySchema>;
 
 export default function VerifyForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<VerifyFormValues>({
     resolver: zodResolver(verifySchema),
     defaultValues: {
@@ -41,7 +45,20 @@ export default function VerifyForm() {
   });
 
   const onSubmit = async (values: VerifyFormValues) => {
-    console.log(values);
+    setIsLoading(true);
+    const toastId = toast.loading('Sending your message…');
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.success('Thanks! Your message has been sent successfully.', { id: toastId });
+      form.reset();
+      console.log(values);
+    } catch (error) {
+      console.error(error);
+      toast.error('Oops! Something went wrong. Please try again.', { id: toastId });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -108,7 +125,17 @@ export default function VerifyForm() {
             onClick={form.handleSubmit(onSubmit)}
             className="h-11 w-full px-8 font-semibold sm:w-auto"
           >
-            Verify
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Verifying…
+              </>
+            ) : (
+              <>
+                <Fingerprint className="mr-2 h-5 w-5" />
+                Verify
+              </>
+            )}
           </Button>
         </CardFooter>
       </Card>
