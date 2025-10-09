@@ -8,10 +8,8 @@ interface IProps {
 export default function PublicLayout({ children }: IProps) {
   return (
     <div>
-      <PageTransition>
-        <Navbar />
-        {children}
-      </PageTransition>
+      <Navbar />
+      {children}
     </div>
   );
 }

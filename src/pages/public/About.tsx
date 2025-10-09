@@ -1,9 +1,11 @@
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
+import { user } from '@/constants/Profile';
 import { AdminDetailsPublic, ApiResponse } from '@/types';
 import { Award, BookOpen, Briefcase } from 'lucide-react';
 import Image from 'next/image';
+
 
 export default async function About() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/public`);
@@ -42,8 +44,9 @@ export default async function About() {
             <Card className="relative overflow-hidden p-0 lg:w-md 2xl:w-xl">
               <CardContent className="aspect-[4/3] overflow-hidden p-0">
                 <Image
-                  src={admin?.profile}
-                  alt={admin?.name}
+                  src={user.profile}
+                  alt={user.name}
+                  placeholder="blur"
                   width={300}
                   height={300}
                   className="h-full w-full rounded-lg object-cover object-[0%_100%]"
@@ -55,9 +58,9 @@ export default async function About() {
 
         <div className="space-y-6">
           <div>
-            <h3 className="text-foreground mb-2 text-3xl font-bold">{admin?.name}</h3>
-            <p className="text-muted-foreground mb-4">{admin?.email}</p>
-            <p className="text-foreground text-lg leading-relaxed">{admin?.story}</p>
+            <h3 className="text-foreground mb-2 text-3xl font-bold">{user.name}</h3>
+            <p className="text-muted-foreground mb-4">{user.email}</p>
+            <p className="text-foreground text-lg leading-relaxed">{user.story}</p>
           </div>
         </div>
       </div>

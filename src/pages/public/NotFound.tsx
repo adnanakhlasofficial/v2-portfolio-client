@@ -1,7 +1,7 @@
 import BackButton from '@/components/shared/BackButton';
 import NavigateButton from '@/components/shared/NavigateButton';
 import { Card, CardContent } from '@/components/ui/card';
-import { CircleAlert as AlertCircle, ArrowLeft, Chrome as Home } from 'lucide-react';
+import { CircleAlert as AlertCircle, ArrowLeft, HomeIcon } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -31,7 +31,7 @@ export default function NotFound() {
 
             <div className="flex w-full flex-col gap-4 pt-4 sm:w-auto sm:flex-row">
               <NavigateButton navigation="/" variant="default" size="lg">
-                <Home className="mr-2 h-5 w-5" />
+                <HomeIcon className="mr-2 h-5 w-5" />
                 Go Home
               </NavigateButton>
               <BackButton variant="outline" size="lg">
