@@ -1,4 +1,5 @@
-import Navbar from "@/components/public/Navbar";
+import Navbar from '@/components/public/Navbar';
+import PageTransition from '@/components/shared/PageTransition';
 
 interface IProps {
   children: React.ReactNode;
@@ -7,8 +8,10 @@ interface IProps {
 export default function PublicLayout({ children }: IProps) {
   return (
     <div>
-      <Navbar />
-      {children}
+      <PageTransition>
+        <Navbar />
+        {children}
+      </PageTransition>
     </div>
   );
 }
