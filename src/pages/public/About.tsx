@@ -1,16 +1,13 @@
+import { getAdminPublic } from '@/actions/admin';
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
 import { user } from '@/constants/Profile';
-import { AdminDetailsPublic, ApiResponse } from '@/types';
 import { Award, BookOpen, Briefcase } from 'lucide-react';
 import Image from 'next/image';
 
-
 export default async function About() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/public`);
-  const data = (await res.json()) as ApiResponse<AdminDetailsPublic>;
-  const admin = data?.data;
+  const admin = await getAdminPublic();
 
   const stats = [
     {

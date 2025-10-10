@@ -1,3 +1,4 @@
+import { checkConnect } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
 import { user } from '@/constants/Profile';
@@ -20,6 +21,8 @@ const cascadiaCodeItalic = Cascadia_Code({
 });
 
 export default async function Home() {
+  const res = await checkConnect();
+
   return (
     <Section>
       <div className="relative flex flex-col items-center justify-center">

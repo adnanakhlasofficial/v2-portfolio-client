@@ -1,0 +1,52 @@
+'use server';
+
+import { VerifyFormValues } from '@/components/forms/admin/VerifyForm';
+import cookieNames from '@/constants/cookieNames';
+import { getNextCookie } from '@/utils/get-next-cookie';
+import { cookies } from 'next/headers';
+
+export const handleVerify = async (data: VerifyFormValues) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/verify`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const setCookie = res.headers.get('set-cookie');
+  const cookieStore = await cookies();
+  if (setCookie) {
+    const tokenValue = setCookie.split(';')[0].split('=')[1];
+
+    cookieStore.set(cookieNames.accessToken, tokenValue, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+    });
+  }
+
+  return true;
+};
+
+export const checkConnect = async () => {
+  const cookie = await getNextCookie(cookieNames.accessToken);
+  console.log(cookie);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/check`, {
+    method: 'GET',
+    headers: {
+      Cookie: `${cookie?.name}=${cookie?.value}`,
+    },
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+  return true;
+};
