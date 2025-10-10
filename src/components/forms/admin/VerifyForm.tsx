@@ -1,5 +1,5 @@
 'use client';
-import { handleVerify } from '@/actions/auth';
+import { handleVerifyAction } from '@/actions/auth';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Fingerprint, Loader2 } from 'lucide-react';
+import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -37,19 +38,20 @@ export default function VerifyForm() {
   const form = useForm<VerifyFormValues>({
     resolver: zodResolver(verifySchema),
     defaultValues: {
-      username: 'adnan_akhlas',
-      password: '123456',
+      username: '',
+      password: '',
     },
   });
 
   const onSubmit = async (values: VerifyFormValues) => {
     const toastId = toast.loading('Sending your message…');
     // await new Promise((resolve) => setTimeout(resolve, 1000));
-    const res = await handleVerify(values);
+    const res = await handleVerifyAction(values);
 
     if (res) {
       toast.success('Thanks! Your message has been sent successfully.', { id: toastId });
       form.reset();
+      redirect('/admin');
     } else {
       toast.error('Oops! Something went wrong. Please try again.', { id: toastId });
     }

@@ -1,4 +1,4 @@
-import { checkConnect } from '@/actions/auth';
+import { checkConnectAction } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
 import { user } from '@/constants/Profile';
@@ -21,7 +21,7 @@ const cascadiaCodeItalic = Cascadia_Code({
 });
 
 export default async function Home() {
-  const res = await checkConnect();
+  const res = await checkConnectAction();
 
   return (
     <Section>

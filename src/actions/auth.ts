@@ -2,10 +2,10 @@
 
 import { VerifyFormValues } from '@/components/forms/admin/VerifyForm';
 import cookieNames from '@/constants/cookieNames';
-import { getNextCookie } from '@/utils/get-next-cookie';
+import { getNextCookie, clearNextCookie } from '@/utils/next-cookie';
 import { cookies } from 'next/headers';
 
-export const handleVerify = async (data: VerifyFormValues) => {
+export const handleVerifyAction = async (data: VerifyFormValues) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/verify`, {
     method: 'POST',
     headers: {
@@ -34,9 +34,25 @@ export const handleVerify = async (data: VerifyFormValues) => {
   return true;
 };
 
-export const checkConnect = async () => {
+export const handleDisconnectAction = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/disconnect`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  await clearNextCookie(cookieNames.accessToken);
+  return true;
+};
+
+export const checkConnectAction = async () => {
   const cookie = await getNextCookie(cookieNames.accessToken);
-  console.log(cookie);
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/check`, {
     method: 'GET',
     headers: {

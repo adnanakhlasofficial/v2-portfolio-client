@@ -6,42 +6,48 @@ import {
   BrainCircuit,
   Mail,
   BookOpenText,
-} from "lucide-react";
+  LayoutDashboardIcon,
+} from 'lucide-react';
 
 export const navLinks = [
   {
-    label: "Home",
-    href: "/",
-    icon: Home, // 🏠 clean and universal
+    label: 'Home',
+    href: '/',
+    icon: Home,
   },
   {
-    label: "About",
-    href: "/about",
-    icon: UserRound, // 👤 softer and more modern than User
+    label: 'About',
+    href: '/about',
+    icon: UserRound,
   },
   {
-    label: "Projects",
-    href: "/projects",
-    icon: FolderOpen, // 📂 conveys open access to work
+    label: 'Projects',
+    href: '/projects',
+    icon: FolderOpen,
   },
   {
-    label: "Experiences",
-    href: "/experiences",
-    icon: Briefcase, // 💼 classic for work history
+    label: 'Experiences',
+    href: '/experiences',
+    icon: Briefcase,
   },
   {
-    label: "Skills",
-    href: "/skills",
-    icon: BrainCircuit, // 🧠+⚡️ elegant metaphor for technical skills
+    label: 'Skills',
+    href: '/skills',
+    icon: BrainCircuit,
   },
   {
-    label: "Contact",
-    href: "/contact",
-    icon: Mail, // ✉️ more intuitive than Send
+    label: 'Contact',
+    href: '/contact',
+    icon: Mail,
   },
   {
-    label: "Blogs",
-    href: "/blogs",
-    icon: BookOpenText, // 📖 clean and readable for articles
+    label: 'Blogs',
+    href: '/blogs',
+    icon: BookOpenText,
+  },
+  {
+    label: 'Dashboard',
+    href: '/admin',
+    icon: LayoutDashboardIcon,
   },
 ];

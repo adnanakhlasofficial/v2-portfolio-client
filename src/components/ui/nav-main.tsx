@@ -1,35 +1,30 @@
 'use client';
 
 import {
+  SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { sidebarLinks } from '@/constants/SidebarLinks';
 import SidebarButton from './sidebar-button';
-import { LucideIcon } from 'lucide-react';
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-  }[];
-}) {
+export function NavMain() {
   return (
-    <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
-        <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarButton title={item.title} url={item.url} icon={item.icon} />
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupContent className="flex flex-col gap-2">
+          <SidebarMenu>
+            {sidebarLinks.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarButton title={item.title} url={item.url} icon={item.icon} />
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
   );
 }
 // bg-primary text-primary-foreground

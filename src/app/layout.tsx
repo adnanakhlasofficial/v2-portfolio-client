@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.className} dark antialiased`}>{children}</body>
+      <body className={`${jetbrainsMono.className} dark antialiased`}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
