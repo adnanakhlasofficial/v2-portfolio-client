@@ -71,7 +71,8 @@ export default function VerifyForm() {
 
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+            <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+              {/* Username */}
               <FormField
                 control={form.control}
                 name="username"
@@ -89,6 +90,7 @@ export default function VerifyForm() {
                 )}
               />
 
+              {/* Password */}
               <FormField
                 control={form.control}
                 name="password"

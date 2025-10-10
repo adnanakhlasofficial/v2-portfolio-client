@@ -28,8 +28,6 @@ const formSchema = z.object({
 export type TContact = z.infer<typeof formSchema>;
 
 export default function ContactForm() {
-  const [isLoading, setIsLoading] = useState(false);
-
   const form = useForm<TContact>({
     resolver: zodResolver(formSchema),
     defaultValues: {

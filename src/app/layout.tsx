@@ -2,6 +2,13 @@ import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import {
+  IconAlertTriangle,
+  IconExclamationCircle,
+  IconInfoCircle,
+  IconLoader2,
+  IconRosetteDiscountCheck,
+} from '@tabler/icons-react';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -30,7 +37,23 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${jetbrainsMono.className} dark antialiased`}>
         {children}
-        <Toaster />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            className: '!bg-primary !text-primary-foreground !border-none',
+          }}
+          icons={{
+            success: <IconRosetteDiscountCheck stroke={2} />,
+            error: <IconExclamationCircle stroke={2} />,
+            info: <IconInfoCircle stroke={2} />,
+            warning: <IconAlertTriangle stroke={2} />,
+            loading: (
+              <span className="animate-spin">
+                <IconLoader2 className="animate-spin" stroke={2} />
+              </span>
+            ),
+          }}
+        />
       </body>
     </html>
   );
