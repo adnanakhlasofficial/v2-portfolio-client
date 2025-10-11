@@ -1,27 +1,14 @@
+import { getAdminPublic } from '@/actions/admin';
 import { checkConnectAction } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
 import { user } from '@/constants/Profile';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { Cascadia_Code } from 'next/font/google';
 import Link from 'next/link';
-
-const cascadiaCodeItalic = Cascadia_Code({
-  subsets: ['latin'],
-  style: 'italic',
-  fallback: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'Helvetica Neue',
-    'Arial',
-    'sans-serif',
-  ],
-});
 
 export default async function Home() {
   const res = await checkConnectAction();
+  const admin = await getAdminPublic();
 
   return (
     <Section>
@@ -39,18 +26,18 @@ export default async function Home() {
           <h1 className="text-foreground animate-fade-in-up text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Hi, I&apos;m
             <div
-              className={`from-primary to-chart-4 bg-gradient-to-r bg-clip-text text-transparent ${cascadiaCodeItalic.className}`}
+              className={`from-primary to-chart-4 font-cascadia bg-gradient-to-r bg-clip-text text-transparent`}
             >
-              <strong>{user.name}</strong>
+              <strong>{admin.name}</strong>
             </div>
           </h1>
 
           <p className="text-muted-foreground animate-fade-in-up mx-auto max-w-4xl text-xl leading-relaxed font-light delay-200 sm:text-2xl md:text-3xl">
-            {user.bio}
+            {admin.bio}
           </p>
 
           <p className="text-muted-foreground animate-fade-in-up mx-auto max-w-3xl text-base leading-relaxed delay-300 sm:text-lg">
-            {user.description}
+            {admin.description}
           </p>
 
           <div className="animate-fade-in-up flex flex-col items-center justify-center gap-4 pt-4 delay-500 sm:flex-row">

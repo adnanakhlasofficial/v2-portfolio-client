@@ -55,9 +55,9 @@ export default async function About() {
 
         <div className="space-y-6">
           <div>
-            <h3 className="text-foreground mb-2 text-3xl font-bold">{user.name}</h3>
-            <p className="text-muted-foreground mb-4">{user.email}</p>
-            <p className="text-foreground text-lg leading-relaxed">{user.story}</p>
+            <h3 className="text-foreground mb-2 text-3xl font-bold">{admin.name}</h3>
+            <p className="text-muted-foreground mb-4">{admin.email}</p>
+            <p className="text-foreground text-lg leading-relaxed">{admin.story}</p>
           </div>
         </div>
       </div>

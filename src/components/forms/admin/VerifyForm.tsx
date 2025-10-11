@@ -126,12 +126,12 @@ export default function VerifyForm() {
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
                 Verifying…
               </>
             ) : (
               <>
-                <Fingerprint className="mr-2 h-5 w-5" />
+                <Fingerprint className="mr-2 !h-5 !w-5" />
                 Verify
               </>
             )}

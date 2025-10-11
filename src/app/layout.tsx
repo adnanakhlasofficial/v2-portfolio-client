@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
+import { Cascadia_Code, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import {
@@ -11,14 +11,32 @@ import {
 } from '@tabler/icons-react';
 
 const jetbrainsMono = JetBrains_Mono({
+  variable: '--jetbrains-mono',
   subsets: ['latin'],
+  display: 'swap',
   fallback: [
+    'system-ui',
     '-apple-system',
     'BlinkMacSystemFont',
     'Segoe UI',
     'Roboto',
     'Helvetica Neue',
-    'Arial',
+    'sans-serif',
+  ],
+});
+
+const cascadiaCode = Cascadia_Code({
+  variable: '--cascadia-code',
+  subsets: ['latin'],
+  display: 'swap',
+  style: 'italic',
+  fallback: [
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
     'sans-serif',
   ],
 });
@@ -35,7 +53,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.className} dark antialiased`}>
+      <body
+        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark antialiased`}
+      >
         {children}
         <Toaster
           position="top-right"

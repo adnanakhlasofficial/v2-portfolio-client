@@ -31,11 +31,11 @@ export default function UnderDevelopment() {
 
             <div className="flex w-full flex-col gap-4 pt-4 sm:w-auto sm:flex-row">
               <NavigateButton navigation="/" variant="default" size="lg">
-                <Home className="mr-2 h-5 w-5" />
+                <Home className="mr-2 !h-5 !w-5" />
                 Go Home
               </NavigateButton>
               <BackButton variant="outline" size="lg">
-                <ArrowLeft className="mr-2 h-5 w-5" />
+                <ArrowLeft className="mr-2 !h-5 !w-5" />
                 Go Back
               </BackButton>
             </div>
