@@ -60,7 +60,14 @@ export default function RootLayout({
         <Toaster
           position="top-right"
           toastOptions={{
-            className: '!bg-primary !text-primary-foreground !border-none',
+            classNames: {
+              success:
+                '!from-primary !to-chart-4 !bg-gradient-to-r !text-primary-foreground !border-none',
+              error: '!bg-destructive !text-primary-foreground !border-none',
+              loading: '!bg-chart-2 !text-primary-foreground !border-none',
+              warning: '!bg-chart-5 !text-primary-foreground !border-none',
+              info: '!bg-chart-4 !text-primary-foreground !border-none',
+            },
           }}
           icons={{
             success: <IconRosetteDiscountCheck stroke={2} />,

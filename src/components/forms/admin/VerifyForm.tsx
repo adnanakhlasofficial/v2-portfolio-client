@@ -44,7 +44,7 @@ export default function VerifyForm() {
   });
 
   const onSubmit = async (values: VerifyFormValues) => {
-    const toastId = toast.loading('Sending your message…');
+    const toastId = toast.loading('Verifying your identity…');
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     const res = await handleVerifyAction(values);
 

@@ -22,3 +22,27 @@ export type AdminDetailsPublic = {
     blogs: number;
   };
 };
+
+export interface AdminDetailsPrivate {
+  id: string;
+  username: string;
+  name: string;
+  email: string;
+  password: string;
+  profile: string;
+  blurProfile: string | null;
+  bio: string;
+  description: string;
+  story: string;
+  skills: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _count: {
+    techSkills: number;
+    tools: number;
+    softSkills: number;
+    blogs: number;
+    projects: number;
+    experiences: number;
+  };
+}
