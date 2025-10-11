@@ -28,6 +28,7 @@ export const handleVerifyAction = async (data: VerifyFormValues) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      maxAge: 60 * 60,
     });
   }
 

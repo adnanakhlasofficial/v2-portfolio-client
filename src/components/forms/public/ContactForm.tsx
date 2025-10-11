@@ -1,12 +1,6 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Loader2, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -15,8 +9,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2, Send } from 'lucide-react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { z } from 'zod';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),

@@ -1,5 +1,4 @@
 import Navbar from '@/components/public/Navbar';
-import PageTransition from '@/components/shared/PageTransition';
 
 interface IProps {
   children: React.ReactNode;

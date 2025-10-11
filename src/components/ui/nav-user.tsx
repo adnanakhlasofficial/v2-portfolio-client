@@ -1,6 +1,6 @@
 'use client';
 
-import { IconCreditCard, IconDotsVertical, IconNotification } from '@tabler/icons-react';
+import { IconDotsVertical, IconNotification } from '@tabler/icons-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -18,10 +18,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { UserCircle, UserCogIcon } from 'lucide-react';
-import LogoutButton from '../shared/DisconnectButton';
-import Link from 'next/link';
 import { createInitials } from '@/utils/create-initials';
+import { UserCircle, UserCogIcon } from 'lucide-react';
+import Link from 'next/link';
+import LogoutButton from '../shared/DisconnectButton';
 
 export function NavUser({
   user,

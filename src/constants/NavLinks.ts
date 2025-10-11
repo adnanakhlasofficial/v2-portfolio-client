@@ -1,12 +1,11 @@
 import {
-  Home,
-  UserRound,
-  FolderOpen,
-  Briefcase,
-  BrainCircuit,
-  Mail,
   BookOpenText,
-  LayoutDashboardIcon,
+  BrainCircuit,
+  Briefcase,
+  FolderOpen,
+  Home,
+  Mail,
+  UserRound,
 } from 'lucide-react';
 
 export const navLinks = [
@@ -44,10 +43,5 @@ export const navLinks = [
     label: 'Blogs',
     href: '/blogs',
     icon: BookOpenText,
-  },
-  {
-    label: 'Dashboard',
-    href: '/admin',
-    icon: LayoutDashboardIcon,
   },
 ];

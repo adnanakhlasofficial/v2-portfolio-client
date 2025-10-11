@@ -1,16 +1,27 @@
 'use client';
 
+import { getAdminPrivate } from '@/actions/admin';
 import { Button } from '@/components/ui/button';
 import { navLinks } from '@/constants/NavLinks';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { AdminDetailsPrivate } from '@/types';
+import { LayoutDashboardIcon, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [admin, setAdmin] = useState<null | AdminDetailsPrivate>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    async function getAdmin() {
+      const data = await getAdminPrivate();
+      setAdmin(data);
+    }
+    getAdmin();
+  }, []);
 
   return (
     <>
@@ -52,6 +63,20 @@ export default function Navbar() {
               </Link>
             );
           })}
+
+          {admin && (
+            <Link
+              href="/admin"
+              onClick={() => setIsOpen(false)}
+              className="group bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground group relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110"
+              aria-label="Dashboard"
+            >
+              <LayoutDashboardIcon className="h-5 w-5" />
+              <span className="bg-card border-border text-primary invisible absolute left-full ml-4 rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                Dashboard
+              </span>
+            </Link>
+          )}
         </div>
       </nav>
 

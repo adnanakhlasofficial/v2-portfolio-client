@@ -2,12 +2,11 @@ import { getAdminPublic } from '@/actions/admin';
 import { checkConnectAction } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
-import { user } from '@/constants/Profile';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function Home() {
-  const res = await checkConnectAction();
+  await checkConnectAction();
   const admin = await getAdminPublic();
 
   return (

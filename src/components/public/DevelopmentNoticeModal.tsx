@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { AlertCircle, Code2, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,7 +16,7 @@ export function DevelopmentNoticeModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[540px]">
+      <DialogContent className="sm:max-w-xl [&>button]:hidden">
         <DialogHeader>
           <div className="mb-2 flex items-center gap-3">
             <div className="bg-muted rounded-full p-2.5">
@@ -51,11 +52,11 @@ export function DevelopmentNoticeModal() {
           </div>
         </div>
 
-        <div className="flex justify-end pt-2">
+        <DialogFooter>
           <Button onClick={() => setOpen(false)} className="px-6">
             I Understand
           </Button>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

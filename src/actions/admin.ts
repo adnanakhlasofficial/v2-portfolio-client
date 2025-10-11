@@ -43,7 +43,11 @@ export const getAdminPrivate = async () => {
     },
     credentials: 'include',
   });
+
+  if (!res.ok) {
+    return null;
+  }
+
   const data = (await res.json()) as ApiResponse<AdminDetailsPrivate>;
-  console.log(data);
   return data?.data;
 };
