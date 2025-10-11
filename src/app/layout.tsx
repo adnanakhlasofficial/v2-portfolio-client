@@ -9,6 +9,7 @@ import {
   IconLoader2,
   IconRosetteDiscountCheck,
 } from '@tabler/icons-react';
+import { DevelopmentNoticeModal } from '@/components/public/DevelopmentNoticeModal';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--jetbrains-mono',
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body
         className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark antialiased`}
       >
+        <DevelopmentNoticeModal />
         {children}
         <Toaster
           position="top-right"
