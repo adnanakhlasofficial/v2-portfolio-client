@@ -156,6 +156,6 @@
     @apply bg-background text-foreground selection:bg-primary selection:text-primary-foreground;
   }
   .gradient-button {
-    @apply !from-primary !to-chart-4 !bg-gradient-to-r hover:!bg-gradient-to-l;
+    @apply from-primary to-chart-4 bg-gradient-to-r hover:bg-gradient-to-l;
   }
 }

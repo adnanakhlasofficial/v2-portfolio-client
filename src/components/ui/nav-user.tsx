@@ -19,7 +19,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { createInitials } from '@/utils/create-initials';
-import { UserCircle, UserCogIcon } from 'lucide-react';
+import { HomeIcon, UserCircle, UserCogIcon } from 'lucide-react';
 import Link from 'next/link';
 import LogoutButton from '../shared/DisconnectButton';
 
@@ -76,6 +76,12 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem asChild>
+                <Link href="/">
+                  <HomeIcon />
+                  Home
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/admin/update-profile">
                   <UserCogIcon />

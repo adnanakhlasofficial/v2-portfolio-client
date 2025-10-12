@@ -27,4 +27,3 @@ export function NavMain() {
     </SidebarContent>
   );
 }
-// bg-primary text-primary-foreground

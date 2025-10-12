@@ -1,5 +1,5 @@
-import React from 'react';
+import { redirect } from 'next/navigation';
 
 export default function AdminPage() {
-  return <div>AdminPage</div>;
+  return redirect('/admin/add-experience');
 }
