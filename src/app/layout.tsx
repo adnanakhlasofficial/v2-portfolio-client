@@ -10,6 +10,7 @@ import {
   IconRosetteDiscountCheck,
 } from '@tabler/icons-react';
 import { DevelopmentNoticeModal } from '@/components/public/DevelopmentNoticeModal';
+import dotsBg from '@/assets/bg-dots.svg';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--jetbrains-mono',
@@ -55,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark antialiased`}
+        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark min-h-screen bg-[url("/bg-dots.svg")] bg-cover bg-center bg-no-repeat antialiased`}
       >
         <DevelopmentNoticeModal />
         {children}

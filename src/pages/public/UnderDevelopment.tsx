@@ -5,7 +5,7 @@ import { ArrowLeft, Construction, Home } from 'lucide-react';
 
 export default function UnderDevelopment() {
   return (
-    <div className="bg-background flex h-screen w-full items-center justify-center p-4">
+    <div className="flex h-screen w-full items-center justify-center p-4">
       <Card className="relative w-full max-w-2xl shadow-2xl">
         <CardContent className="px-8 py-6 sm:px-12">
           <div className="flex flex-col items-center space-y-8 text-center">

@@ -155,7 +155,40 @@
   body {
     @apply bg-background text-foreground selection:bg-primary selection:text-primary-foreground;
   }
+
   .gradient-button {
     @apply from-primary to-chart-4 bg-gradient-to-r hover:bg-gradient-to-l;
+  }
+
+  /* Custom Swiper Pagination */
+  .custom-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    z-index: 20;
+  }
+
+  .custom-pagination .swiper-pagination-bullet {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+    background-color: var(--primary) !important;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .custom-pagination .swiper-pagination-bullet:hover {
+    transform: scale(1.25) !important;
+    background-color: var(--primary) !important;
+  }
+
+  .custom-pagination .swiper-pagination-bullet-active {
+    background-color: var(--primary) !important;
+    width: 2rem !important;
+    border-radius: 100px !important;
+    height: 0.75rem !important;
+    transform: scale(1.2) !important;
   }
 }

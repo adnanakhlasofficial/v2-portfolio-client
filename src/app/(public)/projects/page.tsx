@@ -1,5 +1,5 @@
-import UnderDevelopment from '@/pages/public/UnderDevelopment';
+import Projects from '@/pages/public/Projects';
 
 export default function ProjectsPage() {
-  return <UnderDevelopment />;
+  return <Projects />;
 }
