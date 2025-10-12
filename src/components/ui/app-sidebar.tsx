@@ -21,10 +21,10 @@ export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sideb
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
+            <SidebarMenuButton asChild className="h-12 data-[slot=sidebar-menu-button]:!p-1.5">
               <Link href="/admin">
-                <LayoutDashboard className="!size-5" />
-                <span className="text-base font-semibold">Dashboard</span>
+                <LayoutDashboard className="ml-2 !size-5" />
+                <span className="text-xl font-semibold tracking-wide">Dashboard</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

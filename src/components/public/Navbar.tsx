@@ -49,7 +49,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  'group bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground group relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110',
+                  'group bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground group relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 active:scale-95',
                   {
                     'bg-primary text-primary-foreground': item.href === pathname,
                   },

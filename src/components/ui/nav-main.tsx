@@ -15,7 +15,7 @@ export function NavMain() {
     <SidebarContent>
       <SidebarGroup>
         <SidebarGroupContent className="flex flex-col gap-2">
-          <SidebarMenu>
+          <SidebarMenu className="space-y-2">
             {sidebarLinks.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarButton title={item.title} url={item.url} icon={item.icon} />

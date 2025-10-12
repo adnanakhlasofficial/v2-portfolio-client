@@ -1,4 +1,4 @@
-import { BadgePlusIcon } from 'lucide-react';
+import { BadgePlusIcon, WorkflowIcon } from 'lucide-react';
 
 export const sidebarLinks = [
   // {
@@ -10,5 +10,10 @@ export const sidebarLinks = [
     title: 'Add Experience',
     url: '/admin/add-experience',
     icon: BadgePlusIcon,
+  },
+  {
+    title: 'Add Project',
+    url: '/admin/add-project',
+    icon: WorkflowIcon,
   },
 ];

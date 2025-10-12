@@ -1,12 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { BadgePlusIcon, Calendar as CalendarIcon, Loader2, X } from 'lucide-react';
-import { format } from 'date-fns';
-import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
 import {
   Form,
   FormControl,
@@ -16,31 +28,25 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Calendar } from '@/components/ui/calendar';
+import { techStacks } from '@/constants/TechStacks';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  BadgePlusIcon,
+  Calendar as CalendarIcon,
+  Check,
+  ChevronsUpDown,
+  Loader2,
+  X,
+} from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import * as z from 'zod';
 
 const experienceSchema = z.object({
   role: z.string().trim().min(1, 'Role is required'),
@@ -56,25 +62,6 @@ const experienceSchema = z.object({
 export type ExperienceFormValues = z.infer<typeof experienceSchema>;
 
 export default function AddExperienceForm() {
-  const skillGroups = [
-    {
-      label: 'Frontend',
-      options: ['React', 'Next.js', 'Tailwind CSS', 'ShadCN', 'Redux', 'Zustand'],
-    },
-    {
-      label: 'Backend',
-      options: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'GraphQL'],
-    },
-    {
-      label: 'DevOps',
-      options: ['Docker', 'AWS', 'Firebase', 'Vercel', 'Nginx'],
-    },
-    {
-      label: 'Other',
-      options: ['Git', 'Figma', 'Jest', 'TypeScript'],
-    },
-  ];
-
   const [achievementInput, setAchievementInput] = useState('');
 
   const form = useForm<ExperienceFormValues>({
@@ -353,73 +340,86 @@ export default function AddExperienceForm() {
               <FormField
                 control={form.control}
                 name="tags"
-                render={() => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>Skills & Technologies</FormLabel>
-
-                    <div className="flex flex-col gap-3">
-                      <div className="flex gap-2">
-                        <Select
-                          onValueChange={(value) => {
-                            const current = form.getValues('tags');
-                            if (!current.includes(value)) {
-                              form.setValue('tags', [...current, value]);
-                            }
-                          }}
-                        >
-                          <SelectTrigger className="!h-11 w-full">
-                            <SelectValue placeholder="Select a technology" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {skillGroups.map((group, groupIdx) => (
-                              <SelectGroup key={group.label}>
-                                <SelectLabel>{group.label}</SelectLabel>
-                                {group.options.map((option) => (
-                                  <SelectItem key={option} value={option}>
-                                    {option}
-                                  </SelectItem>
-                                ))}
-                                {groupIdx !== skillGroups.length - 1 && <SelectSeparator />}
-                              </SelectGroup>
-                            ))}
-                          </SelectContent>
-                        </Select>
-
-                        <Button
-                          type="button"
-                          onClick={() => form.setValue('tags', [])}
-                          className="h-11"
-                        >
-                          Clear
-                        </Button>
-                      </div>
-
-                      {form.watch('tags').length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {form.watch('tags').map((tag, idx) => (
-                            <Badge
-                              key={`${tag}${idx}`}
-                              variant="secondary"
-                              className="group relative px-3 py-1.5 pr-8"
+                    <FormControl>
+                      <div className="space-y-4">
+                        {/* Multi-select popover */}
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              role="combobox"
+                              className="text-muted-foreground h-11 w-full justify-between"
                             >
-                              {tag}
-                              <button
-                                type="button"
-                                onClick={() => removeTag(tag)}
-                                className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-70 hover:opacity-100"
-                              >
-                                <X className="h-3.5 w-3.5" />
-                              </button>
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
+                              {field.value.length > 0
+                                ? `${field.value.length} selected`
+                                : 'Select tech stacks'}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-xs p-0">
+                            <Command>
+                              <CommandInput placeholder="Search tech..." />
+                              <CommandList>
+                                <CommandEmpty>No tech found.</CommandEmpty>
+                                <CommandGroup>
+                                  {techStacks.map((tech) => {
+                                    const selected = field.value.includes(tech);
+                                    return (
+                                      <CommandItem
+                                        key={tech}
+                                        onSelect={() => {
+                                          const newValue = selected
+                                            ? field.value.filter((t) => t !== tech)
+                                            : [...field.value, tech];
+                                          field.onChange(newValue);
+                                        }}
+                                      >
+                                        <Check
+                                          className={`mr-2 h-4 w-4 ${
+                                            selected ? 'opacity-100' : 'opacity-0'
+                                          }`}
+                                        />
+                                        {tech}
+                                      </CommandItem>
+                                    );
+                                  })}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
 
-                      <FormDescription className="sr-only">
-                        Choose technologies, frameworks, or tools used in this position
-                      </FormDescription>
-                      <FormMessage />
-                    </div>
+                        {/* Display selected tags */}
+                        {field.value.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((tag) => (
+                              <Badge
+                                key={tag}
+                                variant="secondary"
+                                className="group relative px-3 py-1.5 pr-8"
+                              >
+                                {tag}
+                                <button
+                                  type="button"
+                                  onClick={() => removeTag(tag)}
+                                  className="absolute top-1/2 right-1.5 -translate-y-1/2 rounded-sm opacity-70 hover:opacity-100"
+                                >
+                                  <X className="h-3.5 w-3.5" />
+                                </button>
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Choose technologies, frameworks, or tools used in this position
+                    </FormDescription>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
