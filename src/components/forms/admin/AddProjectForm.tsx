@@ -47,6 +47,9 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { techStacks } from '@/constants/TechStacks';
 import { toast } from 'sonner';
+import { projectCategories } from '@/constants/ProjectCategories';
+import { useState } from 'react';
+import { handleAddProjectAction } from '@/actions/projects';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -54,6 +57,25 @@ const projectSchema = z.object({
     .string()
     .min(10, 'Description must be at least 10 characters')
     .max(500, 'Description must be less than 500 characters'),
+  category: z
+    .string()
+    .min(1, 'Project category is required')
+    .refine(
+      (val) =>
+        [
+          'Web Application',
+          'Mobile Application',
+          'AI Tool',
+          'Portfolio',
+          'E-commerce',
+          'Dashboard',
+          'Landing Page',
+          'SaaS Product',
+        ].includes(val),
+      {
+        message: 'Invalid category selected',
+      },
+    ),
   tags: z.array(z.string()).min(1, 'At least one tech stack is required'),
   thumbnail: z.string().url('Must be a valid URL'),
   liveLink: z.string().url('Must be a valid URL'),
@@ -64,6 +86,8 @@ const projectSchema = z.object({
 export type ProjectFormValues = z.infer<typeof projectSchema>;
 
 export default function AddProjectForm() {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -79,14 +103,13 @@ export default function AddProjectForm() {
 
   const onSubmit = async (values: ProjectFormValues) => {
     const toastId = toast.loading('Creating project...');
-    try {
-      console.log(values);
+    const res = await handleAddProjectAction(values);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (res) {
       toast.success('Project created successfully!', { id: toastId });
-    } catch (error) {
+      form.reset();
+    } else {
       toast.error('Project create failed', { id: toastId });
-      console.error(error);
     }
   };
 
@@ -156,6 +179,8 @@ export default function AddProjectForm() {
                 )}
               />
 
+              <Separator className="my-8" />
+
               {/* Tags (Multi Select Tech Stack) */}
               <FormField
                 control={form.control}
@@ -172,7 +197,7 @@ export default function AddProjectForm() {
                               type="button"
                               variant="outline"
                               role="combobox"
-                              className="text-muted-foreground h-11 w-full justify-between"
+                              className="text-muted-foreground h-11 w-full justify-between active:scale-100"
                             >
                               {field.value.length > 0
                                 ? `${field.value.length} selected`
@@ -238,6 +263,82 @@ export default function AddProjectForm() {
                     </FormControl>
                     <FormDescription className="sr-only">
                       Select multiple technologies and frameworks
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Project Category (Single Select) */}
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Project Category</FormLabel>
+                    <FormControl>
+                      <div className="space-y-4">
+                        <Popover open={isCategoryOpen}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              type="button"
+                              onClick={() => setIsCategoryOpen(true)}
+                              variant="outline"
+                              role="combobox"
+                              className="text-muted-foreground h-11 w-full justify-between active:scale-100"
+                            >
+                              {field.value ? field.value : 'Select category'}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-xs p-0">
+                            <Command>
+                              <CommandInput placeholder="Search category..." />
+                              <CommandList>
+                                <CommandEmpty>No category found.</CommandEmpty>
+                                <CommandGroup>
+                                  {projectCategories.map((category) => (
+                                    <CommandItem
+                                      key={category}
+                                      onSelect={() => {
+                                        field.onChange(category);
+                                        setIsCategoryOpen(false);
+                                      }}
+                                    >
+                                      <Check
+                                        className={`mr-2 h-4 w-4 ${
+                                          field.value === category ? 'opacity-100' : 'opacity-0'
+                                        }`}
+                                      />
+                                      {category}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+
+                        {/* Display selected category */}
+                        {field.value && (
+                          <Badge
+                            variant="secondary"
+                            className="flex w-fit items-center gap-2 px-3 py-1.5"
+                          >
+                            {field.value}
+                            <button
+                              type="button"
+                              onClick={() => field.onChange('')}
+                              className="rounded-sm opacity-70 hover:opacity-100"
+                            >
+                              <X className="h-3.5 w-3.5" />
+                            </button>
+                          </Badge>
+                        )}
+                      </div>
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Select the project category
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

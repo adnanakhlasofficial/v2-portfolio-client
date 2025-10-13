@@ -45,8 +45,8 @@ export default async function Home() {
               size="lg"
               className="group px-8 py-6 font-medium shadow-lg transition-all duration-300 hover:shadow-xl"
             >
-              <Link href="/experiences">
-                View My Work
+              <Link href="/projects">
+                View My Projects
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>

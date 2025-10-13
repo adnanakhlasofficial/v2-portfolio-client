@@ -18,7 +18,6 @@ export const handleVerifyAction = async (data: VerifyFormValues) => {
   if (!res.ok) {
     return null;
   }
-
   const setCookie = res.headers.get('set-cookie');
   const cookieStore = await cookies();
   if (setCookie) {
@@ -28,7 +27,7 @@ export const handleVerifyAction = async (data: VerifyFormValues) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 60 * 60,
+      // maxAge: 60 * 60,
     });
   }
 
