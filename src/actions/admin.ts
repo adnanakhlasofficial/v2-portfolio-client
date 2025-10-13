@@ -4,10 +4,13 @@ import { UpdateProfileFormValues } from '@/components/forms/admin/UpdateProfileF
 import cookieNames from '@/constants/cookieNames';
 import { AdminDetailsPrivate, AdminDetailsPublic, ApiResponse } from '@/types';
 import { getNextCookie } from '@/utils/next-cookie';
+import { revalidateTag } from 'next/cache';
 
 export const getAdminPublic = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/public`, {
-    cache: 'no-cache',
+    next: {
+      tags: ['ADMIN'],
+    },
   });
   const data = (await res.json()) as ApiResponse<AdminDetailsPublic>;
   return data?.data;
@@ -25,11 +28,10 @@ export const handleUpdateAdminAction = async (data: Partial<UpdateProfileFormVal
     body: JSON.stringify(data),
   });
 
-  console.log(await res.json());
-
   if (!res.ok) {
     return null;
   }
+  revalidateTag('ADMIN');
   return true;
 };
 
@@ -37,11 +39,13 @@ export const getAdminPrivate = async () => {
   const cookie = await getNextCookie(cookieNames.accessToken);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/admin/private`, {
-    cache: 'no-cache',
     headers: {
       Cookie: `${cookie?.name}=${cookie?.value}`,
     },
     credentials: 'include',
+    next: {
+      tags: ['ADMIN'],
+    },
   });
 
   if (!res.ok) {

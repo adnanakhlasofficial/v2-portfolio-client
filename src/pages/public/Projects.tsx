@@ -1,8 +1,12 @@
+import { handleGetProjectsAction } from '@/actions/projects';
 import ProjectsSlider from '@/components/public/Projects/ProjectsSlider';
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
+import { Card, CardContent } from '@/components/ui/card';
 
-export default function Projects() {
+export default async function Projects() {
+  const projects = await handleGetProjectsAction();
+
   return (
     <Section>
       <SectionTitle
@@ -10,7 +14,22 @@ export default function Projects() {
         title="Modular Configs for Scalable Dev"
         summary="Streamlined setup, reusable scripts, instant onboarding, and maintainable architecture patterns."
       />
-      <ProjectsSlider />
+      <section>
+        {projects.length > 0 ? (
+          <ProjectsSlider projects={projects} />
+        ) : (
+          <Card className="py-16">
+            <CardContent>
+              <div className="text-center">
+                <p className="text-foreground text-4xl font-semibold">🚧 No projects available.</p>
+                <p className="text-muted-foreground mt-2 text-lg">
+                  This section will showcase featured projects once they&apos;re published.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </section>
     </Section>
   );
 }

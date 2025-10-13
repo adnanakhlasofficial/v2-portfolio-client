@@ -9,96 +9,82 @@ import 'swiper/css';
 import 'swiper/css/effect-creative';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { IProject } from '@/types';
 
-interface Project {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  category: string;
-  tags: string[];
-  stats: {
-    duration: string;
-    team: string;
-    growth: string;
-  };
-}
-
-export default function ProjectsSlider() {
+export default function ProjectsSlider({ projects }: { projects: IProject[] }) {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: 'NexCommerce',
-      subtitle: 'Enterprise E-Commerce Platform',
-      description:
-        'Built a comprehensive e-commerce ecosystem handling 1M+ daily transactions with real-time inventory sync, AI-powered recommendations, and seamless payment integration.',
-      category: 'E-Commerce',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
-      stats: {
-        duration: '8 months',
-        team: '12 members',
-        growth: '+340%',
-      },
-    },
-    {
-      id: 2,
-      title: 'DataVision Pro',
-      subtitle: 'AI-Powered Analytics Platform',
-      description:
-        'Advanced business intelligence platform leveraging machine learning for predictive analytics, automated insights, and real-time data visualization across multiple data sources.',
-      category: 'Analytics',
-      tags: ['Python', 'TensorFlow', 'React', 'MongoDB'],
-      stats: {
-        duration: '10 months',
-        team: '15 members',
-        growth: '+280%',
-      },
-    },
-    {
-      id: 3,
-      title: 'MediConnect',
-      subtitle: 'Healthcare Management System',
-      description:
-        'Complete digital health platform connecting patients, doctors, and hospitals with telemedicine, electronic health records, appointment scheduling, and prescription management.',
-      category: 'Healthcare',
-      tags: ['Vue.js', 'Laravel', 'MySQL', 'WebRTC'],
-      stats: {
-        duration: '12 months',
-        team: '20 members',
-        growth: '+450%',
-      },
-    },
-    {
-      id: 4,
-      title: 'SocialSphere',
-      subtitle: 'Next-Gen Social Network',
-      description:
-        'Revolutionary social platform with real-time messaging, live streaming, content discovery algorithms, and community-building tools serving millions of active users daily.',
-      category: 'Social Media',
-      tags: ['React Native', 'Firebase', 'GraphQL', 'Redis'],
-      stats: {
-        duration: '14 months',
-        team: '25 members',
-        growth: '+520%',
-      },
-    },
-    {
-      id: 5,
-      title: 'TaskFlow Pro',
-      subtitle: 'Team Collaboration Platform',
-      description:
-        'All-in-one workspace solution combining project management, time tracking, resource planning, and team communication with advanced automation and integration capabilities.',
-      category: 'Productivity',
-      tags: ['Angular', 'NestJS', 'MongoDB', 'Socket.io'],
-      stats: {
-        duration: '9 months',
-        team: '18 members',
-        growth: '+390%',
-      },
-    },
-  ];
+  //   {
+  //     id: 1,
+  //     title: 'NexCommerce',
+  //     subtitle: 'Enterprise E-Commerce Platform',
+  //     description:
+  //       'Built a comprehensive e-commerce ecosystem handling 1M+ daily transactions with real-time inventory sync, AI-powered recommendations, and seamless payment integration.',
+  //     category: 'E-Commerce',
+  //     tags: ['React', 'Node.js', 'PostgreSQL', 'AWS'],
+  //     stats: {
+  //       duration: '8 months',
+  //       team: '12 members',
+  //       growth: '+340%',
+  //     },
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'DataVision Pro',
+  //     subtitle: 'AI-Powered Analytics Platform',
+  //     description:
+  //       'Advanced business intelligence platform leveraging machine learning for predictive analytics, automated insights, and real-time data visualization across multiple data sources.',
+  //     category: 'Analytics',
+  //     tags: ['Python', 'TensorFlow', 'React', 'MongoDB'],
+  //     stats: {
+  //       duration: '10 months',
+  //       team: '15 members',
+  //       growth: '+280%',
+  //     },
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'MediConnect',
+  //     subtitle: 'Healthcare Management System',
+  //     description:
+  //       'Complete digital health platform connecting patients, doctors, and hospitals with telemedicine, electronic health records, appointment scheduling, and prescription management.',
+  //     category: 'Healthcare',
+  //     tags: ['Vue.js', 'Laravel', 'MySQL', 'WebRTC'],
+  //     stats: {
+  //       duration: '12 months',
+  //       team: '20 members',
+  //       growth: '+450%',
+  //     },
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'SocialSphere',
+  //     subtitle: 'Next-Gen Social Network',
+  //     description:
+  //       'Revolutionary social platform with real-time messaging, live streaming, content discovery algorithms, and community-building tools serving millions of active users daily.',
+  //     category: 'Social Media',
+  //     tags: ['React Native', 'Firebase', 'GraphQL', 'Redis'],
+  //     stats: {
+  //       duration: '14 months',
+  //       team: '25 members',
+  //       growth: '+520%',
+  //     },
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'TaskFlow Pro',
+  //     subtitle: 'Team Collaboration Platform',
+  //     description:
+  //       'All-in-one workspace solution combining project management, time tracking, resource planning, and team communication with advanced automation and integration capabilities.',
+  //     category: 'Productivity',
+  //     tags: ['Angular', 'NestJS', 'MongoDB', 'Socket.io'],
+  //     stats: {
+  //       duration: '9 months',
+  //       team: '18 members',
+  //       growth: '+390%',
+  //     },
+  //   },
+  // ];
 
   return (
     <div className="relative mx-auto w-full max-w-5xl 2xl:max-w-7xl">
@@ -138,8 +124,8 @@ export default function ProjectsSlider() {
         className="pb-12"
       >
         {projects.map((project) => (
-          <SwiperSlide key={project.id}>
-            <ProjectCard project={project} swiperRef={swiperRef} />
+          <SwiperSlide key={project.slug}>
+            <ProjectCard project={project} />
           </SwiperSlide>
         ))}
       </Swiper>

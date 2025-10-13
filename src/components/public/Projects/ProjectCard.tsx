@@ -1,27 +1,13 @@
-import projectImg from '@/assets/project.webp';
+import NavigateButton from '@/components/shared/NavigateButton';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { IProject } from '@/types';
 import { ArrowUpRight, ExternalLink, FileCode, Server } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
-import type { Swiper as SwiperType } from 'swiper';
 
 interface IProps {
-  project: {
-    id: number;
-    title: string;
-    subtitle: string;
-    description: string;
-    category: string;
-    tags: string[];
-    stats: {
-      duration: string;
-      team: string;
-      growth: string;
-    };
-  };
-  swiperRef: React.RefObject<SwiperType | null>;
+  project: IProject;
 }
 
 export default function ProjectCard({ project }: IProps) {
@@ -34,8 +20,8 @@ export default function ProjectCard({ project }: IProps) {
         {/* Bottom-right gradient */}
         <div className="from-chart-4/30 absolute -right-30 -bottom-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tl to-transparent blur-3xl" />
         <CardContent className="flex items-center justify-center">
-          <div className="relative z-50 h-full p-8 2xl:p-16">
-            <div className="grid items-center gap-8 lg:grid-cols-2 2xl:gap-12">
+          <div className="relative z-50 h-full p-8">
+            <div className="grid items-center gap-8 lg:grid-cols-2">
               <div className="space-y-6">
                 <Badge className="from-primary to-chart-4 border-none bg-gradient-to-r px-3 py-1 backdrop-blur-sm">
                   {project.category}
@@ -56,10 +42,10 @@ export default function ProjectCard({ project }: IProps) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Button size="lg">
+                  <NavigateButton navigation={`/projects/${project.slug}`} size="lg">
                     View Case Study
                     <ArrowUpRight className="ml-2 h-5 w-5" />
-                  </Button>
+                  </NavigateButton>
                   <Button className="hover:scale-105" variant="outline" size="lg">
                     <FileCode className="h-5 w-5" />
                   </Button>
@@ -72,10 +58,12 @@ export default function ProjectCard({ project }: IProps) {
                 </div>
               </div>
 
-              <div className="h-full w-full">
+              <div className="relative aspect-[3/2]">
                 <Image
-                  className="h-full w-full rounded-3xl object-cover"
-                  src={projectImg}
+                  className="border-primary rounded-3xl"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  src={project.thumbnail}
                   alt={project.title}
                 />
               </div>
@@ -83,7 +71,6 @@ export default function ProjectCard({ project }: IProps) {
           </div>
         </CardContent>
       </Card>
-      {/* <ProjectNavigation swiperRef={swiperRef} /> */}
     </>
   );
 }

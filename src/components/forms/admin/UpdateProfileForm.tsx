@@ -71,7 +71,6 @@ export default function UpdateProfileForm() {
       updatedFields[typedKey] = values[typedKey];
     }
 
-    console.log(updatedFields);
     const toastId = toast.loading('Updating your profile…');
     const res = await handleUpdateAdminAction(updatedFields);
 

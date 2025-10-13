@@ -6,22 +6,21 @@ import { BookOpen, Briefcase, FolderOpen, Mail } from 'lucide-react';
 
 export default async function ProfileDetails() {
   const admin = await getAdminPrivate();
-  console.log(admin);
 
   const stats = [
     {
       label: 'Projects',
-      count: admin._count.projects,
+      count: admin?._count?.projects,
       icon: FolderOpen,
     },
     {
       label: 'Experience',
-      count: admin._count.experiences,
+      count: admin?._count?.experiences,
       icon: Briefcase,
     },
     {
       label: 'Blogs',
-      count: admin._count.blogs,
+      count: admin?._count?.blogs,
       icon: BookOpen,
     },
   ];
@@ -31,22 +30,22 @@ export default async function ProfileDetails() {
       <Card className="border-border/50 bg-card/60 w-full shadow-xl backdrop-blur-md transition hover:shadow-2xl">
         <CardHeader className="flex flex-col items-center space-y-3 pb-0 text-center">
           <Avatar className="border-border h-28 w-28 border-4 shadow-md">
-            <AvatarImage src={admin.profile} alt={admin.name} />
+            <AvatarImage src={admin?.profile} alt={admin?.name} />
             <AvatarFallback className="bg-primary/10 text-primary text-2xl font-semibold">
-              {createInitials(admin.name)}
+              {createInitials(admin?.name || '')}
             </AvatarFallback>
           </Avatar>
 
           <div>
-            <CardTitle className="text-2xl font-semibold tracking-tight">{admin.name}</CardTitle>
+            <CardTitle className="text-2xl font-semibold tracking-tight">{admin?.name}</CardTitle>
             <CardDescription className="text-muted-foreground text-sm">
-              @{admin.username}
+              @{admin?.username}
             </CardDescription>
           </div>
 
-          {admin.bio && (
+          {admin?.bio && (
             <p className="text-muted-foreground mt-2 max-w-md text-sm leading-relaxed">
-              {admin.bio}
+              {admin?.bio}
             </p>
           )}
         </CardHeader>
@@ -54,7 +53,7 @@ export default async function ProfileDetails() {
         <CardContent className="mt-6 space-y-5">
           <div className="border-border/40 bg-muted/30 text-muted-foreground flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm">
             <Mail className="text-primary h-4 w-4" />
-            <span>{admin.email}</span>
+            <span>{admin?.email}</span>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -69,8 +68,8 @@ export default async function ProfileDetails() {
                       <item.icon className="h-5 w-5" />
                     </div>
                   </div>
-                  <div className="text-2xl font-bold">{item.count}</div>
-                  <div className="text-muted-foreground mt-1 text-xs">{item.label}</div>
+                  <div className="text-2xl font-bold">{item?.count}</div>
+                  <div className="text-muted-foreground mt-1 text-xs">{item?.label}</div>
                 </CardContent>
               </Card>
             ))}
