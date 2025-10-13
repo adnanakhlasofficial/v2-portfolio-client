@@ -1,10 +1,10 @@
 import {
   BookOpenText,
-  BrainCircuit,
   Briefcase,
+  Code2,
   FolderOpen,
   Home,
-  Mail,
+  PhoneIcon,
   UserRound,
 } from 'lucide-react';
 
@@ -32,12 +32,12 @@ export const navLinks = [
   {
     label: 'Skills',
     href: '/skills',
-    icon: BrainCircuit,
+    icon: Code2,
   },
   {
     label: 'Contact',
     href: '/contact',
-    icon: Mail,
+    icon: PhoneIcon,
   },
   {
     label: 'Blogs',

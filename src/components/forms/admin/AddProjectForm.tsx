@@ -348,7 +348,7 @@ export default function AddProjectForm() {
           <Button
             disabled={form.formState.isSubmitting}
             onClick={form.handleSubmit(onSubmit)}
-            className="hover:bg-primary/90 h-11 px-8 font-semibold"
+            className="hover:bg-primary/90 h-11 px-8 font-semibold disabled:cursor-progress"
           >
             {form.formState.isSubmitting ? (
               <>

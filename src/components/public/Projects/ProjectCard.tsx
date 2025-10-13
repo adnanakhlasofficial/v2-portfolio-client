@@ -6,7 +6,6 @@ import { ArrowUpRight, ExternalLink, FileCode, Server } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import ProjectNavigation from './ProjectNavigation';
 
 interface IProps {
   project: {
@@ -25,7 +24,7 @@ interface IProps {
   swiperRef: React.RefObject<SwiperType | null>;
 }
 
-export default function ProjectCard({ project, swiperRef }: IProps) {
+export default function ProjectCard({ project }: IProps) {
   return (
     <>
       <Card className="bg-card/85 hover:shadow-primary/5 group relative overflow-hidden border shadow-2xl backdrop-blur-xl transition-all duration-500">
@@ -42,10 +41,10 @@ export default function ProjectCard({ project, swiperRef }: IProps) {
                   {project.category}
                 </Badge>
                 <div>
-                  <h2 className="from-foreground to-foreground/70 mb-2 bg-gradient-to-r bg-clip-text text-3xl leading-tight font-bold text-transparent md:text-4xl 2xl:text-6xl">
+                  <h2 className="from-foreground to-foreground/70 mb-2 bg-gradient-to-r bg-clip-text text-3xl leading-tight font-bold text-transparent md:text-4xl lg:line-clamp-1">
                     {project.title}
                   </h2>
-                  <p className="text-muted-foreground line-clamp-3 text-base leading-relaxed lg:line-clamp-5 2xl:text-lg">
+                  <p className="text-muted-foreground line-clamp-3 text-base leading-relaxed 2xl:text-lg">
                     {project.description}
                   </p>
                 </div>

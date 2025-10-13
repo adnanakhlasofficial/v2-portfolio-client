@@ -1,6 +1,4 @@
-import type { Metadata } from 'next';
-import { Cascadia_Code, JetBrains_Mono } from 'next/font/google';
-import './globals.css';
+import { DevelopmentNoticeModal } from '@/components/public/DevelopmentNoticeModal';
 import { Toaster } from '@/components/ui/sonner';
 import {
   IconAlertTriangle,
@@ -9,8 +7,9 @@ import {
   IconLoader2,
   IconRosetteDiscountCheck,
 } from '@tabler/icons-react';
-import { DevelopmentNoticeModal } from '@/components/public/DevelopmentNoticeModal';
-import dotsBg from '@/assets/bg-dots.svg';
+import type { Metadata } from 'next';
+import { Cascadia_Code, JetBrains_Mono } from 'next/font/google';
+import './globals.css';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--jetbrains-mono',
@@ -56,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark min-h-screen bg-[url("/bg-dots.svg")] bg-cover bg-center bg-no-repeat antialiased`}
+        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark min-h-screen bg-[url("/bg-dots.svg")] bg-contain bg-center antialiased`}
       >
         <DevelopmentNoticeModal />
         {children}

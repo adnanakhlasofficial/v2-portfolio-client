@@ -8,7 +8,7 @@ interface IProps {
 
 export default function ProjectNavigation({ swiperRef }: IProps) {
   return (
-    <div className="absolute right-6 -bottom-6 z-50 hidden gap-4 xl:flex">
+    <div className="absolute z-50 hidden gap-4 lg:flex">
       <Button
         variant="outline"
         size="icon"

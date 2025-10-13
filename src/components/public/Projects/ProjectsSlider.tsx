@@ -144,10 +144,12 @@ export default function ProjectsSlider() {
         ))}
       </Swiper>
 
-      {/* Navigation Controls */}
-      <ProjectNavigation swiperRef={swiperRef} />
-      {/* ✅ Pagination container must be OUTSIDE Swiper */}
-      <div className="custom-pagination" />
+      <div className="relative my-4 flex h-12 w-full flex-row-reverse items-center gap-4">
+        {/* Navigation Controls */}
+        <ProjectNavigation swiperRef={swiperRef} />
+        {/* ✅ Pagination container must be OUTSIDE Swiper */}
+        <div className="custom-pagination !my-0 w-full !justify-self-center" />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import ContactForm from '@/components/forms/public/ContactForm';
+import { CopyButton } from '@/components/shared/CopyButton';
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
@@ -21,8 +22,8 @@ export default function Contact() {
         <div className="from-chart-4/30 absolute -right-30 -bottom-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tl to-transparent blur-3xl" />
 
         <div className="overflow-hidden rounded-3xl border shadow-2xl backdrop-blur-xl">
-          <div className="relative z-50 grid lg:grid-cols-2">
-            <div className="flex flex-col justify-center p-8 md:p-12 lg:!pr-4">
+          <div className="relative z-50 grid gap-8 p-8 lg:grid-cols-2 2xl:gap-12 2xl:p-12">
+            <div className="flex flex-col justify-center">
               <div className="space-y-4">
                 <div className="space-y-4">
                   {contactLinks.map((item) => (
@@ -37,13 +38,18 @@ export default function Contact() {
                         <div className="min-w-0">
                           <p className="text-muted-foreground text-sm font-medium">{item.label}</p>
                           {item.href ? (
-                            <a
-                              target="_blank"
-                              href={item.href}
-                              className="text-foreground text-base font-semibold break-all hover:underline"
-                            >
-                              {item.value}
-                            </a>
+                            <span className="flex items-center gap-2">
+                              <a
+                                target="_blank"
+                                href={item.href}
+                                className="text-foreground text-base font-semibold text-nowrap break-all hover:underline"
+                              >
+                                {item.value}
+                              </a>
+                              {(item.label === 'Email' || item.label === 'Phone') && (
+                                <CopyButton value={item.value} label={item.label} />
+                              )}
+                            </span>
                           ) : (
                             <p className="text-foreground text-base font-semibold break-all">
                               {item.value}
@@ -73,7 +79,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="p-8 md:p-12 lg:!pl-4">
+            <div className="">
               <ContactForm />
             </div>
           </div>

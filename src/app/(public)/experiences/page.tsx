@@ -1,6 +1,5 @@
-import UnderDevelopment from '@/pages/public/UnderDevelopment';
-import React from 'react';
+import Experiences from '@/pages/public/Experiences';
 
 export default function ExperiencesPage() {
-  return <UnderDevelopment />;
+  return <Experiences />;
 }

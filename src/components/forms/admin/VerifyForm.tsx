@@ -121,7 +121,7 @@ export default function VerifyForm() {
           <Button
             disabled={form.formState.isSubmitting}
             onClick={form.handleSubmit(onSubmit)}
-            className="h-11 w-full px-8 font-semibold sm:w-auto"
+            className="h-11 w-full px-8 font-semibold disabled:cursor-progress sm:w-auto"
           >
             {form.formState.isSubmitting ? (
               <>

@@ -20,6 +20,10 @@ import { z } from 'zod';
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
   email: z.string().email('Enter a valid email address.'),
+  phone: z
+    .string()
+    .min(10, 'Phone number is required.')
+    .regex(/^\+?[0-9\s\-().]{10,20}$/, 'Enter a valid international phone number.'),
   subject: z.string().min(3, 'Subject is required.'),
   message: z.string().min(10, 'Message should be at least 10 characters.'),
 });
@@ -32,6 +36,7 @@ export default function ContactForm() {
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       subject: '',
       message: '',
     },
@@ -86,6 +91,27 @@ export default function ContactForm() {
           )}
         />
 
+        {/* Phone */}
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
+              <FormControl>
+                <Input
+                  className="h-12"
+                  placeholder="+1 555 123 4567"
+                  type="tel"
+                  inputMode="tel"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* Subject */}
         <FormField
           control={form.control}
@@ -123,7 +149,7 @@ export default function ContactForm() {
         <Button
           disabled={form.formState.isSubmitting}
           type="submit"
-          className="h-12 w-full font-medium transition-all duration-300"
+          className="h-12 w-full font-medium transition-all duration-300 disabled:cursor-progress"
         >
           {form.formState.isSubmitting ? (
             <>
