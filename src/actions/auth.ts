@@ -2,7 +2,6 @@
 
 import { VerifyFormValues } from '@/components/forms/admin/VerifyForm';
 import cookieNames from '@/constants/cookieNames';
-import { getNextCookie, clearNextCookie } from '@/utils/next-cookie';
 import { cookies } from 'next/headers';
 
 export const handleVerifyAction = async (data: VerifyFormValues) => {
@@ -47,12 +46,15 @@ export const handleDisconnectAction = async () => {
     return null;
   }
 
-  await clearNextCookie(cookieNames.accessToken);
+  const cookieStore = await cookies();
+  cookieStore.delete(cookieNames.accessToken);
   return true;
 };
 
 export const checkConnectAction = async () => {
-  const cookie = await getNextCookie(cookieNames.accessToken);
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/check`, {
     method: 'GET',
     headers: {

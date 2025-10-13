@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { IProject } from '@/types';
 import { ArrowUpRight, ExternalLink, FileCode, Server } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface IProps {
   project: IProject;
@@ -42,10 +43,12 @@ export default function ProjectCard({ project }: IProps) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <NavigateButton navigation={`/projects/${project.slug}`} size="lg">
-                    View Case Study
-                    <ArrowUpRight className="ml-2 h-5 w-5" />
-                  </NavigateButton>
+                  <Button asChild size="lg">
+                    <Link href={`/projects/${project.slug}`}>
+                      View Case Study
+                      <ArrowUpRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
                   <Button className="hover:scale-105" variant="outline" size="lg">
                     <FileCode className="h-5 w-5" />
                   </Button>

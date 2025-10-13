@@ -3,11 +3,12 @@
 import { ProjectFormValues } from '@/components/forms/admin/AddProjectForm';
 import cookieNames from '@/constants/cookieNames';
 import { ApiResponse, IProject } from '@/types';
-import { getNextCookie } from '@/utils/next-cookie';
 import { revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
 export const handleAddProjectAction = async (data: ProjectFormValues) => {
-  const cookie = await getNextCookie(cookieNames.accessToken);
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
     method: 'POST',
     headers: {
