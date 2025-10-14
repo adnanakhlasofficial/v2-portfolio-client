@@ -1,13 +1,10 @@
 import { getAdminPublic } from '@/actions/admin';
-import { checkConnectAction } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
-import { IconArrowBigRight } from '@tabler/icons-react';
-import { Sparkles } from 'lucide-react';
+import { IconArrowBigRight, IconSparkles } from '@tabler/icons-react';
 import Link from 'next/link';
 
 export default async function Home() {
-  await checkConnectAction();
   const admin = await getAdminPublic();
 
   return (
@@ -19,7 +16,7 @@ export default async function Home() {
         <div className="bg-chart-4/20 absolute -right-0 -bottom-10 h-96 w-96 animate-pulse rounded-full blur-3xl delay-1000" />
         <div className="relative mx-auto space-y-4 text-center">
           <div className="bg-muted/50 border-border text-foreground animate-fade-in hover:text-primary inline-flex cursor-default items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all duration-300 hover:scale-105">
-            <Sparkles className="h-4 w-4" />
+            <IconSparkles className="!h-5 !w-5" />
             <span>Available for new opportunities</span>
           </div>
 

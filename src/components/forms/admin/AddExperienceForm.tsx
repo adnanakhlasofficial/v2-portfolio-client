@@ -34,9 +34,15 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { techStacks } from '@/constants/TechStacks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconCirclePlus, IconLoader3 } from '@tabler/icons-react';
+import {
+  IconCalendar,
+  IconCheck,
+  IconChevronsDown,
+  IconCirclePlus,
+  IconLoader3,
+  IconX,
+} from '@tabler/icons-react';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Check, ChevronsUpDown, X } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -197,8 +203,11 @@ export default function AddExperienceForm() {
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
-                            <Button variant="outline" className="h-11 justify-start text-left">
-                              <CalendarIcon className="mr-2 h-4 w-4" />
+                            <Button
+                              variant="outline"
+                              className="h-11 justify-start text-left active:scale-100"
+                            >
+                              <IconCalendar className="mr-2 !h-5 !w-5" />
                               {field.value ? format(field.value, 'PPP') : 'Pick a date'}
                             </Button>
                           </FormControl>
@@ -228,8 +237,11 @@ export default function AddExperienceForm() {
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
-                            <Button variant="outline" className="h-11 justify-start text-left">
-                              <CalendarIcon className="mr-2 h-4 w-4" />
+                            <Button
+                              variant="outline"
+                              className="h-11 justify-start text-left active:scale-100"
+                            >
+                              <IconCalendar className="mr-2 !h-5 !w-5" />
                               {field.value ? format(field.value, 'PPP') : 'Present'}
                             </Button>
                           </FormControl>
@@ -319,7 +331,7 @@ export default function AddExperienceForm() {
                               onClick={() => removeAchievement(ach)}
                               className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-70 hover:opacity-100"
                             >
-                              <X className="h-3.5 w-3.5" />
+                              <IconX className="!h-3.5 !w-3.5" />
                             </button>
                           </Badge>
                         ))}
@@ -348,12 +360,12 @@ export default function AddExperienceForm() {
                               type="button"
                               variant="outline"
                               role="combobox"
-                              className="text-muted-foreground h-11 w-full justify-between"
+                              className="text-muted-foreground h-11 w-full justify-between active:scale-100"
                             >
                               {field.value.length > 0
                                 ? `${field.value.length} selected`
                                 : 'Select tech stacks'}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                              <IconChevronsDown className="ml-2 !h-5 !w-5 opacity-50" />
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-xs p-0">
@@ -374,7 +386,7 @@ export default function AddExperienceForm() {
                                           field.onChange(newValue);
                                         }}
                                       >
-                                        <Check
+                                        <IconCheck
                                           className={`mr-2 h-4 w-4 ${
                                             selected ? 'opacity-100' : 'opacity-0'
                                           }`}
@@ -404,7 +416,7 @@ export default function AddExperienceForm() {
                                   onClick={() => removeTag(tag)}
                                   className="absolute top-1/2 right-1.5 -translate-y-1/2 rounded-sm opacity-70 hover:opacity-100"
                                 >
-                                  <X className="h-3.5 w-3.5" />
+                                  <IconX className="!h-3.5 !w-3.5" />
                                 </button>
                               </Badge>
                             ))}

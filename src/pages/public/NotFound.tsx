@@ -1,7 +1,7 @@
 import BackButton from '@/components/shared/BackButton';
 import NavigateButton from '@/components/shared/NavigateButton';
 import { Card, CardContent } from '@/components/ui/card';
-import { CircleAlert as AlertCircle, ArrowLeft, HomeIcon } from 'lucide-react';
+import { IconAlertHexagon, IconArrowLeft, IconHome } from '@tabler/icons-react';
 
 export default function NotFound() {
   return (
@@ -12,7 +12,7 @@ export default function NotFound() {
             <div className="relative">
               <div className="bg-destructive/10 absolute inset-0 rounded-full blur-2xl" />
               <div className="bg-muted relative rounded-2xl p-6">
-                <AlertCircle className="text-muted-foreground h-16 w-16" strokeWidth={1.5} />
+                <IconAlertHexagon className="text-muted-foreground h-16 w-16" strokeWidth={1.5} />
               </div>
             </div>
 
@@ -31,11 +31,11 @@ export default function NotFound() {
 
             <div className="flex w-full flex-col gap-4 pt-4 sm:w-auto sm:flex-row">
               <NavigateButton navigation="/" variant="default" size="lg">
-                <HomeIcon className="mr-2 !h-5 !w-5" />
+                <IconHome className="mr-2 !h-5 !w-5" />
                 Go Home
               </NavigateButton>
               <BackButton variant="outline" size="lg">
-                <ArrowLeft className="mr-2 !h-5 !w-5" />
+                <IconArrowLeft className="mr-2 !h-5 !w-5" />
                 Go Back
               </BackButton>
             </div>

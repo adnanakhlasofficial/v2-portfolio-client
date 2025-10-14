@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Fingerprint, Loader2 } from 'lucide-react';
+import { IconFingerprint, IconLoader3 } from '@tabler/icons-react';
 import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -125,12 +125,12 @@ export default function VerifyForm() {
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
+                <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
                 Verifying…
               </>
             ) : (
               <>
-                <Fingerprint className="mr-2 !h-5 !w-5" />
+                <IconFingerprint className="mr-2 !h-5 !w-5" />
                 Verify
               </>
             )}

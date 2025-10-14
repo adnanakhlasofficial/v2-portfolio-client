@@ -1,9 +1,9 @@
 'use client';
 
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useId, useState } from 'react';
 
 import { Input } from '@/components/ui/input';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 
 export default function Password({ placeholder, ...field }: { placeholder: string }) {
   const id = useId();
@@ -30,9 +30,9 @@ export default function Password({ placeholder, ...field }: { placeholder: strin
           aria-controls="password"
         >
           {isVisible ? (
-            <EyeOffIcon size={16} aria-hidden="true" />
+            <IconEyeOff size={16} aria-hidden="true" />
           ) : (
-            <EyeIcon size={16} aria-hidden="true" />
+            <IconEye size={16} aria-hidden="true" />
           )}
         </button>
       </div>

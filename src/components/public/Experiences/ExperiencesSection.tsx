@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { FileTextIcon } from 'lucide-react';
+import { IconFileText } from '@tabler/icons-react';
 import Link from 'next/link';
 import ExperienceCard from './ExperienceCard';
 
@@ -87,7 +87,7 @@ export default function ExperiencesSection() {
             target="_blank"
             className="flex items-center gap-2"
           >
-            <FileTextIcon />
+            <IconFileText />
             View Resume
           </Link>
         </Button>

@@ -1,6 +1,7 @@
 'use client';
-import { CopyIcon } from 'lucide-react';
+import { IconClipboard } from '@tabler/icons-react';
 import { toast } from 'sonner';
+import { Button } from '../ui/button';
 
 type CopyButtonProps = {
   value: string;
@@ -15,12 +16,13 @@ export const CopyButton = ({ value, label, className = '' }: CopyButtonProps) =>
   };
 
   return (
-    <button
+    <Button
+      variant="ghost"
       onClick={copyToClipboard}
       className={`hover:bg-muted rounded p-2 transition ${className}`}
       aria-label="Copy to clipboard"
     >
-      <CopyIcon className="h-4 w-4" />
-    </button>
+      <IconClipboard className="!h-4 !w-4" />
+    </Button>
   );
 };

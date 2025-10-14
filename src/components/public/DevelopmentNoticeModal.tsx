@@ -1,15 +1,15 @@
 'use client';
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog';
-import { AlertCircle, Code2, Database } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { IconAlertHexagon, IconCode, IconDatabase } from '@tabler/icons-react';
+import { useState } from 'react';
 
 export function DevelopmentNoticeModal() {
   const [open, setOpen] = useState(true);
@@ -20,7 +20,7 @@ export function DevelopmentNoticeModal() {
         <DialogHeader>
           <div className="mb-2 flex items-center gap-3">
             <div className="bg-muted rounded-full p-2.5">
-              <AlertCircle className="text-muted-foreground h-6 w-6" />
+              <IconAlertHexagon className="text-muted-foreground h-6 w-6" />
             </div>
             <DialogTitle className="text-2xl">Development Mode</DialogTitle>
           </div>
@@ -32,7 +32,7 @@ export function DevelopmentNoticeModal() {
 
         <div className="space-y-4 py-4">
           <div className="bg-muted/50 flex gap-3 rounded-lg border p-4">
-            <Code2 className="text-muted-foreground mt-0.5 h-5 w-5 flex-shrink-0" />
+            <IconCode className="text-muted-foreground mt-0.5 h-5 w-5 flex-shrink-0" />
             <div className="space-y-1">
               <p className="text-sm font-medium">Features in Progress</p>
               <p className="text-muted-foreground text-sm">
@@ -42,7 +42,7 @@ export function DevelopmentNoticeModal() {
           </div>
 
           <div className="bg-muted/50 flex gap-3 rounded-lg border p-4">
-            <Database className="text-muted-foreground mt-0.5 h-5 w-5 flex-shrink-0" />
+            <IconDatabase className="text-muted-foreground mt-0.5 h-5 w-5 flex-shrink-0" />
             <div className="space-y-1">
               <p className="text-sm font-medium">Test Data in Use</p>
               <p className="text-muted-foreground text-sm">

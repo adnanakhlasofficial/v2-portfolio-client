@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { IProject } from '@/types';
-import { ArrowUpRight, ExternalLink, FileCode, Server } from 'lucide-react';
+import { IconAppWindow, IconArrowUpRight, IconServer, IconWorld } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -46,35 +46,35 @@ export default function ProjectCard({ project }: IProps) {
                   <Button asChild size="lg">
                     <Link href={`/projects/${project.slug}`}>
                       View Case Study
-                      <ArrowUpRight className="ml-2 h-5 w-5" />
+                      <IconArrowUpRight className="ml-2 !h-5 !w-5" />
                     </Link>
                   </Button>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <FileCode className="h-5 w-5" />
+                          <IconAppWindow className="!h-5 !w-5" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent side="top">View Code</TooltipContent>
+                      <TooltipContent side="top">Open client source</TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <Server className="h-5 w-5" />
+                          <IconServer className="!h-5 !w-5" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent side="top">Server Info</TooltipContent>
+                      <TooltipContent side="top">Open API source</TooltipContent>
                     </Tooltip>
 
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <ExternalLink className="h-5 w-5" />
+                          <IconWorld className="!h-5 !w-5" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent side="top">Open External Link</TooltipContent>
+                      <TooltipContent side="top">Open live preview</TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </div>

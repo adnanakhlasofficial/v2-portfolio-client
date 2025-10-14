@@ -1,12 +1,22 @@
+'use client';
+
 import { getAdminPrivate } from '@/actions/admin';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { AdminDetailsPrivate } from '@/types';
 import { createInitials } from '@/utils/create-initials';
 import { BookOpen, Briefcase, FolderOpen, Mail } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export default async function ProfileDetails() {
-  const admin = await getAdminPrivate();
-
+export default function ProfileDetails() {
+  const [admin, setAdmin] = useState<null | AdminDetailsPrivate>(null);
+  useEffect(() => {
+    async function getAdmin() {
+      const data = await getAdminPrivate();
+      setAdmin(data);
+    }
+    getAdmin();
+  }, []);
   const stats = [
     {
       label: 'Projects',

@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { navLinks } from '@/constants/NavLinks';
 import { cn } from '@/lib/utils';
 import { AdminDetailsPrivate } from '@/types';
-import { IconLayoutDashboard } from '@tabler/icons-react';
-import { Menu, X } from 'lucide-react';
+import { IconLayoutDashboard, IconMenu2, IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -28,10 +27,11 @@ export default function Navbar() {
     <>
       <Button
         size="icon"
-        className="fixed top-6 right-6 z-50 shadow-lg lg:hidden"
+        variant="secondary"
+        className="bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground fixed top-6 right-6 z-50 shadow-lg lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        {isOpen ? <IconX className="h-5 w-5" /> : <IconMenu2 className="h-5 w-5" />}
       </Button>
 
       <nav

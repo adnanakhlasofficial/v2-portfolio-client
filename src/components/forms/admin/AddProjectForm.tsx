@@ -14,7 +14,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { Check, ChevronsUpDown, Code as Code2, Server, X } from 'lucide-react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -40,7 +39,15 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { projectCategories } from '@/constants/ProjectCategories';
 import { techStacks } from '@/constants/TechStacks';
-import { IconFolderPlus, IconLoader3 } from '@tabler/icons-react';
+import {
+  IconAppWindow,
+  IconCheck,
+  IconChevronsDown,
+  IconFolderPlus,
+  IconLoader3,
+  IconServer,
+  IconX,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -195,7 +202,7 @@ export default function AddProjectForm() {
                               {field.value.length > 0
                                 ? `${field.value.length} selected`
                                 : 'Select tech stacks'}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                              <IconChevronsDown className="ml-2 !h-5 !w-5 opacity-50" />
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-xs p-0">
@@ -216,8 +223,8 @@ export default function AddProjectForm() {
                                           field.onChange(newValue);
                                         }}
                                       >
-                                        <Check
-                                          className={`mr-2 h-4 w-4 ${
+                                        <IconCheck
+                                          className={`mr-2 !h-5 !w-5 ${
                                             selected ? 'opacity-100' : 'opacity-0'
                                           }`}
                                         />
@@ -246,7 +253,7 @@ export default function AddProjectForm() {
                                   onClick={() => removeTag(tag)}
                                   className="absolute top-1/2 right-1.5 -translate-y-1/2 rounded-sm opacity-70 hover:opacity-100"
                                 >
-                                  <X className="h-3.5 w-3.5" />
+                                  <IconX className="!h-3.5 !w-3.5" />
                                 </button>
                               </Badge>
                             ))}
@@ -281,7 +288,7 @@ export default function AddProjectForm() {
                               className="text-muted-foreground h-11 w-full justify-between active:scale-100"
                             >
                               {field.value ? field.value : 'Select category'}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                              <IconChevronsDown className="ml-2 !h-5 !w-5 opacity-50" />
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-xs p-0">
@@ -298,8 +305,8 @@ export default function AddProjectForm() {
                                         setIsCategoryOpen(false);
                                       }}
                                     >
-                                      <Check
-                                        className={`mr-2 h-4 w-4 ${
+                                      <IconCheck
+                                        className={`mr-2 !h-5 !w-5 ${
                                           field.value === category ? 'opacity-100' : 'opacity-0'
                                         }`}
                                       />
@@ -324,7 +331,7 @@ export default function AddProjectForm() {
                               onClick={() => field.onChange('')}
                               className="rounded-sm opacity-70 hover:opacity-100"
                             >
-                              <X className="h-3.5 w-3.5" />
+                              <IconX className="!h-3.5 !w-3.5" />
                             </button>
                           </Badge>
                         )}
@@ -394,7 +401,7 @@ export default function AddProjectForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
-                      <Code2 className="h-4 w-4" />
+                      <IconAppWindow className="!h-5 !w-5" />
                       Client Repository
                     </FormLabel>
                     <FormControl>
@@ -416,7 +423,7 @@ export default function AddProjectForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
-                      <Server className="h-4 w-4" />
+                      <IconServer className="!h-5 !w-5" />
                       Server Repository
                     </FormLabel>
                     <FormControl>

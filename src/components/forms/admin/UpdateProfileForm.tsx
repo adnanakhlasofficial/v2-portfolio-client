@@ -22,8 +22,7 @@ import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconDeviceFloppy } from '@tabler/icons-react';
-import { Loader2 } from 'lucide-react';
+import { IconDeviceFloppy, IconLoader3 } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -294,7 +293,7 @@ export default function UpdateProfileForm() {
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
+                <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
                 Applying…
               </>
             ) : (
