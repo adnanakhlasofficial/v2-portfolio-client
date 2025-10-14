@@ -1,7 +1,7 @@
-import NavigateButton from '@/components/shared/NavigateButton';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { IProject } from '@/types';
 import { ArrowUpRight, ExternalLink, FileCode, Server } from 'lucide-react';
 import Image from 'next/image';
@@ -49,15 +49,34 @@ export default function ProjectCard({ project }: IProps) {
                       <ArrowUpRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button className="hover:scale-105" variant="outline" size="lg">
-                    <FileCode className="h-5 w-5" />
-                  </Button>
-                  <Button className="hover:scale-105" variant="outline" size="lg">
-                    <Server className="h-5 w-5" />
-                  </Button>
-                  <Button className="hover:scale-105" variant="outline" size="lg">
-                    <ExternalLink className="h-5 w-5" />
-                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
+                          <FileCode className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">View Code</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
+                          <Server className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">Server Info</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
+                          <ExternalLink className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">Open External Link</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               </div>
 

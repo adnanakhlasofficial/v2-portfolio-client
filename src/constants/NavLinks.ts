@@ -1,47 +1,47 @@
 import {
-  BookOpenText,
-  Briefcase,
-  Code2,
-  FolderOpen,
-  Home,
-  PhoneIcon,
-  UserRound,
-} from 'lucide-react';
+  IconBook,
+  IconBriefcase2,
+  IconCode,
+  IconFolderCode,
+  IconHexagonLetterA,
+  IconPhone,
+  IconUser,
+} from '@tabler/icons-react';
 
 export const navLinks = [
   {
     label: 'Home',
     href: '/',
-    icon: Home,
+    icon: IconHexagonLetterA,
   },
   {
     label: 'About',
     href: '/about',
-    icon: UserRound,
+    icon: IconUser,
   },
   {
     label: 'Projects',
     href: '/projects',
-    icon: FolderOpen,
+    icon: IconFolderCode,
   },
   {
     label: 'Experiences',
     href: '/experiences',
-    icon: Briefcase,
+    icon: IconBriefcase2,
   },
   {
     label: 'Skills',
     href: '/skills',
-    icon: Code2,
+    icon: IconCode,
   },
   {
     label: 'Contact',
     href: '/contact',
-    icon: PhoneIcon,
+    icon: IconPhone,
   },
   {
     label: 'Blogs',
     href: '/blogs',
-    icon: BookOpenText,
+    icon: IconBook,
   },
 ];

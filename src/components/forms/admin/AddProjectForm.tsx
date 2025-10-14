@@ -14,20 +14,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  BadgePlusIcon,
-  Check,
-  ChevronsUpDown,
-  Code as Code2,
-  Loader2,
-  Server,
-  X,
-} from 'lucide-react';
+import { Check, ChevronsUpDown, Code as Code2, Server, X } from 'lucide-react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+import { handleAddProjectAction } from '@/actions/projects';
 import {
   Card,
   CardContent,
@@ -45,11 +38,11 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { techStacks } from '@/constants/TechStacks';
-import { toast } from 'sonner';
 import { projectCategories } from '@/constants/ProjectCategories';
+import { techStacks } from '@/constants/TechStacks';
+import { IconFolderPlus, IconLoader3 } from '@tabler/icons-react';
 import { useState } from 'react';
-import { handleAddProjectAction } from '@/actions/projects';
+import { toast } from 'sonner';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -125,13 +118,13 @@ export default function AddProjectForm() {
     <div className="flex justify-center">
       <Card className="border-border w-full shadow-sm">
         <CardHeader>
-          <CardTitle className="text-foreground text-2xl font-semibold">
-            Create Experience
-          </CardTitle>
+          <CardTitle className="text-foreground text-2xl font-semibold">Add Project</CardTitle>
           <CardDescription className="text-muted-foreground">
-            Add your professional experience and highlight your achievements
+            Provide comprehensive information about your project
           </CardDescription>
         </CardHeader>
+
+        <Separator />
 
         <CardContent>
           <Form {...form}>
@@ -442,6 +435,8 @@ export default function AddProjectForm() {
           </Form>
         </CardContent>
 
+        <Separator />
+
         <CardFooter className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <Button variant="outline" onClick={() => form.reset()} className="h-11 px-8">
             Clear Form
@@ -453,12 +448,12 @@ export default function AddProjectForm() {
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
+                <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
                 Adding…
               </>
             ) : (
               <>
-                <BadgePlusIcon className="mr-2 !h-5 !w-5" />
+                <IconFolderPlus className="mr-2 !h-5 !w-5" />
                 Add Project
               </>
             )}

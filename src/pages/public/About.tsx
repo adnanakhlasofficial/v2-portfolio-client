@@ -3,7 +3,7 @@ import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
 import { user } from '@/constants/Profile';
-import { Award, BookOpen, Briefcase } from 'lucide-react';
+import { IconBook, IconBriefcase2, IconFolderCode } from '@tabler/icons-react';
 import Image from 'next/image';
 
 export default async function About() {
@@ -13,17 +13,17 @@ export default async function About() {
     {
       label: 'Blogs',
       count: admin?._count?.blogs,
-      icon: BookOpen,
+      icon: IconBook,
     },
     {
       label: 'Projects',
       count: admin?._count?.projects,
-      icon: Briefcase,
+      icon: IconFolderCode,
     },
     {
       label: 'Experience',
       count: admin?._count?.experiences,
-      icon: Award,
+      icon: IconBriefcase2,
     },
   ];
 
@@ -56,7 +56,7 @@ export default async function About() {
         <div className="space-y-6">
           <div>
             <h3 className="text-foreground mb-2 text-3xl font-bold">{admin.name}</h3>
-            <p className="text-muted-foreground mb-4">{admin.email}</p>
+            {/* <p className="text-muted-foreground mb-4">{admin.email}</p> */}
             <p className="text-foreground text-lg leading-relaxed">{admin.story}</p>
           </div>
         </div>

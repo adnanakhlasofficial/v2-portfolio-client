@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { navLinks } from '@/constants/NavLinks';
 import { cn } from '@/lib/utils';
 import { AdminDetailsPrivate } from '@/types';
-import { LayoutDashboardIcon, Menu, X } from 'lucide-react';
+import { IconLayoutDashboard } from '@tabler/icons-react';
+import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -40,42 +41,48 @@ export default function Navbar() {
             : '-translate-x-full opacity-0 lg:translate-x-0 lg:opacity-100'
         } `}
       >
-        <div className="bg-card/80 border-border flex flex-col gap-3 rounded-2xl border p-3 shadow-2xl backdrop-blur-md">
+        <div className="bg-background/80 border-border flex flex-col gap-3 rounded-2xl border p-3 shadow-2xl backdrop-blur-md transition-all duration-300">
           {navLinks.map((item, index) => {
             const Icon = item.icon;
             return (
-              <Link
-                key={index}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
+              <Button
                 className={cn(
-                  'group bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground group relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 active:scale-95',
+                  'hover:text-primary-foreground group hover:bg-primary h-12 w-12 rounded-xl transition-colors duration-300',
                   {
                     'bg-primary text-primary-foreground': item.href === pathname,
                   },
                 )}
+                key={index}
+                onClick={() => setIsOpen(false)}
+                variant="secondary"
                 aria-label={item.label}
+                asChild
               >
-                <Icon className="h-5 w-5" />
-                <span className="bg-card border-border text-primary invisible absolute left-full ml-4 rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
-                  {item.label}
-                </span>
-              </Link>
+                <Link href={item.href}>
+                  <Icon className="!h-6 !w-6" />
+                  <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-300 group-hover:block group-hover:opacity-100">
+                    {item.label}
+                  </span>
+                </Link>
+              </Button>
             );
           })}
 
           {admin && (
-            <Link
-              href="/admin"
+            <Button
+              className="hover:text-primary-foreground group hover:bg-primary h-12 w-12 rounded-xl"
               onClick={() => setIsOpen(false)}
-              className="group bg-muted hover:bg-primary text-muted-foreground hover:text-primary-foreground group relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110"
+              variant="secondary"
               aria-label="Dashboard"
+              asChild
             >
-              <LayoutDashboardIcon className="h-5 w-5" />
-              <span className="bg-card border-border text-primary invisible absolute left-full ml-4 rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
-                Dashboard
-              </span>
-            </Link>
+              <Link href="/admin">
+                <IconLayoutDashboard className="!h-6 !w-6" />
+                <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:block group-hover:opacity-100">
+                  Dashboard
+                </span>
+              </Link>
+            </Button>
           )}
         </div>
       </nav>

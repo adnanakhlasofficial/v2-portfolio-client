@@ -2,7 +2,8 @@ import { getAdminPublic } from '@/actions/admin';
 import { checkConnectAction } from '@/actions/auth';
 import Section from '@/components/shared/Section';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { IconArrowBigRight } from '@tabler/icons-react';
+import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function Home() {
@@ -43,19 +44,19 @@ export default async function Home() {
             <Button
               asChild
               size="lg"
-              className="group px-8 py-6 font-medium shadow-lg transition-all duration-300 hover:shadow-xl"
+              className="group w-50 px-8 py-6 font-medium shadow-lg transition-all duration-300 hover:shadow-xl"
             >
               <Link href="/projects">
                 View My Projects
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <IconArrowBigRight className="!h-5 !w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
 
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="text-primary hover:text-primary px-8 py-6 font-medium transition-all duration-300"
+              variant="secondary"
+              className="hover:text-primary-foreground hover:bg-primary px-8 py-6 font-medium transition-all duration-300"
             >
               <Link href="/contact">Get In Touch</Link>
             </Button>

@@ -69,8 +69,8 @@ export default function Contact() {
                       aria-label={label}
                       target="_blank"
                     >
-                      <Icon className="h-5 w-5" />
-                      <span className="bg-card border-border text-primary invisible absolute bottom-full mb-4 rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                      <Icon className="!h-6 !w-6" />
+                      <span className="bg-background border-border text-primary absolute bottom-full mb-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:block group-hover:opacity-100">
                         {label}
                       </span>
                     </a>

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import type { LucideIcon } from 'lucide-react';
+import { Icon } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenuButton } from './sidebar';
@@ -7,7 +7,7 @@ import { SidebarMenuButton } from './sidebar';
 interface IProps {
   title: string;
   url: string;
-  icon: LucideIcon;
+  icon: Icon;
 }
 
 export default function SidebarButton({ title, url, icon: Icon }: IProps) {

@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, Send } from 'lucide-react';
+import { IconLoader3, IconSend } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -153,12 +153,12 @@ export default function ContactForm() {
         >
           {form.formState.isSubmitting ? (
             <>
-              <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
+              <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
               Sending…
             </>
           ) : (
             <>
-              <Send className="mr-2 !h-5 !w-5" />
+              <IconSend className="mr-2 !h-5 !w-5" />
               Send Message
             </>
           )}

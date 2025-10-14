@@ -16,8 +16,8 @@ export default function LogoutButton() {
   };
 
   return (
-    <DropdownMenuItem onClick={handleDisconnect}>
-      <IconLogout />
+    <DropdownMenuItem className="cursor-pointer" onClick={handleDisconnect}>
+      <IconLogout className="!h-5 !w-5" />
       Disconnect
     </DropdownMenuItem>
   );

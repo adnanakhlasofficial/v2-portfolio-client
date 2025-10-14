@@ -1,6 +1,12 @@
 'use client';
 
-import { IconDotsVertical, IconNotification } from '@tabler/icons-react';
+import {
+  IconDotsVertical,
+  IconHome,
+  IconNotification,
+  IconUserCheck,
+  IconUserCog,
+} from '@tabler/icons-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -19,7 +25,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { createInitials } from '@/utils/create-initials';
-import { HomeIcon, UserCircle, UserCogIcon } from 'lucide-react';
 import Link from 'next/link';
 import LogoutButton from '../shared/DisconnectButton';
 
@@ -76,27 +81,27 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/">
-                  <HomeIcon />
+                  <IconHome className="!h-5 !w-5" />
                   Home
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/admin/update-profile">
-                  <UserCogIcon />
+                  <IconUserCog className="!h-5 !w-5" />
                   Update Profile
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/admin/profile-details">
-                  <UserCircle />
+                  <IconUserCheck className="!h-5 !w-5" />
                   Profile Details
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem className="cursor-pointer" asChild>
                 <Link href="/admin/notifications">
-                  <IconNotification />
+                  <IconNotification className="!h-5 !w-5" />
                   Notifications
                 </Link>
               </DropdownMenuItem>

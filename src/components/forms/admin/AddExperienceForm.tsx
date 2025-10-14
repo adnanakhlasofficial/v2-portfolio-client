@@ -34,15 +34,9 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { techStacks } from '@/constants/TechStacks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { IconCirclePlus, IconLoader3 } from '@tabler/icons-react';
 import { format } from 'date-fns';
-import {
-  BadgePlusIcon,
-  Calendar as CalendarIcon,
-  Check,
-  ChevronsUpDown,
-  Loader2,
-  X,
-} from 'lucide-react';
+import { Calendar as CalendarIcon, Check, ChevronsUpDown, X } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -130,6 +124,8 @@ export default function AddExperienceForm() {
             Add your professional experience and highlight your achievements
           </CardDescription>
         </CardHeader>
+
+        <Separator />
 
         <CardContent>
           <Form {...form}>
@@ -426,6 +422,7 @@ export default function AddExperienceForm() {
             </form>
           </Form>
         </CardContent>
+        <Separator />
 
         <CardFooter className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <Button variant="outline" onClick={() => form.reset()} className="h-11 px-8">
@@ -438,12 +435,12 @@ export default function AddExperienceForm() {
           >
             {form.formState.isSubmitting ? (
               <>
-                <Loader2 className="mr-2 !h-5 !w-5 animate-spin" />
+                <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
                 Adding…
               </>
             ) : (
               <>
-                <BadgePlusIcon className="mr-2 !h-5 !w-5" />
+                <IconCirclePlus className="!h-5 !w-5" />
                 Add Experience
               </>
             )}

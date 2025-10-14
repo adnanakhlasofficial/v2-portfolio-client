@@ -1,3 +1,4 @@
+import { getAdminPublic } from '@/actions/admin';
 import { NavMain } from '@/components/ui/nav-main';
 import { NavUser } from '@/components/ui/nav-user';
 import {
@@ -8,10 +9,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { LayoutDashboard } from 'lucide-react';
+import { IconLayoutDashboard } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Separator } from './separator';
-import { getAdminPublic } from '@/actions/admin';
 
 export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const admin = await getAdminPublic();
@@ -23,7 +23,7 @@ export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sideb
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="h-12 data-[slot=sidebar-menu-button]:!p-1.5">
               <Link href="/admin">
-                <LayoutDashboard className="ml-2 !size-5" />
+                <IconLayoutDashboard className="ml-2 !size-8" />
                 <span className="text-xl font-semibold tracking-wide">Dashboard</span>
               </Link>
             </SidebarMenuButton>
