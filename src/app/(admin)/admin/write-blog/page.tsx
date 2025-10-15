@@ -1,5 +1,5 @@
-import Blog from '@/pages/public/Blog';
+import AddBlog from '@/pages/admin/AddBlog';
 
 export default function BlogPage() {
-  return <Blog />;
+  return <AddBlog />;
 }

@@ -1,12 +1,6 @@
-import Blockquote from '@tiptap/extension-blockquote';
-import BulletList from '@tiptap/extension-bullet-list';
-import CodeBlock from '@tiptap/extension-code-block';
 import Heading from '@tiptap/extension-heading';
-import HorizontalRule from '@tiptap/extension-horizontal-rule';
-import OrderedList from '@tiptap/extension-ordered-list';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
-import Underline from '@tiptap/extension-underline';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
@@ -24,12 +18,6 @@ export default function useBlogEditor(
         heading: false,
       }),
       Heading.configure({ levels: [1, 2, 3] }),
-      Underline,
-      BulletList,
-      OrderedList,
-      Blockquote,
-      CodeBlock,
-      HorizontalRule,
       Placeholder.configure({
         placeholder: 'Write your blog content here...',
       }),

@@ -19,8 +19,6 @@ export const handleAddExperienceAction = async (data: ExperienceFormValues) => {
     body: JSON.stringify(data),
   });
 
-  console.log('server', await res.json());
-
   if (!res.ok) {
     return null;
   }

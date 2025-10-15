@@ -15,10 +15,25 @@ import BlogFormToolbar from './BlogFormToolbar';
 import useBlogEditor from './useBlogEditor';
 import BlogPublishButton from './BlogPublishButton';
 import { IconEdit, IconLoader3 } from '@tabler/icons-react';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
+import { handleAddBlogAction } from '@/actions/blogs';
 
-// ✅ Zod validation schema
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required'),
+  description: z
+    .string()
+    .min(10, 'Description must be at least 10 characters')
+    .max(150, 'Description must be less than 150 characters'),
+  thumbnail: z.string().url('Must be a valid URL'),
   content: z.string().min(10, 'Content must be at least 10 characters'),
   published: z.boolean(),
 });
@@ -26,27 +41,29 @@ const blogSchema = z.object({
 export type BlogFormValues = z.infer<typeof blogSchema>;
 
 export default function WriteBlogForm() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<BlogFormValues>({
+  const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
       title: '',
+      description: '',
+      thumbnail: '',
       content: '',
       published: false,
     },
   });
 
-  const editor = useBlogEditor(watch, setValue);
+  const editor = useBlogEditor(form.watch, form.setValue);
 
-  const onSubmit = async (data: BlogFormValues) => {
-    console.log('Blog Form Data:', data);
-    toast.success('Blog post saved successfully!');
+  const onSubmit = async (values: BlogFormValues) => {
+    const toastId = toast.loading('Adding blog...');
+    const res = await handleAddBlogAction(values);
+    console.log(values);
+    if (res) {
+      toast.success('Blog added successfully!', { id: toastId });
+      form.reset();
+    } else {
+      toast.error('Blog add failed', { id: toastId });
+    }
   };
 
   if (!editor) return null;
@@ -59,47 +76,110 @@ export default function WriteBlogForm() {
             <CardTitle className="text-xl font-semibold">Create Blog Post</CardTitle>
             <div className="flex">
               {/* Publish Button Toggle */}
-              <BlogPublishButton watch={watch} setValue={setValue} />
+              <BlogPublishButton watch={form.watch} setValue={form.setValue} />
             </div>
           </div>
         </CardHeader>
         <Separator />
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Title */}
-            <div className="flex gap-6 space-y-2">
-              <Label htmlFor="title">Title</Label>
-              <Input id="title" placeholder="Enter your blog title" {...register('title')} />
-              {errors.title && <p className="text-destructive text-sm">{errors.title.message}</p>}
-            </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Title */}
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Senior Software Engineer" className="h-11" {...field} />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Enter the position or role you held at the company
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Content */}
-            <div className="space-y-2">
-              <Label>Content</Label>
+              {/* Description */}
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Describe your role, responsibilities, and achievements..."
+                        className="min-h-[140px] resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Provide a clear summary of your responsibilities and contributions
+                    </FormDescription>
+                    <div className="text-muted-foreground flex justify-end text-xs">
+                      {field.value.length}/50
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              <BlogFormToolbar editor={editor} />
+              {/* Thumbnail */}
+              <FormField
+                control={form.control}
+                name="thumbnail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Thumbnail URL</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://example.com/image.jpg"
+                        className="h-11"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription className="sr-only">
+                      Provide a URL to a preview image
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              {/* Editor */}
-              <div className="border-input bg-background mt-2 rounded-md border p-2">
-                <EditorContent editor={editor} />
+              {/* Content */}
+              <div className="space-y-2">
+                <Label>Content</Label>
+
+                <BlogFormToolbar editor={editor} />
+
+                {/* Editor */}
+                <div className="border-input bg-background mt-2 rounded-md border p-2">
+                  <EditorContent editor={editor} />
+                </div>
+                {form.formState.errors.content && (
+                  <p className="text-destructive text-sm">
+                    {form.formState.errors.content.message}
+                  </p>
+                )}
               </div>
-              {errors.content && (
-                <p className="text-destructive text-sm">{errors.content.message}</p>
-              )}
-            </div>
-          </form>
+            </form>
+          </Form>
         </CardContent>
         <Separator />
         <CardFooter className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-          <Button variant="outline" onClick={() => reset()} className="h-11 px-8">
+          <Button variant="outline" onClick={() => form.reset()} className="h-11 px-8">
             Clear Form
           </Button>
           <Button
-            disabled={isSubmitting}
-            onClick={handleSubmit(onSubmit)}
+            disabled={form.formState.isSubmitting}
+            onClick={form.handleSubmit(onSubmit)}
             className="hover:bg-primary/90 h-11 px-8 font-semibold disabled:cursor-progress"
           >
-            {isSubmitting ? (
+            {form.formState.isSubmitting ? (
               <>
                 <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
                 Adding…

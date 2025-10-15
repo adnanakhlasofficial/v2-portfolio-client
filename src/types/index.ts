@@ -74,3 +74,14 @@ export interface IExperience {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IBlog {
+  slug: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  content: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

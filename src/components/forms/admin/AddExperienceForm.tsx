@@ -78,14 +78,14 @@ export default function AddExperienceForm() {
   });
 
   const onSubmit = async (values: ExperienceFormValues) => {
-    const toastId = toast.loading('Creating experience...');
+    const toastId = toast.loading('Adding experience...');
     const res = await handleAddExperienceAction(values);
     console.log(values);
     if (res) {
-      toast.success('Project created successfully!', { id: toastId });
-      //   form.reset();
+      toast.success('Experience added successfully!', { id: toastId });
+      form.reset();
     } else {
-      toast.error('Project create failed', { id: toastId });
+      toast.error('Experience add failed', { id: toastId });
     }
   };
 

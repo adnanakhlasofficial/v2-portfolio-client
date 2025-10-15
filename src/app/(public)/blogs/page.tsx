@@ -1,5 +1,5 @@
-import UnderDevelopment from '@/pages/public/UnderDevelopment';
+import Blogs from '@/pages/public/Blogs';
 
 export default function BlogsPage() {
-  return <UnderDevelopment />;
+  return <Blogs />;
 }
