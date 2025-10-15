@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { IExperience } from '@/types';
 import {
   IconAward,
   IconBracketsAngle,
@@ -7,18 +8,10 @@ import {
   IconCalendar,
   IconMapPin,
 } from '@tabler/icons-react';
+import { format } from 'date-fns';
 
 interface IProps {
-  experience: {
-    id: number;
-    role: string;
-    company: string;
-    location: string;
-    period: string;
-    description: string;
-    achievements: string[];
-    technologies: string[];
-  };
+  experience: IExperience;
 }
 
 export default function ExperienceCard({ experience }: IProps) {
@@ -43,7 +36,8 @@ export default function ExperienceCard({ experience }: IProps) {
           </div>
           <Badge className="flex w-fit items-center gap-1">
             <IconCalendar className="h-3 w-3" />
-            {experience.period}
+            {format(experience.startDate, 'MMM yyyy')} -{' '}
+            {experience?.endDate ? format(experience?.endDate, 'MMM yyyy') : 'Present'}
           </Badge>
         </div>
 
@@ -57,7 +51,7 @@ export default function ExperienceCard({ experience }: IProps) {
             <span className="text-lg font-semibold">Key Achievements</span>
           </div>
           <ul className="space-y-2">
-            {experience.achievements.map((achievement, idx) => (
+            {experience.achievement.map((achievement, idx) => (
               <li
                 key={idx}
                 className="text-muted-foreground flex items-start gap-2 text-sm transition-all duration-300"
@@ -75,7 +69,7 @@ export default function ExperienceCard({ experience }: IProps) {
             <span className="text-lg font-semibold">Technologies</span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {experience.technologies.map((tech) => (
+            {experience.tags.map((tech) => (
               <Badge key={tech}>{tech}</Badge>
             ))}
           </div>

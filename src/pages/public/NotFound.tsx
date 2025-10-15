@@ -12,13 +12,13 @@ export default function NotFound() {
             <div className="relative">
               <div className="bg-destructive/10 absolute inset-0 rounded-full blur-2xl" />
               <div className="bg-muted relative rounded-2xl p-6">
-                <IconAlertHexagon className="text-muted-foreground h-16 w-16" strokeWidth={1.5} />
+                <IconAlertHexagon className="text-destructive h-16 w-16" strokeWidth={1.5} />
               </div>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <p className="text-muted text-6xl font-bold sm:text-7xl">404</p>
+                <p className="text-destructive text-6xl font-bold sm:text-7xl">404</p>
                 <h1 className="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">
                   Page Not Found
                 </h1>

@@ -1,5 +1,6 @@
 'use client';
 
+import { handleAddExperienceAction } from '@/actions/experiences';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -78,20 +79,13 @@ export default function AddExperienceForm() {
 
   const onSubmit = async (values: ExperienceFormValues) => {
     const toastId = toast.loading('Creating experience...');
-    try {
-      const formattedData = {
-        ...values,
-        startDate: values.startDate.toISOString(),
-        endDate: values.endDate?.toISOString(),
-      };
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log('Form submitted:', formattedData);
-      toast.success('Experience created successfully!', { id: toastId });
-      form.reset();
-    } catch (error) {
-      toast.error('Experience creation failed', { id: toastId });
-      console.error(error);
+    const res = await handleAddExperienceAction(values);
+    console.log(values);
+    if (res) {
+      toast.success('Project created successfully!', { id: toastId });
+      //   form.reset();
+    } else {
+      toast.error('Project create failed', { id: toastId });
     }
   };
 
@@ -247,11 +241,7 @@ export default function AddExperienceForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                          />
+                          <Calendar mode="single" selected={undefined} onSelect={field.onChange} />
                         </PopoverContent>
                       </Popover>
                       <FormDescription className="sr-only">

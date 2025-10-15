@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 export default function ProfileDetails() {
   const [admin, setAdmin] = useState<null | AdminDetailsPrivate>(null);
+
   useEffect(() => {
     async function getAdmin() {
       const data = await getAdminPrivate();
@@ -17,6 +18,7 @@ export default function ProfileDetails() {
     }
     getAdmin();
   }, []);
+
   const stats = [
     {
       label: 'Projects',

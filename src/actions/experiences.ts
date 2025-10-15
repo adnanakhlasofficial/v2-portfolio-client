@@ -1,15 +1,15 @@
 'use server';
 
-import { ProjectFormValues } from '@/components/forms/admin/AddProjectForm';
+import { ExperienceFormValues } from '@/components/forms/admin/AddExperienceForm';
 import cookieNames from '@/constants/cookieNames';
-import { ApiResponse, IProject } from '@/types';
+import { ApiResponse, IExperience } from '@/types';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export const handleAddProjectAction = async (data: ProjectFormValues) => {
+export const handleAddExperienceAction = async (data: ExperienceFormValues) => {
   const cookieStore = await cookies();
   const cookie = cookieStore.get(cookieNames.accessToken);
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/experience`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -19,25 +19,27 @@ export const handleAddProjectAction = async (data: ProjectFormValues) => {
     body: JSON.stringify(data),
   });
 
+  console.log('server', await res.json());
+
   if (!res.ok) {
     return null;
   }
-  revalidateTag('PROJECTS');
+  revalidateTag('EXPERIENCES');
   return true;
 };
 
-export const handleGetProjectsAction = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project`, {
+export const handleGetExperiencesAction = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/experience`, {
     method: 'GET',
     next: {
-      tags: ['PROJECTS'],
+      tags: ['EXPERIENCES'],
     },
   });
 
   if (!res.ok) {
     return [];
   }
-  const data = (await res.json()) as ApiResponse<IProject[]>;
+  const data = (await res.json()) as ApiResponse<IExperience[]>;
 
   return data?.data;
 };
