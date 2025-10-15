@@ -1,6 +1,6 @@
 import { handleGetBlogsAction, handleGetSingleBlogAction } from '@/actions/blogs';
 import Section from '@/components/shared/Section';
-import { Badge } from '@/components/ui/badge';
+import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
 import { IBlog } from '@/types';
 import { format } from 'date-fns';
@@ -36,34 +36,29 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
 
   return (
     <Section>
-      <section className="mx-auto max-w-4xl px-4 py-16">
-        {/* Header */}
-        <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{blogDetails?.title}</h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl">{blogDetails?.description}</p>
-          <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
-            {format(new Date(blogDetails?.createdAt), 'PPP')}
-          </Badge>
-        </div>
+      <SectionTitle
+        header={format(new Date(blogDetails?.createdAt), 'PPP')}
+        title={blogDetails?.title}
+        summary={blogDetails?.description}
+      />
 
-        {/* Thumbnail */}
-        <div className="relative mt-10 h-72 w-full overflow-hidden rounded-xl">
-          <Image
-            src={blogDetails?.thumbnail}
-            alt={blogDetails?.title}
-            fill
-            priority
-            className="object-cover transition-transform duration-500 hover:scale-105"
-          />
-        </div>
+      {/* Thumbnail */}
+      <div className="relative mt-10 h-72 w-full overflow-hidden rounded-xl">
+        <Image
+          src={blogDetails?.thumbnail}
+          alt={blogDetails?.title}
+          fill
+          priority
+          className="object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
 
-        {/* Content */}
-        <Card className="border-border bg-card mt-10 shadow-sm">
-          <CardContent className="prose prose-neutral dark:prose-invert max-w-none py-8">
-            <div dangerouslySetInnerHTML={{ __html: blogDetails?.content }} />
-          </CardContent>
-        </Card>
-      </section>
+      {/* Content */}
+      <Card className="border-border bg-card mt-10 py-0 shadow-sm">
+        <CardContent className="prose prose-neutral dark:prose-invert max-w-none py-8">
+          <div dangerouslySetInnerHTML={{ __html: blogDetails?.content }} />
+        </CardContent>
+      </Card>
     </Section>
   );
 }

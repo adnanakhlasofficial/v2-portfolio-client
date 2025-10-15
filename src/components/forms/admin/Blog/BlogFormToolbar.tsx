@@ -1,28 +1,35 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Editor } from '@tiptap/react';
 import {
-  AlignCenter,
-  AlignJustify,
-  AlignLeft,
-  AlignRight,
-  Bold,
-  Code2,
-  Heading1,
-  Heading2,
-  Heading3,
-  Italic,
-  List,
-  ListOrdered,
-  Minus,
-  Quote,
-  Redo2,
-  Strikethrough,
-  Underline as UnderlineIcon,
-  Undo2,
-} from 'lucide-react';
+  IconAlignCenter,
+  IconAlignJustified,
+  IconAlignLeft,
+  IconAlignRight,
+  IconArrowBackUp,
+  IconArrowForwardUp,
+  IconBold,
+  IconCode,
+  IconH1,
+  IconH2,
+  IconH3,
+  IconItalic,
+  IconList,
+  IconListNumbers,
+  IconPhotoUp,
+  IconQuote,
+  IconSeparatorHorizontal,
+  IconStrikethrough,
+  IconUnderline,
+} from '@tabler/icons-react';
+import { Editor } from '@tiptap/react';
+import { ChangeEventHandler } from 'react';
 
-export default function BlogFormToolbar({ editor }: { editor: Editor }) {
+interface IProps {
+  editor: Editor;
+  handleImageUpload: ChangeEventHandler<HTMLInputElement>;
+}
+
+export default function BlogFormToolbar({ editor, handleImageUpload }: IProps) {
   return (
     <>
       {/* Toolbar */}
@@ -33,39 +40,63 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={editor.isActive('bold') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('bold')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Bold className="h-4 w-4" />
+          <IconBold className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={editor.isActive('italic') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('italic')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Italic className="h-4 w-4" />
+          <IconItalic className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
-          className={editor.isActive('underline') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('underline')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <UnderlineIcon className="h-4 w-4" />
+          <IconUnderline className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleStrike().run()}
-          className={editor.isActive('strike') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('strike')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Strikethrough className="h-4 w-4" />
+          <IconStrikethrough className="!h-5 !w-5" />
         </Button>
 
         <Separator orientation="vertical" className="h-6" />
+
+        {/* Image upload button */}
+        <Button type="button" size="icon" asChild variant="ghost">
+          <label>
+            <IconPhotoUp className="!h-5 !w-5" />
+            <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+          </label>
+        </Button>
 
         {/* Lists / Quotes */}
         <Button
@@ -73,27 +104,39 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive('bulletList') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('bulletList')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <List className="h-4 w-4" />
+          <IconList className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive('orderedList') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('orderedList')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <ListOrdered className="h-4 w-4" />
+          <IconListNumbers className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          className={editor.isActive('blockquote') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('blockquote')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Quote className="h-4 w-4" />
+          <IconQuote className="!h-5 !w-5" />
         </Button>
 
         <Separator orientation="vertical" className="h-6" />
@@ -104,27 +147,39 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setHeading({ level: 1 }).run()}
-          className={editor.isActive('heading', { level: 1 }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive('heading', { level: 1 })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Heading1 className="h-4 w-4" />
+          <IconH1 className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setHeading({ level: 2 }).run()}
-          className={editor.isActive('heading', { level: 2 }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive('heading', { level: 2 })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Heading2 className="h-4 w-4" />
+          <IconH2 className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setHeading({ level: 3 }).run()}
-          className={editor.isActive('heading', { level: 3 }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive('heading', { level: 3 })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Heading3 className="h-4 w-4" />
+          <IconH3 className="!h-5 !w-5" />
         </Button>
 
         <Separator orientation="vertical" className="h-6" />
@@ -135,36 +190,52 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setTextAlign('left').run()}
-          className={editor.isActive({ textAlign: 'left' }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive({ textAlign: 'left' })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <AlignLeft className="h-4 w-4" />
+          <IconAlignLeft className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setTextAlign('center').run()}
-          className={editor.isActive({ textAlign: 'center' }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive({ textAlign: 'center' })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <AlignCenter className="h-4 w-4" />
+          <IconAlignCenter className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setTextAlign('right').run()}
-          className={editor.isActive({ textAlign: 'right' }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive({ textAlign: 'right' })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <AlignRight className="h-4 w-4" />
+          <IconAlignRight className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().setTextAlign('justify').run()}
-          className={editor.isActive({ textAlign: 'justify' }) ? 'bg-accent' : ''}
+          className={
+            editor.isActive({ textAlign: 'justify' })
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <AlignJustify className="h-4 w-4" />
+          <IconAlignJustified className="!h-5 !w-5" />
         </Button>
 
         <Separator orientation="vertical" className="h-6" />
@@ -174,18 +245,23 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           type="button"
           size="icon"
           variant="ghost"
+          className="hover:!bg-primary hover:!text-primary-foreground"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
         >
-          <Minus className="h-4 w-4" />
+          <IconSeparatorHorizontal className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          className={editor.isActive('codeBlock') ? 'bg-accent' : ''}
+          className={
+            editor.isActive('codeBlock')
+              ? 'bg-primary text-primary-foreground'
+              : 'hover:!bg-primary hover:!text-primary-foreground'
+          }
         >
-          <Code2 className="h-4 w-4" />
+          <IconCode className="!h-5 !w-5" />
         </Button>
 
         <Separator orientation="vertical" className="h-6" />
@@ -195,17 +271,19 @@ export default function BlogFormToolbar({ editor }: { editor: Editor }) {
           type="button"
           size="icon"
           variant="ghost"
+          className="hover:!bg-primary hover:!text-primary-foreground"
           onClick={() => editor.chain().focus().undo().run()}
         >
-          <Undo2 className="h-4 w-4" />
+          <IconArrowBackUp className="!h-5 !w-5" />
         </Button>
         <Button
           type="button"
           size="icon"
           variant="ghost"
+          className="hover:!bg-primary hover:!text-primary-foreground"
           onClick={() => editor.chain().focus().redo().run()}
         >
-          <Redo2 className="h-4 w-4" />
+          <IconArrowForwardUp className="!h-5 !w-5" />
         </Button>
       </div>
     </>

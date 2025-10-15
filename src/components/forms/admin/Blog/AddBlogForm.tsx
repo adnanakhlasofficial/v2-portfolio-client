@@ -5,16 +5,9 @@ import { EditorContent } from '@tiptap/react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+import { handleAddBlogAction } from '@/actions/blogs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { toast } from 'sonner';
-import BlogFormToolbar from './BlogFormToolbar';
-import useBlogEditor from './useBlogEditor';
-import BlogPublishButton from './BlogPublishButton';
-import { IconEdit, IconLoader3 } from '@tabler/icons-react';
 import {
   Form,
   FormControl,
@@ -24,8 +17,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { handleAddBlogAction } from '@/actions/blogs';
+import { IconEdit, IconLoader3 } from '@tabler/icons-react';
+import { ChangeEvent } from 'react';
+import { toast } from 'sonner';
+import BlogFormToolbar from './BlogFormToolbar';
+import BlogPublishButton from './BlogPublishButton';
+import useBlogEditor from './useBlogEditor';
 
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -53,6 +54,20 @@ export default function WriteBlogForm() {
   });
 
   const editor = useBlogEditor(form.watch, form.setValue);
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && editor) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const url = e.target?.result;
+        if (typeof url === 'string') {
+          editor.chain().focus().setImage({ src: url }).run();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit = async (values: BlogFormValues) => {
     const toastId = toast.loading('Adding blog...');
@@ -120,7 +135,7 @@ export default function WriteBlogForm() {
                       Provide a clear summary of your responsibilities and contributions
                     </FormDescription>
                     <div className="text-muted-foreground flex justify-end text-xs">
-                      {field.value.length}/50
+                      {field.value.length}/150
                     </div>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +169,7 @@ export default function WriteBlogForm() {
               <div className="space-y-2">
                 <Label>Content</Label>
 
-                <BlogFormToolbar editor={editor} />
+                <BlogFormToolbar editor={editor} handleImageUpload={handleImageUpload} />
 
                 {/* Editor */}
                 <div className="border-input bg-background mt-2 rounded-md border p-2">

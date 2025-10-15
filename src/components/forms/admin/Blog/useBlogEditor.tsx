@@ -1,6 +1,7 @@
 import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
+import Image from '@tiptap/extension-image';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
@@ -21,6 +22,7 @@ export default function useBlogEditor(
       Placeholder.configure({
         placeholder: 'Write your blog content here...',
       }),
+      Image,
       TextAlign.configure({
         defaultAlignment: 'left',
         types: ['heading', 'paragraph'],
