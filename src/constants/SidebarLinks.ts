@@ -1,4 +1,4 @@
-import { IconCirclePlus, IconEdit, IconFolderCode } from '@tabler/icons-react';
+import { IconCirclePlus, IconEdit, IconFolderCode, IconListDetails } from '@tabler/icons-react';
 
 export const sidebarLinks = [
   {
@@ -15,5 +15,10 @@ export const sidebarLinks = [
     title: 'Write Blog',
     url: '/admin/write-blog',
     icon: IconEdit,
+  },
+  {
+    title: 'Blog List',
+    url: '/admin/blog-list',
+    icon: IconListDetails,
   },
 ];
