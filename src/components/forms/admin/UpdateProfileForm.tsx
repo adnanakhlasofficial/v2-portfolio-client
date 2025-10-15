@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
+import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconDeviceFloppy, IconLoader3 } from '@tabler/icons-react';
@@ -93,10 +94,10 @@ export default function UpdateProfileForm() {
             up to date.
           </CardDescription>
         </CardHeader>
-
+        <Separator />
         <CardContent>
           <Form {...form}>
-            <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+            <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Username */}
               <FormField
                 control={form.control}
@@ -277,7 +278,7 @@ export default function UpdateProfileForm() {
             </form>
           </Form>
         </CardContent>
-
+        <Separator />
         <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-end">
           <Button
             variant="outline"

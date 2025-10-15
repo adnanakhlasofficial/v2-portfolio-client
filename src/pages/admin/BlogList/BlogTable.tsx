@@ -3,15 +3,6 @@ import { Separator } from '@/components/ui/separator';
 import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import BlogTableRow from './BlogTableRow';
 
-interface Blog {
-  id: string;
-  title: string;
-  description: string;
-  slug: string;
-  createdAt: string;
-  status?: 'Published' | 'Draft';
-}
-
 export default async function BlogTable() {
   return (
     <Card>

@@ -10,7 +10,7 @@ interface IProps {
 export default function BlogAction({ slug }: IProps) {
   const router = useRouter();
   const handleEdit = async () => {
-    router.push(`/admin/update-blog/${slug}`);
+    router.push(`/admin/blog/blog-update/${slug}`);
   };
 
   const handleDelete = async () => {

@@ -88,13 +88,13 @@ export function NavUser({
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" asChild>
-                <Link href="/admin/update-profile">
+                <Link href="/admin/profile/update-profile">
                   <IconUserCog className="!h-5 !w-5" />
                   Update Profile
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" asChild>
-                <Link href="/admin/profile-details">
+                <Link href="/admin/profile/profile-details">
                   <IconUserCheck className="!h-5 !w-5" />
                   Profile Details
                 </Link>

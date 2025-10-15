@@ -13,12 +13,12 @@ export const sidebarLinks = [
   },
   {
     title: 'Write Blog',
-    url: '/admin/write-blog',
+    url: '/admin/blog/write-blog',
     icon: IconEdit,
   },
   {
     title: 'Blog List',
-    url: '/admin/blog-list',
+    url: '/admin/blog/blog-list',
     icon: IconListDetails,
   },
 ];

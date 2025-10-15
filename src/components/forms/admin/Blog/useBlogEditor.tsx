@@ -12,6 +12,7 @@ export default function useBlogEditor(
   watch: UseFormWatch<BlogFormValues>,
   setValue: UseFormSetValue<BlogFormValues>,
 ) {
+  const content = watch('content');
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -22,7 +23,10 @@ export default function useBlogEditor(
       Placeholder.configure({
         placeholder: 'Write your blog content here...',
       }),
-      Image,
+      Image.configure({
+        inline: false,
+        allowBase64: true,
+      }),
       TextAlign.configure({
         defaultAlignment: 'left',
         types: ['heading', 'paragraph'],
@@ -41,7 +45,6 @@ export default function useBlogEditor(
     },
   });
 
-  const content = watch('content');
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content);
