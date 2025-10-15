@@ -13,6 +13,9 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Blockquote from '@tiptap/extension-blockquote';
 import CodeBlock from '@tiptap/extension-code-block';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TextAlign from '@tiptap/extension-text-align';
+import Placeholder from '@tiptap/extension-placeholder';
+
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -35,6 +38,10 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
 } from 'lucide-react';
 
 // ✅ Zod validation schema
@@ -63,6 +70,7 @@ export default function AddBlogForm() {
   });
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({
         heading: false,
@@ -74,6 +82,14 @@ export default function AddBlogForm() {
       Blockquote,
       CodeBlock,
       HorizontalRule,
+      Placeholder.configure({
+        placeholder: 'Write your blog content here...',
+      }),
+      TextAlign.configure({
+        defaultAlignment: 'right',
+        types: ['heading', 'paragraph'],
+        alignments: ['left', 'center', 'right', 'justify'],
+      }),
     ],
     content: '<p>Write your blog content here...</p>',
     onUpdate: ({ editor }) => {
@@ -82,7 +98,7 @@ export default function AddBlogForm() {
     editorProps: {
       attributes: {
         class:
-          'min-h-[200px] w-full rounded-md border border-input bg-background p-3 focus:outline-none prose dark:prose-invert',
+          'prose prose-sm sm:prose-base dark:prose-invert min-h-[200px] w-full rounded-md border border-input bg-background p-3 focus:outline-none',
       },
     },
   });
@@ -119,8 +135,10 @@ export default function AddBlogForm() {
             {/* Content */}
             <div className="space-y-2">
               <Label>Content</Label>
+
               {/* Toolbar */}
               <div className="border-input bg-muted/40 flex flex-wrap gap-2 rounded-md border p-2">
+                {/* Basic formatting */}
                 <Button
                   type="button"
                   size="icon"
@@ -160,6 +178,7 @@ export default function AddBlogForm() {
 
                 <Separator orientation="vertical" className="h-6" />
 
+                {/* Lists / Quotes */}
                 <Button
                   type="button"
                   size="icon"
@@ -190,6 +209,7 @@ export default function AddBlogForm() {
 
                 <Separator orientation="vertical" className="h-6" />
 
+                {/* Headings */}
                 <Button
                   type="button"
                   size="icon"
@@ -220,6 +240,47 @@ export default function AddBlogForm() {
 
                 <Separator orientation="vertical" className="h-6" />
 
+                {/* Alignment */}
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                  className={editor.isActive({ textAlign: 'left' }) ? 'bg-accent' : ''}
+                >
+                  <AlignLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                  className={editor.isActive({ textAlign: 'center' }) ? 'bg-accent' : ''}
+                >
+                  <AlignCenter className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().setTextAlign('right').run()}
+                  className={editor.isActive({ textAlign: 'right' }) ? 'bg-accent' : ''}
+                >
+                  <AlignRight className="h-4 w-4" />
+                </Button>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+                  className={editor.isActive({ textAlign: 'justify' }) ? 'bg-accent' : ''}
+                >
+                  <AlignJustify className="h-4 w-4" />
+                </Button>
+
+                <Separator orientation="vertical" className="h-6" />
+
+                {/* Other tools */}
                 <Button
                   type="button"
                   size="icon"
@@ -240,6 +301,7 @@ export default function AddBlogForm() {
 
                 <Separator orientation="vertical" className="h-6" />
 
+                {/* Undo / Redo */}
                 <Button
                   type="button"
                   size="icon"

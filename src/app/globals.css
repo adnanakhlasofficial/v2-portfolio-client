@@ -192,3 +192,51 @@
     transform: scale(1.2) !important;
   }
 }
+
+/* -----------------------------
+   📝 Tiptap / ProseMirror styles
+--------------------------------*/
+.ProseMirror {
+  @apply outline-none;
+}
+
+/* Add spacing and nice visuals */
+.prose h1 {
+  @apply mt-6 mb-3 text-3xl leading-tight font-bold;
+}
+
+.prose h2 {
+  @apply mt-5 mb-2.5 text-2xl leading-snug font-semibold;
+}
+
+.prose h3 {
+  @apply mt-4 mb-2 text-xl leading-snug font-semibold;
+}
+
+.prose p {
+  @apply my-2 leading-relaxed;
+}
+
+.prose ul {
+  @apply my-2 list-disc pl-5;
+}
+
+.prose ol {
+  @apply my-2 list-decimal pl-5;
+}
+
+.prose blockquote {
+  @apply border-border text-muted-foreground my-4 border-l-4 pl-4 italic;
+}
+
+.prose code {
+  @apply bg-muted rounded px-1.5 py-0.5 font-mono text-sm;
+}
+
+.prose pre {
+  @apply bg-muted text-foreground my-3 overflow-x-auto rounded-lg p-3 text-sm;
+}
+
+.prose hr {
+  @apply border-border my-4;
+}

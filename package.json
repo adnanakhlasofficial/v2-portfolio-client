@@ -36,6 +36,8 @@
     "@tiptap/extension-heading": "^3.7.0",
     "@tiptap/extension-horizontal-rule": "^3.7.0",
     "@tiptap/extension-ordered-list": "^3.7.0",
+    "@tiptap/extension-placeholder": "^3.7.0",
+    "@tiptap/extension-text-align": "^3.7.0",
     "@tiptap/extension-underline": "^3.7.0",
     "@tiptap/pm": "^3.7.0",
     "@tiptap/react": "^3.7.0",
