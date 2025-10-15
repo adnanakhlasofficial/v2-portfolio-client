@@ -11,4 +11,9 @@ export const sidebarLinks = [
     url: '/admin/add-project',
     icon: IconFolderCode,
   },
+  {
+    title: 'Add Blog',
+    url: '/admin/add-blog',
+    icon: IconFolderCode,
+  },
 ];
