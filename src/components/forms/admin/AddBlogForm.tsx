@@ -331,16 +331,35 @@ export default function AddBlogForm() {
 
             <Separator />
 
-            {/* Publish Switch */}
-            <div className="flex items-center justify-between">
-              <Label htmlFor="published" className="font-medium">
-                Publish
+            {/* Publish Button Toggle */}
+            <div className="flex items-center justify-between gap-3">
+              <Label htmlFor="published" className="text-sm font-medium">
+                Status
               </Label>
-              <Switch
-                id="published"
-                checked={watch('published')}
-                onCheckedChange={(value) => setValue('published', value)}
-              />
+              <div className="bg-muted flex rounded-full p-1 text-sm shadow-inner">
+                <button
+                  type="button"
+                  onClick={() => setValue('published', true)}
+                  className={`rounded-full px-3 py-1 font-medium transition-colors duration-200 ${
+                    watch('published')
+                      ? 'bg-primary text-background'
+                      : 'text-muted-foreground hover:bg-muted/50'
+                  }`}
+                >
+                  Publish
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setValue('published', false)}
+                  className={`rounded-full px-3 py-1 font-medium transition-colors duration-200 ${
+                    !watch('published')
+                      ? 'bg-destructive text-background'
+                      : 'text-muted-foreground hover:bg-muted/50'
+                  }`}
+                >
+                  Draft
+                </button>
+              </div>
             </div>
 
             <Button type="submit" className="mt-4 w-full">
