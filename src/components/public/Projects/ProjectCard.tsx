@@ -14,7 +14,7 @@ interface IProps {
 export default function ProjectCard({ project }: IProps) {
   return (
     <>
-      <Card className="bg-card/85 hover:shadow-primary/5 group relative overflow-hidden border shadow-2xl backdrop-blur-xl transition-all duration-500">
+      <Card className="bg-card hover:shadow-primary/5 group relative overflow-hidden border shadow-2xl backdrop-blur-xl transition-all duration-500">
         {/* top-left gradient */}
         <div className="from-primary/30 absolute -top-10 -left-30 h-[600px] w-[600px] rounded-full bg-gradient-to-br to-transparent blur-3xl" />
 
@@ -38,7 +38,13 @@ export default function ProjectCard({ project }: IProps) {
 
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="hover:bg-primary hover:text-primary-foreground px-3 py-1 text-sm transition-colors duration-300 select-none"
+                    >
+                      {tag}
+                    </Badge>
                   ))}
                 </div>
 
