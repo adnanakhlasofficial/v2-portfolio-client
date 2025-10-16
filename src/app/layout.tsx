@@ -10,6 +10,7 @@ import {
 import type { Metadata } from 'next';
 import { Cascadia_Code, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--jetbrains-mono',
@@ -53,36 +54,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains dark min-h-screen bg-[url("/bg-dots.svg")] bg-contain bg-center antialiased`}
+        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains min-h-screen bg-[url("/bg-dots.svg")] bg-contain bg-center antialiased`}
       >
-        <DevelopmentNoticeModal />
-        {children}
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            classNames: {
-              success:
-                '!from-primary !to-chart-4 !bg-gradient-to-r !text-primary-foreground !border-none',
-              error: '!bg-destructive !text-primary-foreground !border-none',
-              loading: '!bg-chart-2 !text-primary-foreground !border-none',
-              warning: '!bg-chart-5 !text-primary-foreground !border-none',
-              info: '!bg-chart-4 !text-primary-foreground !border-none',
-            },
-          }}
-          icons={{
-            success: <IconRosetteDiscountCheck stroke={2} />,
-            error: <IconExclamationCircle stroke={2} />,
-            info: <IconInfoCircle stroke={2} />,
-            warning: <IconAlertTriangle stroke={2} />,
-            loading: (
-              <span className="animate-spin">
-                <IconLoader2 className="animate-spin" stroke={2} />
-              </span>
-            ),
-          }}
-        />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <DevelopmentNoticeModal />
+          {children}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              classNames: {
+                success:
+                  '!from-primary !to-chart-4 !bg-gradient-to-r !text-primary-foreground !border-none',
+                error: '!bg-destructive !text-primary-foreground !border-none',
+                loading: '!bg-chart-2 !text-primary-foreground !border-none',
+                warning: '!bg-chart-5 !text-primary-foreground !border-none',
+                info: '!bg-chart-3 !text-primary-foreground !border-none',
+              },
+            }}
+            icons={{
+              success: <IconRosetteDiscountCheck stroke={2} />,
+              error: <IconExclamationCircle stroke={2} />,
+              info: <IconInfoCircle stroke={2} />,
+              warning: <IconAlertTriangle stroke={2} />,
+              loading: (
+                <span className="animate-spin">
+                  <IconLoader2 className="animate-spin" stroke={2} />
+                </span>
+              ),
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

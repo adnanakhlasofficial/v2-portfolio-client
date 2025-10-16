@@ -12,6 +12,7 @@ export function SiteHeader() {
           <BreadcrumbLabel />
         </h1>
       </div>
+      <div></div>
     </header>
   );
 }

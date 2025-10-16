@@ -9,6 +9,7 @@ import { IconLayoutDashboard, IconMenu2, IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ModeToggle from '../ui/ModeToggle';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +85,7 @@ export default function Navbar() {
               </Link>
             </Button>
           )}
+          <ModeToggle />
         </div>
       </nav>
 
