@@ -25,9 +25,11 @@ export default async function Projects() {
           <Card className="py-16">
             <CardContent>
               <div className="text-center">
-                <p className="text-foreground text-4xl font-semibold">🚧 No projects available.</p>
+                <p className="text-foreground text-4xl font-semibold">
+                  🧪 Projects are still brewing.
+                </p>
                 <p className="text-muted-foreground mt-2 text-lg">
-                  This section will showcase featured projects once they&apos;re published.
+                  This space will soon showcase modular builds, scalable APIs, and polished UIs.
                 </p>
               </div>
             </CardContent>

@@ -42,11 +42,12 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
       />
 
       {/* Thumbnail */}
-      <div className="relative mt-10 h-72 w-full overflow-hidden rounded-xl">
+      <div className="relative mt-10 aspect-video w-120 overflow-hidden rounded-xl">
         <Image
           src={blogDetails?.thumbnail}
           alt={blogDetails?.title}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 480px"
           priority
           className="object-cover transition-transform duration-500 hover:scale-105"
         />

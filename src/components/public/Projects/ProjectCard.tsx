@@ -12,22 +12,24 @@ interface IProps {
 }
 
 export default async function ProjectCard({ project }: IProps) {
-  const { title, description, thumbnail, liveLink, clientRepoLink, serverRepoLink } = project;
+  const { title, description, category, thumbnail, liveLink, clientRepoLink, serverRepoLink } =
+    project;
   const imageBlurDataUrl = await getImageBlurDataUrl(thumbnail);
 
   return (
     <Card className="group border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 shadow-sm transition-all hover:shadow-md">
       {/* Thumbnail */}
-      <div className="relative h-48 w-full overflow-hidden border-b">
+      <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={thumbnail}
           alt={title}
           placeholder="blur"
           blurDataURL={imageBlurDataUrl}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <Badge className="absolute top-4 right-4 z-20">{project.category}</Badge>
+        <Badge className="absolute top-4 right-4 z-20">{category}</Badge>
       </div>
 
       {/* Title */}

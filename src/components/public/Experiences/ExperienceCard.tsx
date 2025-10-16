@@ -63,7 +63,7 @@ export default function ExperienceCard({ experience }: IProps) {
           </ul>
         </div>
 
-        <div>
+        <div className="max-w-xl">
           <div className="mb-3 flex items-center gap-2">
             <IconBracketsAngle className="!h-5 !w-5" />
             <span className="text-lg font-semibold">Technologies</span>
