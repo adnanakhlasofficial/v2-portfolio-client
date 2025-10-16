@@ -12,7 +12,7 @@ export default async function ExperiencesSection() {
       <div className="h-10 w-fit">
         <Button asChild size="lg" className="absolute right-0 w-50">
           <Link
-            href="https://drive.google.com/file/d/1H7tKkCtyjT_9GHtGIT5CTZoU1DjhcY-M/view?usp=sharing"
+            href="https://drive.google.com/file/d/1Y_q7tCTTvB4l7CFpzdSkC--65YbpXrO2/view"
             target="_blank"
             className="flex items-center gap-2"
           >

@@ -1,104 +1,85 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { IProject } from '@/types';
-import { IconAppWindow, IconArrowUpRight, IconServer, IconWorld } from '@tabler/icons-react';
+import { getImageBlurDataUrl } from '@/utils/generate-img-blur-url';
+import { IconScreenShare, IconTerminal2, IconWorld } from '@tabler/icons-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 interface IProps {
   project: IProject;
+  imageData?: string;
 }
 
-export default function ProjectCard({ project }: IProps) {
+export default async function ProjectCard({ project }: IProps) {
+  const { title, description, thumbnail, liveLink, clientRepoLink, serverRepoLink } = project;
+  const imageBlurDataUrl = await getImageBlurDataUrl(thumbnail);
+
   return (
-    <>
-      <Card className="bg-card hover:shadow-primary/5 group relative overflow-hidden border shadow-2xl backdrop-blur-xl transition-all duration-500">
-        {/* top-left gradient */}
-        <div className="from-primary/30 absolute -top-10 -left-30 h-[600px] w-[600px] rounded-full bg-gradient-to-br to-transparent blur-3xl" />
+    <Card className="group border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 shadow-sm transition-all hover:shadow-md">
+      {/* Thumbnail */}
+      <div className="relative h-48 w-full overflow-hidden border-b">
+        <Image
+          src={thumbnail}
+          alt={title}
+          placeholder="blur"
+          blurDataURL={imageBlurDataUrl}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <Badge className="absolute top-4 right-4 z-20">{project.category}</Badge>
+      </div>
 
-        {/* Bottom-right gradient */}
-        <div className="from-chart-4/30 absolute -right-30 -bottom-10 h-[600px] w-[600px] rounded-full bg-gradient-to-tl to-transparent blur-3xl" />
-        <CardContent className="flex items-center justify-center">
-          <div className="relative z-50 h-full p-8">
-            <div className="grid items-center gap-8 lg:grid-cols-2">
-              <div className="space-y-6">
-                <Badge className="from-primary to-chart-4 border-none bg-gradient-to-r px-3 py-1 backdrop-blur-sm">
-                  {project.category}
-                </Badge>
-                <div>
-                  <h2 className="from-foreground to-foreground/70 mb-2 bg-gradient-to-r bg-clip-text text-3xl leading-tight font-bold text-transparent md:text-4xl lg:line-clamp-1">
-                    {project.title}
-                  </h2>
-                  <p className="text-muted-foreground line-clamp-3 text-base leading-relaxed 2xl:text-lg">
-                    {project.description}
-                  </p>
-                </div>
+      {/* Title */}
+      <CardHeader>
+        <CardTitle className="text-foreground line-clamp-1 text-lg font-semibold">
+          {title}
+        </CardTitle>
+      </CardHeader>
 
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="secondary"
-                      className="hover:bg-primary hover:text-primary-foreground px-3 py-1 text-sm transition-colors duration-300 select-none"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+      {/* Description */}
+      <CardContent className="grow">
+        <p className="text-muted-foreground line-clamp-2 text-sm">{description}</p>
+      </CardContent>
 
-                <div className="flex items-center gap-4">
-                  <Button asChild size="lg">
-                    <Link href={`/projects/${project.slug}`}>
-                      View Case Study
-                      <IconArrowUpRight className="ml-2 !h-5 !w-5" />
-                    </Link>
-                  </Button>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <IconAppWindow className="!h-5 !w-5" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top">Open client source</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <IconServer className="!h-5 !w-5" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top">Open API source</TooltipContent>
-                    </Tooltip>
-
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button className="h-10 w-10 rounded-full" variant="secondary" size="lg">
-                          <IconWorld className="!h-5 !w-5" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top">Open live preview</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-              </div>
-
-              <div className="relative aspect-[3/2]">
-                <Image
-                  className="border-primary rounded-3xl"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  src={project.thumbnail}
-                  alt={project.title}
-                />
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </>
+      {/* Links */}
+      <CardFooter>
+        <div className="mt-2 flex w-full items-center justify-around gap-4">
+          {liveLink && (
+            <Button
+              className="hover:border-primary text-primary hover:text-primary h-fit gap-1 rounded-none border-b border-transparent !p-0 !pb-0.5 hover:!bg-transparent"
+              asChild
+              variant={'ghost'}
+            >
+              <a href={liveLink} target="_blank" rel="noopener noreferrer">
+                <IconWorld className="!h-5 !w-5" /> Live
+              </a>
+            </Button>
+          )}
+          {clientRepoLink && (
+            <Button
+              className="hover:border-primary text-primary hover:text-primary h-fit gap-1 rounded-none border-b border-transparent !p-0 !pb-0.5 hover:!bg-transparent"
+              asChild
+              variant={'ghost'}
+            >
+              <a href={clientRepoLink} target="_blank" rel="noopener noreferrer">
+                <IconScreenShare className="!h-5 !w-5" /> Client
+              </a>
+            </Button>
+          )}
+          {serverRepoLink && (
+            <Button
+              className="hover:border-primary text-primary hover:text-primary h-fit gap-1 rounded-none border-b border-transparent !p-0 !pb-0.5 hover:!bg-transparent"
+              asChild
+              variant={'ghost'}
+            >
+              <a href={serverRepoLink} target="_blank" rel="noopener noreferrer">
+                <IconTerminal2 className="!h-5 !w-5" /> Server
+              </a>
+            </Button>
+          )}
+        </div>
+      </CardFooter>
+    </Card>
   );
 }

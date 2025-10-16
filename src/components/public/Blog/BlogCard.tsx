@@ -1,41 +1,56 @@
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { IBlog } from '@/types';
+import { getImageBlurDataUrl } from '@/utils/generate-img-blur-url';
+import { IconBook2 } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function BlogCard({ blog }: { blog: IBlog }) {
+export default async function BlogCard({ blog }: { blog: IBlog }) {
   const { slug, title, description, thumbnail, createdAt } = blog;
 
+  const imageBlurDataUrl = await getImageBlurDataUrl(thumbnail);
+
   return (
-    <Link href={`/blogs/${slug}`}>
-      <Card className="group border-border bg-card hover:border-primary group h-full gap-4 overflow-hidden rounded-xl border-2 py-0 shadow-sm transition-all hover:shadow-md">
-        <div className="relative h-48 w-full overflow-hidden">
-          <Image
-            src={thumbnail}
-            alt={title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <Badge
-            variant="secondary"
-            className="bg-secondary text-secondary-foreground group-hover:bg-primary group-hover:text-primary-foreground absolute top-4 right-4 z-20 mt-2 w-fit rounded-md"
-          >
-            {format(new Date(createdAt), 'PPP')}
-          </Badge>
-        </div>
+    <Card className="group border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 pb-4 shadow-sm transition-all hover:shadow-md">
+      {/* Thumbnail */}
+      <div className="relative h-48 w-full overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          placeholder="blur"
+          blurDataURL={imageBlurDataUrl}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <Badge className="absolute top-4 right-4 z-20">{format(new Date(createdAt), 'PPP')}</Badge>
+      </div>
 
-        <CardHeader className="p-4 pb-0">
-          <CardTitle className="text-foreground line-clamp-1 text-lg font-semibold">
-            {title}
-          </CardTitle>
-        </CardHeader>
+      {/* Title */}
+      <CardHeader>
+        <CardTitle className="text-foreground line-clamp-1 text-lg font-semibold">
+          {title}
+        </CardTitle>
+      </CardHeader>
 
-        <CardContent className="p-4 pt-0">
-          <p className="text-muted-foreground line-clamp-2 text-sm">{description}</p>
-        </CardContent>
-      </Card>
-    </Link>
+      {/* Description */}
+      <CardContent className="grow">
+        <p className="text-muted-foreground line-clamp-2 text-sm">{description}</p>
+      </CardContent>
+
+      <CardFooter>
+        <Button
+          variant="default"
+          className="group-hover:bg-primary group-hover:text-primary-foreground w-full"
+        >
+          <Link className="flex items-center gap-2" href={`/blogs/${slug}`}>
+            <IconBook2 className="!h-5 !w-5" />
+            Read Full Blog
+          </Link>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

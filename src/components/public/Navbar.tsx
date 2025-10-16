@@ -61,7 +61,7 @@ export default function Navbar() {
               >
                 <Link href={item.href}>
                   <Icon className="!h-6 !w-6" />
-                  <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-300 group-hover:block group-hover:opacity-100">
+                  <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg !transition-all !duration-300 group-hover:block group-hover:opacity-100">
                     {item.label}
                   </span>
                 </Link>
@@ -79,7 +79,7 @@ export default function Navbar() {
             >
               <Link href="/admin">
                 <IconLayoutDashboard className="!h-6 !w-6" />
-                <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-200 group-hover:block group-hover:opacity-100">
+                <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg !transition-all !duration-300 group-hover:block group-hover:opacity-100">
                   Dashboard
                 </span>
               </Link>

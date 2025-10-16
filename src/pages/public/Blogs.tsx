@@ -13,7 +13,7 @@ export default async function Blogs() {
         title="Explore Our Blog"
         summary="Discover fresh ideas, tutorials, and stories crafted for developers."
       />
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {blogs.map((blog) => (
           <BlogCard key={blog.slug} blog={blog} />
         ))}

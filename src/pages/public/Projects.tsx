@@ -1,5 +1,5 @@
 import { handleGetProjectsAction } from '@/actions/projects';
-import ProjectsSlider from '@/components/public/Projects/ProjectsSlider';
+import ProjectCard from '@/components/public/Projects/ProjectCard';
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
@@ -16,7 +16,11 @@ export default async function Projects() {
       />
       <section>
         {projects.length > 0 ? (
-          <ProjectsSlider projects={projects} />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
         ) : (
           <Card className="py-16">
             <CardContent>
