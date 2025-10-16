@@ -1,7 +1,9 @@
 'use client';
+import { handleDeleteSingleBlogAction } from '@/actions/blogs';
 import { Button } from '@/components/ui/button';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 interface IProps {
   slug: string;
@@ -14,7 +16,13 @@ export default function BlogAction({ slug }: IProps) {
   };
 
   const handleDelete = async () => {
-    console.log('Deleted', slug);
+    const toastId = toast.loading('Deleting blog...');
+    const res = await handleDeleteSingleBlogAction(slug);
+    if (res) {
+      toast.success('Blog deleted successfully!', { id: toastId });
+    } else {
+      toast.error('Blog delete failed', { id: toastId });
+    }
   };
 
   return (

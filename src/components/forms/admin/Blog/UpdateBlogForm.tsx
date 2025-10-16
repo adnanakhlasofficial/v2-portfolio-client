@@ -5,6 +5,7 @@ import { EditorContent } from '@tiptap/react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+import { handleUpdateBlogAction } from '@/actions/blogs';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -75,22 +76,14 @@ export default function UpdateBlogForm({ data }: IProps) {
 
   const onSubmit = async (values: BlogFormValues) => {
     const toastId = toast.loading('Updating blog...');
-    // const res = await handleAddBlogAction(values);
-    console.log(values);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    const res = await handleUpdateBlogAction(data?.slug as string, values);
+
+    if (res) {
       toast.success('Blog updated successfully!', { id: toastId });
       form.reset();
-    } catch (error) {
-      console.error(error);
+    } else {
       toast.error('Blog update failed', { id: toastId });
     }
-    // if (res) {
-    //   toast.success('Blog added successfully!', { id: toastId });
-    //   form.reset();
-    // } else {
-    //   toast.error('Blog add failed', { id: toastId });
-    // }
   };
 
   if (!editor) return null;

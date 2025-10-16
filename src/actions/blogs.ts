@@ -41,6 +41,7 @@ export const handleGetBlogsAction = async () => {
 
   return data?.data;
 };
+
 export const handleGetSingleBlogAction = async (slug: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/${slug}`, {
     method: 'GET',
@@ -55,4 +56,44 @@ export const handleGetSingleBlogAction = async (slug: string) => {
   const data = (await res.json()) as ApiResponse<IBlog>;
 
   return data?.data;
+};
+
+export const handleDeleteSingleBlogAction = async (slug: string) => {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/${slug}`, {
+    method: 'DELETE',
+    headers: {
+      Cookie: `${cookie?.name}=${cookie?.value}`,
+    },
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  revalidateTag('BLOGS');
+  return true;
+};
+
+export const handleUpdateBlogAction = async (slug: string, data: BlogFormValues) => {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/${slug}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Cookie: `${cookie?.name}=${cookie?.value}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+
+  console.log(await res.json());
+
+  if (!res.ok) {
+    return null;
+  }
+  revalidateTag('BLOGS');
+  return true;
 };
