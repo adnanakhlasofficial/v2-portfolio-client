@@ -1,10 +1,5 @@
-const baseUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/'
-    : process.env.NEXT_PUBLIC_DOMAIN;
-
 export async function getImageBlurDataUrl(url: string) {
-  const base64str = await fetch(`${baseUrl}/_next/image?url=${url}&w=16&q=75`).then(async (res) =>
+  const base64str = await fetch(url).then(async (res) =>
     Buffer.from(await res.arrayBuffer()).toString('base64'),
   );
 

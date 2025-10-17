@@ -89,8 +89,6 @@ export const handleUpdateBlogAction = async (slug: string, data: BlogFormValues)
     body: JSON.stringify(data),
   });
 
-  console.log(await res.json());
-
   if (!res.ok) {
     return null;
   }

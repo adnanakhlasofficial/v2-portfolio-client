@@ -16,7 +16,7 @@ export default async function BlogCard({ blog }: { blog: IBlog }) {
   return (
     <Card className="group border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 pb-4 shadow-sm transition-all hover:shadow-md">
       {/* Thumbnail */}
-      <div className="relative h-48 w-full overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden">
         <Image
           src={thumbnail}
           alt={title}
