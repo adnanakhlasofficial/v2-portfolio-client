@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import FileImage from '@/components/ui/file-image';
 import {
   Form,
   FormControl,
@@ -23,11 +22,9 @@ import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { FileMetadata } from '@/hooks/use-file-upload';
 import { uploadImage } from '@/utils/cloudinary';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconDeviceFloppy, IconLoader3 } from '@tabler/icons-react';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -42,7 +39,11 @@ const updateProfileSchema = z.object({
       message: 'Invalid email format',
     }),
   password: z.string().optional(),
-  profile: z.string().optional(),
+  profile: z
+    .any()
+    .optional()
+    .refine((val) => !val || val instanceof File || typeof val === 'string', 'Invalid file format'),
+
   bio: z.string().optional(),
   description: z.string().optional(),
   story: z.string().optional(),
@@ -51,8 +52,6 @@ const updateProfileSchema = z.object({
 export type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export default function UpdateProfileForm() {
-  const [image, setImage] = useState<File | FileMetadata | null>(null);
-
   const form = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -70,14 +69,12 @@ export default function UpdateProfileForm() {
   const onSubmit = async (values: UpdateProfileFormValues) => {
     const updatedFields: Partial<UpdateProfileFormValues> = {};
 
-    if (image) {
-      const toastId = toast.loading('Uploading image…');
+    if (values.profile) {
+      const toastId = toast.loading('Image uploading...');
 
-      const res = await uploadImage(image as File);
-      console.log(res);
+      const res = await uploadImage(values.profile as File);
       toast.success('Image upload successfully.', { id: toastId });
-      updatedFields.profile = res as string;
-      setImage(null);
+      values.profile = res as string;
     }
 
     for (const key in form.formState.dirtyFields) {
@@ -85,7 +82,7 @@ export default function UpdateProfileForm() {
       updatedFields[typedKey] = values[typedKey];
     }
 
-    const toastId = toast.loading('Updating your profile…');
+    const toastId = toast.loading('Profile updating…');
     const res = await handleUpdateAdminAction(updatedFields);
 
     if (res) {
@@ -190,10 +187,19 @@ export default function UpdateProfileForm() {
                 name="profile"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Profile Image URL</FormLabel>
+                    <FormLabel htmlFor="profile">Profile Image URL</FormLabel>
                     <FormControl>
-                      <FileImage onChange={setImage} />
-                      {/* <Input placeholder="https://your-image-url.com" className="h-11" {...field} /> */}
+                      <Input
+                        id="profile"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            field.onChange(file);
+                          }
+                        }}
+                      />
                     </FormControl>
                     <FormDescription className="sr-only">
                       Direct URL to your profile image.
@@ -277,7 +283,6 @@ export default function UpdateProfileForm() {
             variant="outline"
             onClick={() => {
               form.reset();
-              setImage(null);
             }}
             className="h-11 w-full px-8 sm:w-auto"
           >

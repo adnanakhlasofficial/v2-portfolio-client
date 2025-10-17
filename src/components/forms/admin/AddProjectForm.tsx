@@ -39,6 +39,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { projectCategories } from '@/constants/ProjectCategories';
 import { techStacks } from '@/constants/TechStacks';
+import { uploadImage } from '@/utils/cloudinary';
 import {
   IconAppWindow,
   IconCheck,
@@ -50,9 +51,6 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import FileImage from '@/components/ui/file-image';
-import { FileMetadata } from '@/hooks/use-file-upload';
-import { uploadImage } from '@/utils/cloudinary';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -80,7 +78,10 @@ const projectSchema = z.object({
       },
     ),
   tags: z.array(z.string()).min(1, 'At least one tech stack is required'),
-  thumbnail: z.string(),
+  thumbnail: z
+    .any()
+    .optional()
+    .refine((val) => !val || val instanceof File || typeof val === 'string', 'Invalid file format'),
   liveLink: z.string().url('Must be a valid URL'),
   clientRepoLink: z.string().url('Must be a valid URL'),
   serverRepoLink: z.string().url('Must be a valid URL'),
@@ -89,8 +90,6 @@ const projectSchema = z.object({
 export type ProjectFormValues = z.infer<typeof projectSchema>;
 
 export default function AddProjectForm() {
-  const [image, setImage] = useState<File | FileMetadata | null>(null);
-
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const form = useForm<ProjectFormValues>({
@@ -107,23 +106,21 @@ export default function AddProjectForm() {
   });
 
   const onSubmit = async (values: ProjectFormValues) => {
-    if (!image) {
+    if (!values.thumbnail) {
       return;
     }
-    const imageId = toast.loading('Uploading image…');
+    const imageId = toast.loading('Image uploading…');
 
-    const imageUrl = await uploadImage(image as File);
-    console.log(imageUrl);
+    const imageUrl = await uploadImage(values.thumbnail as File);
     toast.success('Image upload successfully.', { id: imageId });
     values.thumbnail = imageUrl as string;
 
-    const toastId = toast.loading('Creating project...');
+    const toastId = toast.loading('Project creating...');
     const res = await handleAddProjectAction(values);
 
     if (res) {
       toast.success('Project created successfully!', { id: toastId });
       form.reset();
-      setImage(null);
     } else {
       toast.error('Project create failed', { id: toastId });
     }
@@ -369,16 +366,20 @@ export default function AddProjectForm() {
                 name="thumbnail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thumbnail URL</FormLabel>
-                    {/* <FormControl>
+                    <FormLabel htmlFor="thumbnail">Thumbnail URL</FormLabel>
+                    <FormControl>
                       <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        className="h-11"
-                        {...field}
+                        id="thumbnail"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            field.onChange(file);
+                          }
+                        }}
                       />
-                    </FormControl> */}
-                    <FileImage onChange={setImage} />
+                    </FormControl>
                     <FormDescription className="sr-only">
                       Provide a URL to a preview image
                     </FormDescription>

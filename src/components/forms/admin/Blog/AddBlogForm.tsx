@@ -23,13 +23,11 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { uploadImage } from '@/utils/cloudinary';
 import { IconEdit, IconLoader3 } from '@tabler/icons-react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
 import BlogFormToolbar from './BlogFormToolbar';
 import BlogPublishButton from './BlogPublishButton';
 import useBlogEditor from './useBlogEditor';
-import { FileMetadata } from '@/hooks/use-file-upload';
-import FileImage from '@/components/ui/file-image';
 
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -37,7 +35,10 @@ const blogSchema = z.object({
     .string()
     .min(10, 'Description must be at least 10 characters')
     .max(150, 'Description must be less than 150 characters'),
-  thumbnail: z.string(),
+  thumbnail: z
+    .any()
+    .optional()
+    .refine((val) => !val || val instanceof File || typeof val === 'string', 'Invalid file format'),
   content: z.string().min(10, 'Content must be at least 10 characters'),
   published: z.boolean(),
 });
@@ -45,8 +46,6 @@ const blogSchema = z.object({
 export type BlogFormValues = z.infer<typeof blogSchema>;
 
 export default function WriteBlogForm() {
-  const [image, setImage] = useState<File | FileMetadata | null>(null);
-
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
@@ -73,13 +72,12 @@ export default function WriteBlogForm() {
   };
 
   const onSubmit = async (values: BlogFormValues) => {
-    if (!image) {
+    if (!values.thumbnail) {
       return;
     }
-    const imageId = toast.loading('Uploading image…');
+    const imageId = toast.loading('Image uploading…');
 
-    const imageUrl = await uploadImage(image as File);
-    console.log(imageUrl);
+    const imageUrl = await uploadImage(values.thumbnail as File);
     toast.success('Image upload successfully.', { id: imageId });
     values.thumbnail = imageUrl as string;
 
@@ -89,7 +87,6 @@ export default function WriteBlogForm() {
     if (res) {
       toast.success('Blog added successfully!', { id: toastId });
       form.reset();
-      setImage(null);
     } else {
       toast.error('Blog add failed', { id: toastId });
     }
@@ -162,16 +159,20 @@ export default function WriteBlogForm() {
                 name="thumbnail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thumbnail URL</FormLabel>
-                    {/* <FormControl>
+                    <FormLabel htmlFor="thumbnail">Thumbnail URL</FormLabel>
+                    <FormControl>
                       <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        className="h-11"
-                        {...field}
+                        id="thumbnail"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            field.onChange(file);
+                          }
+                        }}
                       />
-                    </FormControl> */}
-                    <FileImage onChange={setImage} />
+                    </FormControl>
                     <FormDescription className="sr-only">
                       Provide a URL to a preview image
                     </FormDescription>
