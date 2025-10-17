@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import FileImage from '@/components/ui/file-image';
 import {
   Form,
   FormControl,
@@ -22,8 +23,11 @@ import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
+import { FileMetadata } from '@/hooks/use-file-upload';
+import { uploadImage } from '@/utils/cloudinary';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconDeviceFloppy, IconLoader3 } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -39,7 +43,6 @@ const updateProfileSchema = z.object({
     }),
   password: z.string().optional(),
   profile: z.string().optional(),
-  blurProfile: z.string().optional(),
   bio: z.string().optional(),
   description: z.string().optional(),
   story: z.string().optional(),
@@ -48,6 +51,8 @@ const updateProfileSchema = z.object({
 export type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export default function UpdateProfileForm() {
+  const [image, setImage] = useState<File | FileMetadata | null>(null);
+
   const form = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -56,7 +61,6 @@ export default function UpdateProfileForm() {
       email: '',
       password: '',
       profile: '',
-      blurProfile: '',
       bio: '',
       description: '',
       story: '',
@@ -65,6 +69,16 @@ export default function UpdateProfileForm() {
 
   const onSubmit = async (values: UpdateProfileFormValues) => {
     const updatedFields: Partial<UpdateProfileFormValues> = {};
+
+    if (image) {
+      const toastId = toast.loading('Uploading image…');
+
+      const res = await uploadImage(image as File);
+      console.log(res);
+      toast.success('Image upload successfully.', { id: toastId });
+      updatedFields.profile = res as string;
+      setImage(null);
+    }
 
     for (const key in form.formState.dirtyFields) {
       const typedKey = key as keyof UpdateProfileFormValues;
@@ -178,32 +192,11 @@ export default function UpdateProfileForm() {
                   <FormItem>
                     <FormLabel>Profile Image URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://your-image-url.com" className="h-11" {...field} />
+                      <FileImage onChange={setImage} />
+                      {/* <Input placeholder="https://your-image-url.com" className="h-11" {...field} /> */}
                     </FormControl>
                     <FormDescription className="sr-only">
                       Direct URL to your profile image.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Blur Profile */}
-              <FormField
-                control={form.control}
-                name="blurProfile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Blurred Profile Image URL</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="https://your-blur-image-url.com"
-                        className="h-11"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription className="sr-only">
-                      Optional blurred version of your profile image.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -282,7 +275,10 @@ export default function UpdateProfileForm() {
         <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-end">
           <Button
             variant="outline"
-            onClick={() => form.reset()}
+            onClick={() => {
+              form.reset();
+              setImage(null);
+            }}
             className="h-11 w-full px-8 sm:w-auto"
           >
             Clear Form

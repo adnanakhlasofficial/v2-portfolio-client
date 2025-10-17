@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { IBlog } from '@/types';
+import { uploadImage } from '@/utils/cloudinary';
 import { IconEdit, IconLoader3 } from '@tabler/icons-react';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
@@ -60,17 +61,14 @@ export default function UpdateBlogForm({ data }: IProps) {
 
   const editor = useBlogEditor(form.watch, form.setValue);
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file && editor) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const url = e.target?.result;
-        if (typeof url === 'string') {
-          editor.chain().focus().setImage({ src: url }).run();
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file && !editor) return;
+
+    const imageUrl = await uploadImage(file as File);
+
+    if (typeof imageUrl === 'string') {
+      editor?.chain().focus().setImage({ src: imageUrl }).run();
     }
   };
 
