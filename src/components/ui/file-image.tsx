@@ -26,7 +26,7 @@ export default function FileImage({ onChange }: IProps) {
       getInputProps,
     },
   ] = useFileUpload({
-    accept: 'image/svg+xml,image/png,image/jpeg,image/jpg,image/gif',
+    accept: 'image/svg+xml,image/png,image/webp,image/jpeg,image/jpg,image/gif',
     maxSize,
   });
 

@@ -13,7 +13,6 @@ export async function uploadImage(file: File): Promise<string | null> {
       },
     );
     const data = await res.json();
-    console.log(data);
     return data.secure_url.replace('/upload/', '/upload/f_auto,q_auto/');
   } catch {
     return null;

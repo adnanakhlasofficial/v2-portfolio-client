@@ -50,6 +50,9 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import FileImage from '@/components/ui/file-image';
+import { FileMetadata } from '@/hooks/use-file-upload';
+import { uploadImage } from '@/utils/cloudinary';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -77,7 +80,7 @@ const projectSchema = z.object({
       },
     ),
   tags: z.array(z.string()).min(1, 'At least one tech stack is required'),
-  thumbnail: z.string().url('Must be a valid URL'),
+  thumbnail: z.string(),
   liveLink: z.string().url('Must be a valid URL'),
   clientRepoLink: z.string().url('Must be a valid URL'),
   serverRepoLink: z.string().url('Must be a valid URL'),
@@ -86,6 +89,8 @@ const projectSchema = z.object({
 export type ProjectFormValues = z.infer<typeof projectSchema>;
 
 export default function AddProjectForm() {
+  const [image, setImage] = useState<File | FileMetadata | null>(null);
+
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const form = useForm<ProjectFormValues>({
@@ -102,12 +107,23 @@ export default function AddProjectForm() {
   });
 
   const onSubmit = async (values: ProjectFormValues) => {
+    if (!image) {
+      return;
+    }
+    const imageId = toast.loading('Uploading image…');
+
+    const imageUrl = await uploadImage(image as File);
+    console.log(imageUrl);
+    toast.success('Image upload successfully.', { id: imageId });
+    values.thumbnail = imageUrl as string;
+
     const toastId = toast.loading('Creating project...');
     const res = await handleAddProjectAction(values);
 
     if (res) {
       toast.success('Project created successfully!', { id: toastId });
       form.reset();
+      setImage(null);
     } else {
       toast.error('Project create failed', { id: toastId });
     }
@@ -354,14 +370,15 @@ export default function AddProjectForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Thumbnail URL</FormLabel>
-                    <FormControl>
+                    {/* <FormControl>
                       <Input
                         type="url"
                         placeholder="https://example.com/image.jpg"
                         className="h-11"
                         {...field}
                       />
-                    </FormControl>
+                    </FormControl> */}
+                    <FileImage onChange={setImage} />
                     <FormDescription className="sr-only">
                       Provide a URL to a preview image
                     </FormDescription>

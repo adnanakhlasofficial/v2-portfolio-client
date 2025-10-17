@@ -24,11 +24,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { IBlog } from '@/types';
 import { uploadImage } from '@/utils/cloudinary';
 import { IconEdit, IconLoader3 } from '@tabler/icons-react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { toast } from 'sonner';
 import BlogFormToolbar from './BlogFormToolbar';
 import BlogPublishButton from './BlogPublishButton';
 import useBlogEditor from './useBlogEditor';
+import FileImage from '@/components/ui/file-image';
+import { FileMetadata } from '@/hooks/use-file-upload';
 
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -48,6 +50,8 @@ interface IProps {
 }
 
 export default function UpdateBlogForm({ data }: IProps) {
+  const [image, setImage] = useState<File | FileMetadata | null>(null);
+
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogSchema),
     defaultValues: {
@@ -73,6 +77,16 @@ export default function UpdateBlogForm({ data }: IProps) {
   };
 
   const onSubmit = async (values: BlogFormValues) => {
+    if (image) {
+      const toastId = toast.loading('Uploading image…');
+
+      const res = await uploadImage(image as File);
+      console.log(res);
+      toast.success('Image upload successfully.', { id: toastId });
+      values.thumbnail = res as string;
+      setImage(null);
+    }
+
     const toastId = toast.loading('Updating blog...');
     const res = await handleUpdateBlogAction(data?.slug as string, values);
 
@@ -153,12 +167,13 @@ export default function UpdateBlogForm({ data }: IProps) {
                   <FormItem>
                     <FormLabel>Thumbnail URL</FormLabel>
                     <FormControl>
-                      <Input
+                      {/* <Input
                         type="url"
                         placeholder="https://example.com/image.jpg"
                         className="h-11"
                         {...field}
-                      />
+                      /> */}
+                      <FileImage onChange={setImage} />
                     </FormControl>
                     <FormDescription className="sr-only">
                       Provide a URL to a preview image
