@@ -67,32 +67,35 @@ export default async function About() {
       {/* Stats */}
       <div className="col-span-2 mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {stats.map(({ label, count, icon: Icon }) => (
-          <Card
-            key={label}
-            className="group border-border bg-muted/30 hover:bg-muted/50 relative overflow-hidden rounded-2xl border p-6 text-center shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-          >
-            <CardContent className="p-0">
-              {/* subtle background glow */}
-              <div className="bg-primary/5 absolute inset-0 -z-10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+          <div key={label} className="relative overflow-hidden rounded-xl">
+            {/* Top-left gradient */}
+            <div className="from-primary/20 absolute top-16 -left-32 h-[400px] w-[400px] rounded-full bg-gradient-to-br to-transparent blur-2xl" />
+            {/* Bottom-right gradient */}
+            <div className="from-chart-4/20 absolute -right-32 -bottom-32 h-[400px] w-[340px] rounded-full bg-gradient-to-tl to-transparent blur-2xl" />{' '}
+            <Card className="group border-border hover:border-primary relative rounded-2xl border-2 bg-transparent p-6 text-center shadow-sm backdrop-blur-xl transition-all duration-300">
+              <CardContent className="p-0">
+                {/* subtle background glow */}
+                <div className="bg-primary/5 absolute inset-0 -z-10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
 
-              {/* icon */}
-              <div className="mb-3 flex justify-center">
-                <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300">
-                  <Icon className="text-primary h-7 w-7 transition-transform duration-300 group-hover:scale-110" />
+                {/* icon */}
+                <div className="mb-3 flex justify-center">
+                  <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300">
+                    <Icon className="text-primary h-7 w-7 transition-transform duration-300 group-hover:scale-110" />
+                  </div>
                 </div>
-              </div>
 
-              {/* count */}
-              <div className="text-foreground text-4xl font-semibold tracking-tight">
-                {count ?? 0}
-              </div>
+                {/* count */}
+                <div className="text-foreground text-4xl font-semibold tracking-tight">
+                  {count ?? 0}
+                </div>
 
-              {/* label */}
-              <div className="text-muted-foreground mt-1 text-sm font-medium tracking-wide uppercase">
-                {label}
-              </div>
-            </CardContent>
-          </Card>
+                {/* label */}
+                <div className="text-muted-foreground mt-1 text-sm font-medium tracking-wide uppercase">
+                  {label}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     </Section>

@@ -91,11 +91,11 @@ export default function Contact() {
                     <a
                       key={label}
                       href={href}
-                      className="bg-muted hover:bg-accent border-border hover:border-primary text-muted-foreground group hover:text-primary relative flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 sm:h-12 sm:w-12"
+                      className="bg-muted hover:bg-accent border-border hover:border-primary text-muted-foreground group hover:text-primary relative flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 hover:scale-110"
                       aria-label={label}
                       target="_blank"
                     >
-                      <Icon className="!h-4 !w-4 sm:!h-6 sm:!w-6" />
+                      <Icon className="!h-6 !w-6" />
                       <span className="bg-background border-border text-primary absolute bottom-full mb-1 hidden rounded-md border px-2 py-0.5 text-[10px] font-medium whitespace-nowrap opacity-0 shadow-md transition-all duration-200 group-hover:block group-hover:opacity-100 sm:mb-3 sm:text-xs">
                         {label}
                       </span>
