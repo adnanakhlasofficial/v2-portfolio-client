@@ -5,7 +5,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { IBlog } from '@/types';
 import { format } from 'date-fns';
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -40,18 +39,6 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
         title={blogDetails?.title}
         summary={blogDetails?.description}
       />
-
-      {/* Thumbnail */}
-      <div className="relative mt-10 aspect-video w-120 overflow-hidden rounded-xl">
-        <Image
-          src={blogDetails?.thumbnail}
-          alt={blogDetails?.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 480px"
-          priority
-          className="object-cover transition-transform duration-500 hover:scale-105"
-        />
-      </div>
 
       {/* Content */}
       <Card className="border-border bg-card mt-10 py-0 shadow-sm">

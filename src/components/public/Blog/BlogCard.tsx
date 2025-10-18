@@ -41,6 +41,7 @@ export default async function BlogCard({ blog }: { blog: IBlog }) {
 
       <CardFooter>
         <Button
+          asChild
           variant="default"
           className="group-hover:bg-primary group-hover:text-primary-foreground w-full"
         >

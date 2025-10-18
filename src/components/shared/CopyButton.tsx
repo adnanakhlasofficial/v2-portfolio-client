@@ -19,7 +19,7 @@ export const CopyButton = ({ value, label, className = '' }: CopyButtonProps) =>
     <Button
       variant="ghost"
       onClick={copyToClipboard}
-      className={`hover:bg-muted rounded p-2 transition ${className}`}
+      className={`hover:bg-muted hidden rounded p-2 transition ${className}`}
       aria-label="Copy to clipboard"
     >
       <IconClipboard className="!h-4 !w-4" />

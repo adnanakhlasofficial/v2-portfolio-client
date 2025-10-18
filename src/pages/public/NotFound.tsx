@@ -34,7 +34,7 @@ export default function NotFound() {
                 <IconHome className="mr-2 !h-5 !w-5" />
                 Go Home
               </NavigateButton>
-              <BackButton variant="outline" size="lg">
+              <BackButton variant="secondary" size="lg">
                 <IconArrowLeft className="mr-2 !h-5 !w-5" />
                 Go Back
               </BackButton>

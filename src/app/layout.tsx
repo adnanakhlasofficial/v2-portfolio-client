@@ -56,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains min-h-screen bg-[url("/bg-dots.svg")] bg-contain bg-center antialiased`}
+        className={`${jetbrainsMono.variable} ${cascadiaCode.variable} font-jetbrains scrollbar-hide min-h-screen bg-[url("/bg-dots.svg")] bg-contain bg-center antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <DevelopmentNoticeModal />

@@ -2,12 +2,13 @@ import { getAdminPublic } from '@/actions/admin';
 import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
-import { user } from '@/constants/Profile';
+import { getImageBlurDataUrl } from '@/utils/generate-img-blur-url';
 import { IconBook, IconBriefcase2, IconFolderCode } from '@tabler/icons-react';
 import Image from 'next/image';
 
 export default async function About() {
   const admin = await getAdminPublic();
+  const imageBlurDataUrl = await getImageBlurDataUrl(admin.profile);
 
   const stats = [
     {
@@ -36,17 +37,18 @@ export default async function About() {
       />
       <div className="grid items-start gap-8 lg:grid-cols-2">
         <div className="flex justify-between lg:justify-end">
-          <div className="group relative">
+          <div className="group relative grow">
             <div className="bg-primary/30 absolute -inset-1 rounded-2xl opacity-70 blur-xl transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100" />
-            <Card className="relative overflow-hidden p-0 lg:w-md 2xl:w-xl">
-              <CardContent className="aspect-[4/3] overflow-hidden p-0">
+            <Card className="overflow-hidden p-0 lg:w-md 2xl:w-xl">
+              <CardContent className="aspect-square overflow-hidden p-0">
                 <Image
-                  src={user.profile}
-                  alt={user.name}
+                  src={admin.profile}
+                  alt={admin.name}
                   placeholder="blur"
-                  width={300}
-                  height={300}
-                  className="h-full w-full rounded-lg object-cover object-[0%_100%]"
+                  blurDataURL={imageBlurDataUrl}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="relative h-full w-full rounded-lg object-cover"
                 />
               </CardContent>
             </Card>

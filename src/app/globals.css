@@ -159,6 +159,16 @@
   .gradient-button {
     @apply from-primary to-chart-4 bg-gradient-to-r hover:bg-gradient-to-l;
   }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: 0; /* IE and Edge */
+    scrollbar-width: 0; /* Firefox */
+  }
 
   /* Custom Swiper Pagination */
   .custom-pagination {
@@ -202,7 +212,7 @@
 
 /* Add spacing and nice visuals */
 .prose h1 {
-  @apply mt-6 mb-3 text-3xl leading-tight font-bold;
+  @apply mb-6 text-3xl leading-tight font-bold;
 }
 
 .prose h2 {
@@ -239,4 +249,8 @@
 
 .prose hr {
   @apply border-border my-4;
+}
+
+.prose img {
+  @apply w-fit rounded-2xl;
 }
