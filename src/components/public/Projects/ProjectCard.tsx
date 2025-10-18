@@ -17,7 +17,7 @@ export default async function ProjectCard({ project }: IProps) {
   const imageBlurDataUrl = await getImageBlurDataUrl(thumbnail);
 
   return (
-    <Card className="group border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 shadow-sm transition-all hover:shadow-md">
+    <Card className="group  border-border bg-card hover:border-primary h-full gap-4 overflow-hidden rounded-xl border-2 pt-0 shadow-sm transition-all hover:shadow-md">
       {/* Thumbnail */}
       <div className="relative h-48 w-full overflow-hidden">
         <Image

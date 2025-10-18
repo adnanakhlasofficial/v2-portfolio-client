@@ -33,7 +33,7 @@ export default function BlogFormToolbar({ editor, handleImageUpload }: IProps) {
   return (
     <>
       {/* Toolbar */}
-      <div className="border-input bg-muted/40 flex flex-wrap gap-2 rounded-md border p-2">
+      <div className="border-input text-red bg-muted/40 flex flex-wrap gap-2 rounded-md border p-2">
         {/* Basic formatting */}
         <Button
           type="button"
