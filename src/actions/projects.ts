@@ -33,10 +33,25 @@ export const handleGetProjectsAction = async () => {
       tags: ['PROJECTS'],
     },
   });
+  const data = (await res.json()) as ApiResponse<IProject[]>;
 
   if (!res.ok) {
     return [];
   }
-  const data = (await res.json()) as ApiResponse<IProject[]>;
+
+  return data?.data;
+};
+
+export const handleGetSingleProjectAction = async (slug: string) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project/${slug}`, {
+    method: 'GET',
+    next: {
+      tags: ['PROJECTS'],
+    },
+  });
+  const data = (await res.json()) as ApiResponse<IProject>;
+  if (!res.ok) {
+    return null;
+  }
   return data?.data;
 };

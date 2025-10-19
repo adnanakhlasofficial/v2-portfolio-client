@@ -3,10 +3,9 @@ import Section from '@/components/shared/Section';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Card, CardContent } from '@/components/ui/card';
 import { IBlog } from '@/types';
-import { format } from 'date-fns';
 import { Metadata } from 'next';
 
-interface Props {
+interface IProps {
   params: Promise<{ slug: string }>;
 }
 
@@ -18,7 +17,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
   const { slug } = await params;
   const blogDetails = await handleGetSingleBlogAction(slug);
 
@@ -28,14 +27,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogDetailsPage({ params }: IProps) {
   const { slug } = await params;
   const blogDetails = (await handleGetSingleBlogAction(slug)) as IBlog;
 
   return (
     <Section>
       <SectionTitle
-        header={format(new Date(blogDetails?.createdAt), 'PPP')}
+        header="Blog Details"
         title={blogDetails?.title}
         summary={blogDetails?.description}
       />

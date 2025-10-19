@@ -5,6 +5,7 @@ import { IProject } from '@/types';
 import { getImageBlurDataUrl } from '@/utils/generate-img-blur-url';
 import { IconScreenShare, IconTerminal2, IconWorld } from '@tabler/icons-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface IProps {
   project: IProject;
@@ -12,8 +13,16 @@ interface IProps {
 }
 
 export default async function ProjectCard({ project }: IProps) {
-  const { title, description, category, thumbnail, liveLink, clientRepoLink, serverRepoLink } =
-    project;
+  const {
+    slug,
+    title,
+    description,
+    category,
+    thumbnail,
+    liveLink,
+    clientRepoLink,
+    serverRepoLink,
+  } = project;
   const imageBlurDataUrl = await getImageBlurDataUrl(thumbnail);
 
   return (
@@ -50,7 +59,7 @@ export default async function ProjectCard({ project }: IProps) {
         </CardContent>
 
         {/* Links */}
-        <CardFooter>
+        <CardFooter className="flex-col gap-6">
           <div className="mt-2 flex w-full items-center justify-around gap-4">
             {liveLink && (
               <Button
@@ -86,6 +95,9 @@ export default async function ProjectCard({ project }: IProps) {
               </Button>
             )}
           </div>
+          <Button asChild className="w-full">
+            <Link href={`/projects/${slug}`}>View Case Study</Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>
