@@ -24,15 +24,16 @@ export default function ProjectDetails({ project }: IProps) {
       />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <Card className="p-0">
-            <CardContent className="p-6">
-              <div className="relative h-[400px] w-full">
+          <Card className="w-full p-0">
+            <CardContent className="w-full p-6">
+              <div className="relative aspect-video w-full">
                 <Image
                   src={project?.thumbnail || ''}
                   alt={project?.title || ''}
                   fill
                   className="rounded-xl object-cover object-center"
                   priority
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px"
                 />
               </div>
             </CardContent>
@@ -50,7 +51,7 @@ export default function ProjectDetails({ project }: IProps) {
           </Card>
         </div>
 
-        <div className="top-6 row-start-1 h-fit space-y-6 lg:sticky lg:col-span-1 lg:row-start-auto">
+        <div className="row-start-1 h-fit space-y-6 lg:col-span-1 lg:row-start-auto">
           <Card>
             <CardContent className="space-y-6">
               <div className="space-y-4">

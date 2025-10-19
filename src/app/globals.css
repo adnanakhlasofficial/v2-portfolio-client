@@ -253,5 +253,5 @@
 }
 
 .prose img {
-  @apply w-fit rounded-2xl;
+  @apply aspect-video h-[300px] w-fit rounded-2xl;
 }

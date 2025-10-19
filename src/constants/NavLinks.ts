@@ -1,11 +1,11 @@
 import {
-  IconBook,
+  IconHexagonLetterA,
+  IconUser,
+  IconFolderCode,
   IconBriefcase2,
   IconCode,
-  IconFolderCode,
-  IconHexagonLetterA,
   IconPhone,
-  IconUser,
+  IconBook,
 } from '@tabler/icons-react';
 
 export const navLinks = [
@@ -35,13 +35,13 @@ export const navLinks = [
     icon: IconCode,
   },
   {
-    label: 'Contact',
-    href: '/contact',
-    icon: IconPhone,
-  },
-  {
     label: 'Blogs',
     href: '/blogs',
     icon: IconBook,
+  },
+  {
+    label: 'Contact',
+    href: '/contact',
+    icon: IconPhone,
   },
 ];

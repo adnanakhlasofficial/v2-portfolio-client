@@ -1,7 +1,6 @@
 'use client';
 import { getAdminPrivate } from '@/actions/admin';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -9,14 +8,14 @@ import { AdminDetailsPrivate } from '@/types';
 import { createInitials } from '@/utils/create-initials';
 import { format } from 'date-fns';
 import {
-  CalendarDays,
-  Mail,
-  User,
   Briefcase,
+  CalendarDays,
   Code,
-  Lightbulb,
   FileText,
   FolderGit2,
+  Lightbulb,
+  Mail,
+  User,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -30,8 +29,6 @@ export default function ProfileDetails() {
     }
     getAdmin();
   }, []);
-
-  const skillsList = profile?.skills ? profile?.skills.split(',').map((s) => s.trim()) : [];
 
   return (
     <div>
@@ -171,21 +168,8 @@ export default function ProfileDetails() {
               <CardContent className="p-8">
                 <h2 className="mb-4 text-2xl font-semibold">Skills & Expertise</h2>
                 <Separator className="mb-6" />
-                {skillsList.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {skillsList.map((skill, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="hover:bg-primary hover:text-primary-foreground px-4 py-2 text-sm font-medium transition-colors"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">No skills listed yet.</p>
-                )}
+
+                <p className="text-muted-foreground">No skills listed yet.</p>
               </CardContent>
             </Card>
           </TabsContent>

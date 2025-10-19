@@ -13,15 +13,16 @@ export default function BlogDetails({ blog }: IProps) {
     <Section>
       <SectionTitle header="Blog Details" title={blog?.title} summary={blog?.description} />
       <div className="space-y-6 lg:col-span-2">
-        <Card className="p-0">
-          <CardContent className="p-6">
-            <div className="relative h-[400px] w-full">
+        <Card className="w-full p-0">
+          <CardContent className="w-full p-6">
+            <div className="relative aspect-video w-full">
               <Image
                 src={blog?.thumbnail || ''}
                 alt={blog?.title || ''}
                 fill
                 className="rounded-xl object-cover object-center"
                 priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px"
               />
             </div>
           </CardContent>

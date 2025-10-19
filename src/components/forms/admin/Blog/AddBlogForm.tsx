@@ -83,7 +83,6 @@ export default function WriteBlogForm() {
 
     const toastId = toast.loading('Adding blog...');
     const res = await handleAddBlogAction(values);
-    console.log(values);
     if (res) {
       toast.success('Blog added successfully!', { id: toastId });
       form.reset();

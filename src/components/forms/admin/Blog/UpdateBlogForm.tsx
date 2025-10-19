@@ -80,7 +80,6 @@ export default function UpdateBlogForm({ data }: IProps) {
       const toastId = toast.loading('Image uploading…');
 
       const res = await uploadImage(values.thumbnail as File);
-      console.log(res);
       toast.success('Image upload successfully.', { id: toastId });
       values.thumbnail = res as string;
     }

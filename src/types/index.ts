@@ -34,7 +34,6 @@ export interface AdminDetailsPrivate {
   bio: string;
   description: string;
   story: string;
-  skills: string | null;
   createdAt: string;
   updatedAt: string;
   _count: {
