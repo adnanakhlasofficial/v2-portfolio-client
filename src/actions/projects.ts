@@ -38,6 +38,5 @@ export const handleGetProjectsAction = async () => {
     return [];
   }
   const data = (await res.json()) as ApiResponse<IProject[]>;
-
   return data?.data;
 };

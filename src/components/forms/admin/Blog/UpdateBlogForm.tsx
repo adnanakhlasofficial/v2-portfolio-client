@@ -188,7 +188,7 @@ export default function UpdateBlogForm({ data }: IProps) {
               {/* Content */}
               <div className="space-y-2">
                 <Label>Content</Label>
-
+                {/* Toolbar */}
                 <TextEditorToolbar editor={editor} handleImageUpload={handleImageUpload} />
 
                 {/* Editor */}

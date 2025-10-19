@@ -36,6 +36,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { projectCategories } from '@/constants/ProjectCategories';
 import { techStacks } from '@/constants/TechStacks';
@@ -49,8 +50,11 @@ import {
   IconServer,
   IconX,
 } from '@tabler/icons-react';
-import { useState } from 'react';
+import { EditorContent } from '@tiptap/react';
+import { ChangeEvent, useState } from 'react';
 import { toast } from 'sonner';
+import TextEditor from '../shared/TextEditor';
+import TextEditorToolbar from '../shared/TextEditorToolbar';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -82,6 +86,7 @@ const projectSchema = z.object({
     .any()
     .optional()
     .refine((val) => !val || val instanceof File || typeof val === 'string', 'Invalid file format'),
+  content: z.string().min(10, 'Content must be at least 10 characters'),
   liveLink: z.string().url('Must be a valid URL'),
   clientRepoLink: z.string().url('Must be a valid URL'),
   serverRepoLink: z.string().url('Must be a valid URL'),
@@ -99,11 +104,26 @@ export default function AddProjectForm() {
       description: '',
       tags: [],
       thumbnail: '',
+      content: '',
       liveLink: '',
       clientRepoLink: '',
       serverRepoLink: '',
     },
   });
+
+  const editor = TextEditor<ProjectFormValues>({ watch: form.watch, setValue: form.setValue });
+
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file && !editor) return;
+
+    const imageUrl = await uploadImage(file as File);
+
+    if (typeof imageUrl === 'string') {
+      editor?.chain().focus().setImage({ src: imageUrl }).run();
+    }
+  };
 
   const onSubmit = async (values: ProjectFormValues) => {
     if (!values.thumbnail) {
@@ -133,6 +153,8 @@ export default function AddProjectForm() {
       currentTags.filter((tag) => tag !== tagToRemove),
     );
   };
+
+  if (!editor) return null;
 
   return (
     <div className="flex justify-center">
@@ -387,6 +409,24 @@ export default function AddProjectForm() {
                   </FormItem>
                 )}
               />
+
+              {/* Content */}
+              <div className="space-y-2">
+                <Label>Content</Label>
+
+                {/* Toolbar */}
+                <TextEditorToolbar editor={editor} handleImageUpload={handleImageUpload} />
+
+                {/* Editor */}
+                <div className="border-input bg-background mt-2 rounded-md border p-2">
+                  <EditorContent editor={editor} />
+                </div>
+                {form.formState.errors.content && (
+                  <p className="text-destructive text-sm">
+                    {form.formState.errors.content.message}
+                  </p>
+                )}
+              </div>
 
               <Separator className="my-8" />
 

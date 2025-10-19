@@ -185,7 +185,7 @@ export default function WriteBlogForm() {
               <div className="space-y-2">
                 <Label>Content</Label>
 
-                {/* <BlogFormToolbar editor={editor} handleImageUpload={handleImageUpload} /> */}
+                {/* Toolbar */}
                 <TextEditorToolbar editor={editor} handleImageUpload={handleImageUpload} />
 
                 {/* Editor */}
