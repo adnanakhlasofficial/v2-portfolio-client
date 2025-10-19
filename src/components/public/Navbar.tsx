@@ -36,7 +36,7 @@ export default function Navbar() {
       </Button>
 
       <nav
-        className={`fixed top-1/2 left-6 z-40 -translate-y-1/2 transition-all duration-300 ease-in-out ${
+        className={`group fixed top-1/2 left-6 z-40 -translate-y-1/2 transition-all duration-300 ease-in-out ${
           isOpen
             ? 'translate-x-0 opacity-100'
             : '-translate-x-full opacity-0 lg:translate-x-0 lg:opacity-100'
@@ -48,7 +48,7 @@ export default function Navbar() {
             return (
               <Button
                 className={cn(
-                  'hover:text-primary-foreground group hover:bg-primary h-12 w-12 rounded-xl transition-colors duration-300',
+                  'hover:text-primary-foreground group hover:bg-primary h-12 w-12 overflow-hidden rounded-xl transition-all duration-300 group-hover:w-38',
                   {
                     'bg-primary text-primary-foreground': item.href === pathname,
                   },
@@ -59,11 +59,9 @@ export default function Navbar() {
                 aria-label={item.label}
                 asChild
               >
-                <Link href={item.href}>
+                <Link className="flex items-center justify-start gap-4" href={item.href}>
                   <Icon className="!h-6 !w-6" />
-                  <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg !transition-all !duration-300 group-hover:block group-hover:opacity-100">
-                    {item.label}
-                  </span>
+                  <span>{item.label}</span>
                 </Link>
               </Button>
             );
@@ -71,17 +69,15 @@ export default function Navbar() {
 
           {admin && (
             <Button
-              className="hover:text-primary-foreground group hover:bg-primary h-12 w-12 rounded-xl"
+              className="hover:text-primary-foreground group hover:bg-primary h-12 w-12 overflow-hidden rounded-xl transition-all duration-300 group-hover:w-38"
               onClick={() => setIsOpen(false)}
               variant="secondary"
               aria-label="Dashboard"
               asChild
             >
-              <Link href="/admin">
+              <Link className="flex items-center justify-start gap-4" href="/admin">
                 <IconLayoutDashboard className="!h-6 !w-6" />
-                <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg !transition-all !duration-300 group-hover:block group-hover:opacity-100">
-                  Dashboard
-                </span>
+                <span>Dashboard</span>
               </Link>
             </Button>
           )}

@@ -25,6 +25,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { uploadImage } from '@/utils/cloudinary';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconDeviceFloppy, IconLoader3 } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -52,6 +53,8 @@ const updateProfileSchema = z.object({
 export type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export default function UpdateProfileForm() {
+  const router = useRouter();
+
   const form = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -88,6 +91,7 @@ export default function UpdateProfileForm() {
     if (res) {
       toast.success('Profile updated successfully.', { id: toastId });
       form.reset();
+      router.push('/admin/profile/profile-details');
     } else {
       toast.error('Update failed. Please try again.', { id: toastId });
     }

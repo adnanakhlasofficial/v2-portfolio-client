@@ -23,11 +23,12 @@ export default function ModeToggle() {
     <Button
       variant="secondary"
       onClick={toggleTheme}
-      className="hover:text-primary-foreground group hover:bg-primary h-12 w-12 rounded-xl transition-colors duration-300"
+      className="hover:text-primary-foreground group hover:bg-primary h-12 w-12 overflow-hidden rounded-xl transition-all duration-300 group-hover:w-38"
       aria-label="Toggle theme"
+      asChild
     >
-      {theme === 'light' ? <IconMoon className="!h-6 !w-6" /> : <IconSun className="!h-6 !w-6" />}
-      <span className="bg-background border-border text-primary absolute left-full ml-4 hidden rounded-lg border px-3 py-1.5 text-sm font-medium whitespace-nowrap opacity-0 shadow-lg transition-all duration-300 group-hover:block group-hover:opacity-100">
+      <span className="flex items-center justify-start gap-4">
+        {theme === 'light' ? <IconMoon className="!h-6 !w-6" /> : <IconSun className="!h-6 !w-6" />}
         {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
       </span>
     </Button>

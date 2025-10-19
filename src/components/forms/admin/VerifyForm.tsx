@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Password from '@/components/ui/Password';
+import { handleKeyPress } from '@/utils/handle-key-press';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconFingerprint, IconLoader3 } from '@tabler/icons-react';
 import { redirect } from 'next/navigation';
@@ -70,7 +71,12 @@ export default function VerifyForm() {
 
         <CardContent>
           <Form {...form}>
-            <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+            <form
+              autoComplete="off"
+              onKeyDown={(e) => handleKeyPress(e, 'Enter', form.handleSubmit(onSubmit))}
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-10"
+            >
               {/* Username */}
               <FormField
                 control={form.control}
@@ -79,7 +85,12 @@ export default function VerifyForm() {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your username" className="h-11" {...field} />
+                      <Input
+                        autoFocus
+                        placeholder="Enter your username"
+                        className="h-11"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription className="sr-only">
                       This is the username associated with your account.

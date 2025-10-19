@@ -38,8 +38,8 @@ export default async function About() {
       <div className="grid items-start gap-8 lg:grid-cols-2">
         <div className="flex justify-between lg:justify-end">
           <div className="group relative grow">
-            <div className="bg-primary/30 absolute -inset-1 rounded-2xl opacity-70 blur-xl transition-all duration-1000 group-hover:scale-105 group-hover:opacity-100" />
-            <Card className="overflow-hidden p-0 lg:w-md 2xl:w-xl">
+            {/* <div className="bg-primary/30 absolute rounded-2xl opacity-70 blur-xl transition-all duration-1000 [clip-path:polygon(25%_5%,75%_5%,100%_50%,75%_95%,25%_95%,0%_50%)] group-hover:scale-105 group-hover:opacity-100" /> */}
+            <Card className="overflow-hidden p-0 [clip-path:polygon(50%_0%,93%_25%,93%_75%,50%_100%,7%_75%,7%_25%)] lg:w-md 2xl:w-xl">
               <CardContent className="aspect-square overflow-hidden p-0">
                 <Image
                   src={admin.profile}
@@ -48,7 +48,7 @@ export default async function About() {
                   blurDataURL={imageBlurDataUrl}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="relative h-full w-full rounded-lg object-cover"
+                  className="relative h-full w-full rounded-lg object-cover object-[25%_100%]"
                 />
               </CardContent>
             </Card>

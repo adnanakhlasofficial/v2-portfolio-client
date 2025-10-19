@@ -60,9 +60,11 @@ export default function ExperienceCard({ experience }: IProps) {
               {experience.achievement.map((achievement, idx) => (
                 <li
                   key={idx}
-                  className="text-muted-foreground flex items-center gap-2 align-top text-sm transition-all duration-300"
+                  className="text-muted-foreground flex items-start gap-2 align-top text-sm transition-all duration-300"
                 >
-                  <IconArrowRight className="text-primary" />
+                  <span>
+                    <IconArrowRight className="text-primary !h-5 !w-5" />
+                  </span>
                   {achievement}
                 </li>
               ))}

@@ -53,8 +53,8 @@ export default async function Home() {
               <Button
                 asChild
                 size="lg"
-                variant="secondary"
-                className="hover:text-primary-foreground hover:bg-primary px-8 py-6 font-medium transition-all duration-300"
+                variant="outline"
+                className="px-8 py-6 font-medium transition-all duration-300"
               >
                 <Link href="/contact">Get In Touch</Link>
               </Button>

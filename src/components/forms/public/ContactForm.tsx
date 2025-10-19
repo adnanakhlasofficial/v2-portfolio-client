@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { handleKeyPress } from '@/utils/handle-key-press';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconLoader3, IconSend } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
@@ -60,6 +61,7 @@ export default function ContactForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={(e) => handleKeyPress(e, 'Enter', form.handleSubmit(onSubmit))}
         className="flex h-full flex-col justify-center gap-4"
       >
         {/* Name */}
@@ -70,7 +72,7 @@ export default function ContactForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input className="h-12" placeholder="John Doe" {...field} />
+                <Input autoFocus className="h-12" placeholder="John Doe" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
