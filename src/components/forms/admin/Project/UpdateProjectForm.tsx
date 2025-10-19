@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { handleAddProjectAction } from '@/actions/projects';
+import { handleUpdateProjectAction } from '@/actions/projects';
 import {
   Card,
   CardContent,
@@ -40,6 +40,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { projectCategories } from '@/constants/ProjectCategories';
 import { techStacks } from '@/constants/TechStacks';
+import { IProject } from '@/types';
 import { uploadImage } from '@/utils/cloudinary';
 import {
   IconAppWindow,
@@ -53,8 +54,8 @@ import {
 import { EditorContent } from '@tiptap/react';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'sonner';
-import TextEditor from '../shared/TextEditor';
-import TextEditorToolbar from '../shared/TextEditorToolbar';
+import TextEditor from '../../shared/TextEditor';
+import TextEditorToolbar from '../../shared/TextEditorToolbar';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
@@ -93,21 +94,25 @@ const projectSchema = z.object({
 });
 
 export type ProjectFormValues = z.infer<typeof projectSchema>;
+interface IProps {
+  data: IProject | null;
+}
 
-export default function AddProjectForm() {
+export default function UpdateProjectForm({ data }: IProps) {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      tags: [],
-      thumbnail: '',
-      content: '',
-      liveLink: '',
-      clientRepoLink: '',
-      serverRepoLink: '',
+      title: data?.title,
+      description: data?.description,
+      tags: data?.tags,
+      category: data?.category,
+      thumbnail: data?.thumbnail,
+      content: data?.content || '',
+      liveLink: data?.liveLink,
+      clientRepoLink: data?.clientRepoLink,
+      serverRepoLink: data?.serverRepoLink,
     },
   });
 
@@ -135,14 +140,14 @@ export default function AddProjectForm() {
     toast.success('Image upload successfully.', { id: imageId });
     values.thumbnail = imageUrl as string;
 
-    const toastId = toast.loading('Project creating...');
-    const res = await handleAddProjectAction(values);
+    const toastId = toast.loading('Project updating...');
+    const res = await handleUpdateProjectAction(data?.slug as string, values);
 
     if (res) {
-      toast.success('Project created successfully!', { id: toastId });
+      toast.success('Project updated successfully!', { id: toastId });
       form.reset();
     } else {
-      toast.error('Project create failed', { id: toastId });
+      toast.error('Project updated failed', { id: toastId });
     }
   };
 
@@ -514,12 +519,12 @@ export default function AddProjectForm() {
             {form.formState.isSubmitting ? (
               <>
                 <IconLoader3 className="mr-2 !h-5 !w-5 animate-spin" />
-                Adding…
+                Updating…
               </>
             ) : (
               <>
                 <IconFolderPlus className="mr-2 !h-5 !w-5" />
-                Add Project
+                Update Project
               </>
             )}
           </Button>

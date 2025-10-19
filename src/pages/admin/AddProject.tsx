@@ -1,4 +1,4 @@
-import AddProjectForm from '@/components/forms/admin/AddProjectForm';
+import AddProjectForm from '@/components/forms/admin/Project/AddProjectForm';
 
 export default function AddProject() {
   return <AddProjectForm />;

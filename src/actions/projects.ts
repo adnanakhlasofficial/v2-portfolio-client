@@ -1,6 +1,6 @@
 'use server';
 
-import { ProjectFormValues } from '@/components/forms/admin/AddProjectForm';
+import { ProjectFormValues } from '@/components/forms/admin/Project/AddProjectForm';
 import cookieNames from '@/constants/cookieNames';
 import { ApiResponse, IProject } from '@/types';
 import { revalidateTag } from 'next/cache';

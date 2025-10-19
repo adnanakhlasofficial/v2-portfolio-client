@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { IProject } from '@/types';
 import { format } from 'date-fns';
-import BlogAction from './ProjectAction';
+import ProjectAction from './ProjectAction';
 
 export default async function ProjectTableRow() {
   const data = await handleGetProjectsAction();
@@ -26,7 +26,7 @@ export default async function ProjectTableRow() {
               </TableCell>
               <TableCell>{format(project.createdAt, 'PP')}</TableCell>
               <TableCell className="flex justify-end gap-2">
-                <BlogAction slug={project.slug} />
+                <ProjectAction slug={project.slug} />
               </TableCell>
             </TableRow>
           ))

@@ -25,21 +25,21 @@ export default function ProjectDetails({ project }: IProps) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card className="p-0">
-            <CardContent className="p-0">
+            <CardContent className="p-6">
               <div className="relative h-[400px] w-full">
                 <Image
                   src={project?.thumbnail || ''}
                   alt={project?.title || ''}
                   fill
-                  className="object-contain p-6"
+                  className="rounded-xl object-cover object-center"
                   priority
                 />
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardContent className="p-6">
+          <Card className="p-6">
+            <CardContent className="p-0">
               {project?.content && (
                 <div
                   className="prose prose-sm dark:prose-invert max-w-none"
@@ -50,7 +50,7 @@ export default function ProjectDetails({ project }: IProps) {
           </Card>
         </div>
 
-        <div className="top-14 row-start-1 h-fit space-y-6 lg:sticky lg:col-span-1 lg:row-start-auto">
+        <div className="top-6 row-start-1 h-fit space-y-6 lg:sticky lg:col-span-1 lg:row-start-auto">
           <Card>
             <CardContent className="space-y-6">
               <div className="space-y-4">
