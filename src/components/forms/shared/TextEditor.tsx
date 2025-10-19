@@ -1,18 +1,19 @@
 import Heading from '@tiptap/extension-heading';
+import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
-import Image from '@tiptap/extension-image';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { BlogFormValues } from './AddBlogForm';
+import { FieldValues, Path, PathValue, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 
-export default function useBlogEditor(
-  watch: UseFormWatch<BlogFormValues>,
-  setValue: UseFormSetValue<BlogFormValues>,
-) {
-  const content = watch('content');
+interface FormValues<T extends FieldValues> {
+  watch: UseFormWatch<T>;
+  setValue: UseFormSetValue<T>;
+}
+
+export default function TextEditor<T extends FieldValues>({ watch, setValue }: FormValues<T>) {
+  const content = watch('content' as Path<T>);
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -35,7 +36,9 @@ export default function useBlogEditor(
     ],
     content: '<p>Write your blog content here...</p>',
     onUpdate: ({ editor }) => {
-      setValue('content', editor.getHTML(), { shouldValidate: true });
+      setValue('content' as Path<T>, editor.getHTML() as PathValue<T, Path<T>>, {
+        shouldValidate: true,
+      });
     },
     editorProps: {
       attributes: {

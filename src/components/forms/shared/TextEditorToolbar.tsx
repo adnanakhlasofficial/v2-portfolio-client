@@ -29,7 +29,7 @@ interface IProps {
   handleImageUpload: ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function BlogFormToolbar({ editor, handleImageUpload }: IProps) {
+export default function TextEditorToolbar({ editor, handleImageUpload }: IProps) {
   return (
     <>
       {/* Toolbar */}

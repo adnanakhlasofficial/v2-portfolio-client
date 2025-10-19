@@ -25,9 +25,9 @@ import { uploadImage } from '@/utils/cloudinary';
 import { IconEdit, IconLoader3 } from '@tabler/icons-react';
 import { ChangeEvent } from 'react';
 import { toast } from 'sonner';
-import BlogFormToolbar from './BlogFormToolbar';
+import TextEditor from '../../shared/TextEditor';
+import TextEditorToolbar from '../../shared/TextEditorToolbar';
 import BlogPublishButton from './BlogPublishButton';
-import useBlogEditor from './useBlogEditor';
 
 const blogSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -57,7 +57,7 @@ export default function WriteBlogForm() {
     },
   });
 
-  const editor = useBlogEditor(form.watch, form.setValue);
+  const editor = TextEditor<BlogFormValues>({ watch: form.watch, setValue: form.setValue });
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -185,7 +185,8 @@ export default function WriteBlogForm() {
               <div className="space-y-2">
                 <Label>Content</Label>
 
-                <BlogFormToolbar editor={editor} handleImageUpload={handleImageUpload} />
+                {/* <BlogFormToolbar editor={editor} handleImageUpload={handleImageUpload} /> */}
+                <TextEditorToolbar editor={editor} handleImageUpload={handleImageUpload} />
 
                 {/* Editor */}
                 <div className="border-input bg-background mt-2 rounded-md border p-2">
