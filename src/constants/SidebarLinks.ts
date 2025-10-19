@@ -8,7 +8,12 @@ export const sidebarLinks = [
   },
   {
     title: 'Add Project',
-    url: '/admin/add-project',
+    url: '/admin/project/project-add',
+    icon: IconFolderCode,
+  },
+  {
+    title: 'Project List',
+    url: '/admin/project/project-list',
     icon: IconFolderCode,
   },
   {

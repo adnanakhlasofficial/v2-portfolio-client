@@ -55,3 +55,41 @@ export const handleGetSingleProjectAction = async (slug: string) => {
   }
   return data?.data;
 };
+
+export const handleDeleteSingleProjectAction = async (slug: string) => {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project/${slug}`, {
+    method: 'DELETE',
+    headers: {
+      Cookie: `${cookie?.name}=${cookie?.value}`,
+    },
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  revalidateTag('PROJECTS');
+  return true;
+};
+
+export const handleUpdateProjectAction = async (slug: string, data: ProjectFormValues) => {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get(cookieNames.accessToken);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/project/${slug}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Cookie: `${cookie?.name}=${cookie?.value}`,
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+  revalidateTag('PROJECTS');
+  return true;
+};

@@ -11,21 +11,25 @@ import { Calendar } from 'lucide-react';
 import Image from 'next/image';
 
 interface IProps {
-  project: IProject;
+  project: IProject | null;
 }
 
 export default function ProjectDetails({ project }: IProps) {
   return (
     <Section>
-      <SectionTitle header="Project Details" title={project.title} summary={project.description} />
+      <SectionTitle
+        header="Project Details"
+        title={project?.title || ''}
+        summary={project?.description || ''}
+      />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card className="p-0">
             <CardContent className="p-0">
               <div className="relative h-[400px] w-full">
                 <Image
-                  src={project.thumbnail}
-                  alt={project.title}
+                  src={project?.thumbnail || ''}
+                  alt={project?.title || ''}
                   fill
                   className="object-contain p-6"
                   priority
@@ -39,7 +43,7 @@ export default function ProjectDetails({ project }: IProps) {
               {project?.content && (
                 <div
                   className="prose prose-sm dark:prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: project.content }}
+                  dangerouslySetInnerHTML={{ __html: project?.content }}
                 />
               )}
             </CardContent>
@@ -55,7 +59,7 @@ export default function ProjectDetails({ project }: IProps) {
                 <div className="space-y-3">
                   <div>
                     <p className="text-muted-foreground mb-1 text-sm">Category</p>
-                    <p className="text-foreground text-sm font-medium">{project.category}</p>
+                    <p className="text-foreground text-sm font-medium">{project?.category}</p>
                   </div>
 
                   <Separator />
@@ -63,7 +67,7 @@ export default function ProjectDetails({ project }: IProps) {
                   <div>
                     <p className="text-muted-foreground mb-2 text-sm">Technologies</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {project.tags.map((tag, index) => (
+                      {project?.tags.map((tag, index) => (
                         <Badge key={index} className="text-xs">
                           {tag}
                         </Badge>
@@ -77,7 +81,7 @@ export default function ProjectDetails({ project }: IProps) {
                     <p className="text-muted-foreground mb-1 text-sm">Created</p>
                     <div className="text-foreground flex items-center gap-2 text-sm">
                       <Calendar className="h-3.5 w-3.5" />
-                      <span>{format(project.createdAt, 'PP')}</span>
+                      <span>{format(project?.createdAt || new Date(), 'PP')}</span>
                     </div>
                   </div>
 
@@ -85,7 +89,7 @@ export default function ProjectDetails({ project }: IProps) {
                     <p className="text-muted-foreground mb-1 text-sm">Last Updated</p>
                     <div className="text-foreground flex items-center gap-2 text-sm">
                       <Calendar className="h-3.5 w-3.5" />
-                      <span>{format(project.updatedAt, 'PP')}</span>
+                      <span>{format(project?.updatedAt || new Date(), 'PP')}</span>
                     </div>
                   </div>
                 </div>
@@ -101,21 +105,21 @@ export default function ProjectDetails({ project }: IProps) {
                   variant="secondary"
                   className="bg-primary text-primary-foreground w-full"
                 >
-                  <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
+                  <a href={project?.liveLink || ''} target="_blank" rel="noopener noreferrer">
                     <IconWorld className="!h-5 !w-5" />
                     View Live Project
                   </a>
                 </Button>
 
                 <Button asChild variant="outline" className="w-full">
-                  <a href={project.clientRepoLink} target="_blank" rel="noopener noreferrer">
+                  <a href={project?.clientRepoLink || ''} target="_blank" rel="noopener noreferrer">
                     <IconScreenShare className="!h-5 !w-5" />
                     Client Repository
                   </a>
                 </Button>
 
                 <Button asChild variant="outline" className="w-full">
-                  <a href={project.serverRepoLink} target="_blank" rel="noopener noreferrer">
+                  <a href={project?.serverRepoLink || ''} target="_blank" rel="noopener noreferrer">
                     <IconTerminal2 className="!h-5 !w-5" />
                     Server Repository
                   </a>
